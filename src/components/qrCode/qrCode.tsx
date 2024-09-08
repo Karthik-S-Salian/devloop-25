@@ -104,7 +104,7 @@ const QrCodeWithImage: React.FC<{dimension:number,message:string}> = ({dimension
 
 <QRCodeCanvas
         value={message}
-        size={200}
+        size={800}
         bgColor="#FFFFFF"
         fgColor="#000000"
         ref={canvasRef}
