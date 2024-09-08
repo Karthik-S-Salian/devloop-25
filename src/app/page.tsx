@@ -9,6 +9,8 @@ export default function Home() {
 			<li><Link href={"/puzzle1"} className="underline text-blue-500 italic">1. responsive puzzle</Link></li>
 			<li><Link href={"/puzzle2"} className="underline text-blue-500 italic">2. Quizzes</Link></li>
 			<li><Link href={"/puzzle3" } className="underline text-blue-500 italic">3. A simple click</Link></li>
+			<li><Link href={"/puzzle4" } className="underline text-blue-500 italic">4. Solve Qr code</Link></li>
+			<li><Link href={"/puzzle5" } className="underline text-blue-500 italic">4. Solve an Excecl file </Link></li>
       		
      	</ul>
 
