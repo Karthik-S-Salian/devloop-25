@@ -9,11 +9,14 @@ export default function Page() {
     let answer = ""
     //api call to the answer
     void fetch("/api/show-answer")
-    .then((data)=> data.text() )
-    .then((ans)=> {answer=ans})
-    .then(()=>{
+    .then((data)=> data.json() )
+    .then((ans)=> {
+      answer=ans.answer
+
       if(btnRef.current) {
-        btnRef.current.innerHTML += answer;
+        if (btnRef.current.innerText === "") {
+          btnRef.current.innerHTML += answer;
+        }
       }
     })
   }
