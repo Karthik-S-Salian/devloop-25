@@ -1,28 +1,39 @@
 import Link from "next/link";
 
 export default function Home() {
+	const puzzleListRound1 = [
+		{ path:"/puzzle1", title:"responsive puzzle"},
+		{ path:"/puzzle2", title:"Quizzes"},
+		{ path:"/puzzle3", title:"A simple click"},
+		{ path:"/puzzle4", title:"Solve Qr code"},
+		{ path:"/puzzle5", title:"Solve an Excecl file"},
+		{ path:"/puzzle6", title:"Who am I?"},
+		// { path:"/puzzle7", title:""},
+	] 
+	const puzzleListRound2 = [
+		{ path:"/jwt", title:"JWT puzzle"},
+		// { path:"/puzzle", title:""},
+	]
+
   return (
   	<main className="p-24">
     	<h2 className="text-center mb-12">Puzzle List</h2>
 		<p>Round1 puzzles</p>
-     	<ul>
-			<li><Link href={"/puzzle1"} className="underline text-blue-500 italic">1. responsive puzzle</Link></li>
-			<li><Link href={"/puzzle2"} className="underline text-blue-500 italic">2. Quizzes</Link></li>
-			<li><Link href={"/puzzle3" } className="underline text-blue-500 italic">3. A simple click</Link></li>
-			<li><Link href={"/puzzle4" } className="underline text-blue-500 italic">4. Solve Qr code</Link></li>
-			<li><Link href={"/puzzle5" } className="underline text-blue-500 italic">4. Solve an Excecl file </Link></li>
-      		
-     	</ul>
+     	<ol>
+				{puzzleListRound1.map((puzzle,i)=> 
+					<li>
+						<Link href={puzzle.path} className="underline text-blue-500 italic">{i+1}. {puzzle.title}</Link>
+					</li>)} 
+     	</ol>
 
      	<br />
 
      	<p>Round2 puzzles</p>
      	<ul>
-    		<li>
-				<Link href={"/jwt"} className="underline text-blue-500 italic">
-					1. JWT Puzzle
-				</Link>
-			</li>
+			 {puzzleListRound2.map((puzzle,i)=> 
+					<li>
+						<Link href={puzzle.path} className="underline text-blue-500 italic">{i+1}. {puzzle.title}</Link>
+					</li>)} 
      	</ul>
     </main>
   );
