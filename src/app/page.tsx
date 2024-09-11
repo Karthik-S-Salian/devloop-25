@@ -12,6 +12,7 @@ export default function Home() {
 	] 
 	const puzzleListRound2 = [
 		{ path:"/jwt", title:"JWT puzzle"},
+		{ path:"/morse", title:"Morse Code"}
 		// { path:"/puzzle", title:""},
 	]
 

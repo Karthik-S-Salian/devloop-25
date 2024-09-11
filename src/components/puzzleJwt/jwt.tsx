@@ -8,7 +8,7 @@ function JwtPuzzle(){
 
     const [showHint,setShowHint] = useState<boolean>(false);
     const [input,setInput] = useState<string>("");
-    const [token,setToken] = useState<string>("");
+    const [token,setToken] = useState<string>("");    
 
     const fetchJWT = async () => {
         try{
