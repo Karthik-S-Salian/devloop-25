@@ -1,5 +1,4 @@
 import Link from "next/link";
-import path from "path";
 
 export default function Home() {
   const puzzleListRound1 = [
@@ -14,21 +13,21 @@ export default function Home() {
     // { path:"/puzzle9", title:""},
   ];
 
-	const puzzleListRound2 = [
-		{ path:"/jwt", title:"JWT puzzle"},
-		{ path:"/morse", title:"Morse Code"}
-		// { path:"/puzzle", title:""},
-	]
+  const puzzleListRound2 = [
+    { path: "/jwt", title: "JWT puzzle" },
+    { path: "/morse", title: "Morse Code" },
+    // { path:"/puzzle", title:""},
+  ];
 
   return (
     <main className="p-24">
       <h2 className="mb-12 text-center">Puzzle List</h2>
       <p>Round1 puzzles</p>
       <ol>
-        {puzzleListRound1.map((puzzle, i) => (
-          <li>
+        {puzzleListRound1.map((puzzle, idx) => (
+          <li key={idx}>
             <Link href={puzzle.path} className="italic text-blue-500 underline">
-              {i + 1}. {puzzle.title}
+              {idx + 1}. {puzzle.title}
             </Link>
           </li>
         ))}
@@ -38,10 +37,10 @@ export default function Home() {
 
       <p>Round2 puzzles</p>
       <ul>
-        {puzzleListRound2.map((puzzle, i) => (
-          <li>
+        {puzzleListRound2.map((puzzle, idx) => (
+          <li key={idx}>
             <Link href={puzzle.path} className="italic text-blue-500 underline">
-              {i + 1}. {puzzle.title}
+              {idx + 1}. {puzzle.title}
             </Link>
           </li>
         ))}

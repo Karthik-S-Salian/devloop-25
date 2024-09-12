@@ -1,10 +1,11 @@
-"use client"
-import MorseAudio from "~/components/morseAudio/morseAudio"
+"use client";
 
-export default function morse(){
-    return(
-        <>
-            <MorseAudio/>
-        </>
-    )
+import MorseAudio from "~/components/morseAudio/morseAudio";
+
+export default function morse() {
+  return (
+    <>
+      <MorseAudio />
+    </>
+  );
 }

@@ -1,10 +1,13 @@
-import { NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
 
-export const dynamic = 'force-static';
+import { env } from "~/env";
+
+export const dynamic = "force-static";
 
 // Use environment variables for the JWT key
-const JWT_KEY = process.env.JWT_KEY || 'your-secret-key';
+// const JWT_KEY = env.JWT_KEY;
+const JWT_KEY = "";
 
 // Handler for GET requests
 export async function GET() {
