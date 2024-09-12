@@ -28,7 +28,7 @@ const Audio = () => {
         id="input"
         placeholder="Enter the value.."
         value={text}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+        onChange={(e) => {
           setText(e.target.value);
         }}
       />
