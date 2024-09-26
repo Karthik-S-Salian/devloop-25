@@ -1,6 +1,12 @@
-import Link from "next/link";
 
-export default function Home() {
+import Link from "next/link";
+import { getServerAuthSession } from "~/auth";
+
+export default async function Home() {
+  
+  const session = await getServerAuthSession();
+  const isRound2 = session?.user?.isRound2 ?? false;  
+  
   const puzzleListRound1 = [
     { path: "/puzzle1", title: "responsive puzzle" },
     { path: "/puzzle2", title: "Quizzes" },
@@ -22,22 +28,23 @@ export default function Home() {
   return (
     <main className="p-24">
       <h2 className="mb-12 text-center">Puzzle List</h2>
-      <p>Round1 puzzles</p>
+      {!isRound2 && <p>Round1 puzzles</p>}
       <ol>
-        {puzzleListRound1.map((puzzle, idx) => (
+        {!isRound2 && puzzleListRound1.map((puzzle, idx) => (
           <li key={idx}>
             <Link href={puzzle.path} className="italic text-blue-500 underline">
               {idx + 1}. {puzzle.title}
             </Link>
           </li>
         ))}
+       
       </ol>
 
       <br />
 
-      <p>Round2 puzzles</p>
+     {isRound2 && <p>Round2 puzzles</p>}
       <ul>
-        {puzzleListRound2.map((puzzle, idx) => (
+        {isRound2 && puzzleListRound2.map((puzzle, idx) => (
           <li key={idx}>
             <Link href={puzzle.path} className="italic text-blue-500 underline">
               {idx + 1}. {puzzle.title}
