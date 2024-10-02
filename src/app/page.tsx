@@ -16,6 +16,7 @@ export default async function Home() {
     { path: "/puzzle6", title: "Who am I?" },
     { path: "/puzzle7", title: "IPSum" },
     { path: "/puzzle8", title: "reverse audio" },
+    { path: "/puzzle9", title: "optical illusion"}
     // { path:"/puzzle9", title:""},
   ];
 
