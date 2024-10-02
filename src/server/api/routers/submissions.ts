@@ -99,17 +99,6 @@ const submissionRouter = createTRPCRouter({
       },
     });
   }),
-
-  getSubmission: protectedProcedure.input(idZ).query(async ({ ctx, input }) => {
-    return await ctx.db.submission.findUnique({
-      where: {
-        userId_puzzleId: {
-          userId: ctx.session.user.id,
-          puzzleId: input.id,
-        },
-      },
-    });
-  }),
 });
 
 export default submissionRouter;

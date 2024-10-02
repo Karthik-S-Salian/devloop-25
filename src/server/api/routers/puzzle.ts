@@ -21,6 +21,7 @@ const puzzleRouter = createTRPCRouter({
           puzzleType: input.PuzzleType,
           route: input.route,
           solution: input.solution,
+          name: input.name,
         },
       });
     }),
