@@ -1,8 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Puzzle } from "@prisma/client";
-import { LucidePlus } from "lucide-react";
+import { type Puzzle } from "@prisma/client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -20,32 +19,32 @@ import {
 import { Form } from "~/components/ui/form";
 
 import { api } from "~/trpc/react";
-import { solvePuzzleZ } from "~/zod/submissionZ";
+import { idZ } from "~/zod/generalZ";
 
 const Submission = ({ puzzle }: { puzzle: Puzzle }) => {
   const [open, setOpen] = useState(false);
 
-  const solvePuzzle = api.submission.solvePuzzle.useMutation();
+  const submitPuzzle = api.submission.submitPuzzle.useMutation();
 
-  const formSchema = solvePuzzleZ;
+  const formSchema = idZ;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      puzzleId: puzzle.id,
+      id: puzzle.id,
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    toast.loading("Adding Stock...");
-    solvePuzzle.mutate(
+    toast.loading("Submitting puzzle...");
+    submitPuzzle.mutate(
       {
-        puzzleId: values.puzzleId,
+        id: values.id,
       },
       {
         onSuccess: () => {
           toast.dismiss();
-          toast.success("Stock Added Successfully");
+          toast.success("Submitted Puzzle Successfully");
           setOpen(false);
         },
         onError: (error) => {
@@ -72,11 +71,11 @@ const Submission = ({ puzzle }: { puzzle: Puzzle }) => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <DialogHeader>
-              <DialogTitle>Add Submission</DialogTitle>
+              <DialogTitle>Puzzle Submission</DialogTitle>
             </DialogHeader>
 
             <DialogFooter>
-              <Button type="submit">Add</Button>
+              <Button type="submit">Submit</Button>
             </DialogFooter>
           </form>
         </Form>
