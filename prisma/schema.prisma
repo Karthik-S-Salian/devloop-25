@@ -64,8 +64,8 @@ model VerificationToken {
 
 // Base models
 model Puzzle {
-  id String @id @default(cuid())
-
+  id         String     @id @default(cuid())
+  Name       String
   route      String     @unique
   puzzleType PuzzleType @default(POINTS)
   difficulty Difficulty @default(EASY)
@@ -93,6 +93,7 @@ model Submission {
   User   User             @relation(fields: [userId], references: [id])
   userId String
   status SubmissionStatus @default(PENDING)
+  answer String?
 
   startTime DateTime  @default(now())
   endTime   DateTime?
