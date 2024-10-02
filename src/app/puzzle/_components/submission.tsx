@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type Puzzle } from "@prisma/client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
@@ -39,7 +39,9 @@ const Submission = ({ puzzle }: { puzzle: Puzzle }) => {
     toast.loading("Submitting puzzle...");
     submitPuzzle.mutate(
       {
-        id: values.id,
+        puzzleId: values.id,
+        //TODO: Add answer field
+        answer: "Lol",
       },
       {
         onSuccess: () => {
