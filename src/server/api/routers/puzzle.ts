@@ -7,7 +7,7 @@ import {
 } from "~/server/api/trpc";
 
 import { idZ } from "~/zod/generalZ";
-import { addPuzzleZ, editPuzzleZ, getPuzzleZ } from "~/zod/puzzleZ";
+import { addPuzzleZ, getPuzzleZ } from "~/zod/puzzleZ";
 
 const puzzleRouter = createTRPCRouter({
   addPuzzle: adminProcedure

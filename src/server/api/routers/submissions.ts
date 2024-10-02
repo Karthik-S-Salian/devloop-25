@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 
-import { startPuzzleZ, submitPuzzleZ } from "~/zod/submission";
+import { startPuzzleZ, submitPuzzleZ } from "~/zod/submissionsZ";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 

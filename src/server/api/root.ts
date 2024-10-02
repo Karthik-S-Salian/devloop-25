@@ -1,5 +1,5 @@
 import puzzleRouter from "~/server/api/routers/puzzle";
-import submissionRouter from "~/server/api/routers/submission";
+import submissionRouter from "~/server/api/routers/submissions";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
 /**

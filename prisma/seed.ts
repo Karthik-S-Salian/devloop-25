@@ -3,6 +3,14 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const main = async () => {
+  await prisma.user.create({
+    data: {
+      name: "Admin",
+      email: "admin@flc.in",
+      password: "admin@123",
+    },
+  });
+
   await prisma.puzzle.createMany({
     data: [
       {
