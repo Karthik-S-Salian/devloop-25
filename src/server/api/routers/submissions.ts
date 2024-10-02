@@ -26,6 +26,9 @@ const submissionRouter = createTRPCRouter({
             puzzleId: input.puzzleId,
           },
         },
+        include: {
+          Puzzle: true,
+        },
       });
 
       if (!submission) {
@@ -35,17 +38,44 @@ const submissionRouter = createTRPCRouter({
         });
       }
 
-      // await ctx.db.submission.update({
-      //   where: {
-      //     userId_puzzleId: {
-      //       userId: input.userId,
-      //       puzzleId: input.puzzleId,
-      //     },
-      //     data: {
-      //       points
-      //     }
-      //   }
-      // })
+      const timeTakenMinutes = Math.floor(
+        (Date.now() - submission.startTime.getTime()) / 60000,
+      );
+
+      let deductionRate;
+      switch (submission.Puzzle.difficulty) {
+        case "HARD":
+          deductionRate = 0.06;
+          break;
+        case "MEDIUM":
+          deductionRate = 0.04;
+          break;
+        case "EASY":
+          deductionRate = 0.02;
+          break;
+        default:
+          throw new Error("Invalid puzzle difficulty");
+      }
+
+      const initialPoints = submission.Puzzle.points;
+      const deductedPoints =
+        initialPoints * (1 - deductionRate * timeTakenMinutes);
+      const finalPoints = Math.floor(Math.max(0, deductedPoints));
+
+      await ctx.db.submission.update({
+        where: {
+          userId_puzzleId: {
+            userId: input.userId,
+            puzzleId: input.puzzleId,
+          },
+        },
+        data: {
+          points: Math.max(submission.Puzzle.minimumPoints, finalPoints),
+          endTime: new Date(),
+        },
+      });
+
+      return { points: finalPoints };
     }),
 
   getSubmission: protectedProcedure
