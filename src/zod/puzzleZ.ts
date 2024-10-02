@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export const addPuzzleZ = z
   .object({
-    Name: z.string(),
+    name: z.string(),
     route: z.string(),
     PuzzleType: z.nativeEnum(PuzzleType),
     Difficulty: z.nativeEnum(Difficulty),
@@ -33,7 +33,7 @@ export const addPuzzleZ = z
 export const editPuzzleZ = z
   .object({
     id: z.string(),
-    Name: z.string(),
+    name: z.string(),
     route: z.string(),
     PuzzleType: z.nativeEnum(PuzzleType),
     Difficulty: z.nativeEnum(Difficulty),
