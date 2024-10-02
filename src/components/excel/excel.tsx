@@ -53,7 +53,7 @@ export default function Excel() {
       <h2 className="text-center">Find slope from excel</h2>
 
       <button className="mt-24 rounded-md bg-blue-500 p-3" onClick={getFile}>
-        Get The File
+        Get The File hahaha
       </button>
 
       {data ? (

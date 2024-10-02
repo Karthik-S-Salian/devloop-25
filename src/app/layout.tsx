@@ -3,12 +3,12 @@ import { Inter } from "next/font/google";
 
 import { Toaster } from "~/components/ui/sonner";
 
-import Navbar from "~/app/_components/navbar";
+import Navbar from "~/components/navbar";
 import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 import { TRPCReactProvider } from "~/trpc/react";
 
-import AuthProvider from "./_components/authProvider";
+import AuthProvider from "../components/authProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +24,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "h-screen w-full")}>
+      <body className={cn(inter.className, "h-screen w-screen")}>
         <AuthProvider>
           <Navbar />
           <TRPCReactProvider>{children}</TRPCReactProvider>

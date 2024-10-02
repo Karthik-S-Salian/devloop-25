@@ -7,7 +7,8 @@ export const dynamic = "force-static";
 
 // Use environment variables for the JWT key
 // const JWT_KEY = env.JWT_KEY;
-const JWT_KEY = "";
+// TODO:
+const JWT_KEY = "hello";
 
 // Handler for GET requests
 export async function GET() {
