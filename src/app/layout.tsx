@@ -24,7 +24,7 @@ export default async function RootLayout({
       <body className={cn(inter.className, "h-screen w-screen")}>
        <AuthProvider>
          <Navbar />
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>{children} </TRPCReactProvider>
         <Toaster />
        </AuthProvider>
       </body>
