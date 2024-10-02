@@ -1,9 +1,13 @@
-import { getServerSession } from "next-auth";
 import React from "react";
 
-const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await getServerSession();
+import { getServerAuthSession } from "~/auth";
 
+const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await getServerAuthSession();
+
+  if (session?.user.role !== "ADMIN") {
+    return <div>Unauthorized</div>;
+  }
   return children;
 };
 

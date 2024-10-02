@@ -95,21 +95,22 @@ model Puzzle {
   puzzleType PuzzleType
   difficulty Difficulty @default(EASY)
 
-  hint          String
-  hintDeduction Int
+  hint          String?
+  hintDeduction Int?
 
   solution      String
   points        Int
   minimumPoints Int
 
-  redeemCode          String?
-  BountyOneClaimed    User?   @relation(fields: [userId], references: [id])
+  RedeemCode          RedeemCode? @relation(fields: [redeemCodeId], references: [id])
+  BountyOneClaimed    User?       @relation(fields: [userId], references: [id])
   minimumBountyPoints Int?
 
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  userId     String?
-  Submission Submission[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  userId       String?
+  Submission   Submission[]
+  redeemCodeId String?
 }
 
 model Submission {
@@ -138,6 +139,7 @@ model RedeemCode {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Puzzle    Puzzle[]
 
   @@index([code])
 }
