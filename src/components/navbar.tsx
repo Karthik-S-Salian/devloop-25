@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { getServerAuthSession } from "~/auth";
-import Link from "next/link";
 
 const Navbar = async () => {
   const session = await getServerAuthSession();

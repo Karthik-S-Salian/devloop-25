@@ -1,3 +1,6 @@
+import { PuzzleRound } from "@prisma/client";
+import { z } from "zod";
+
 import {
   adminProcedure,
   createTRPCRouter,
@@ -34,6 +37,7 @@ const puzzleRouter = createTRPCRouter({
           id: input.id,
         },
         data: {
+          name: input.name,
           hint: input.hint,
           hintDeduction: input.hintDeduction,
           minimumPoints: input.minimumPoints,
@@ -61,6 +65,24 @@ const puzzleRouter = createTRPCRouter({
       return await ctx.db.puzzle.findUnique({
         where: {
           route: input.route,
+        },
+      });
+    }),
+
+  getRoundPuzzles: adminProcedure
+    .input(
+      z.object({
+        round: z.nativeEnum(PuzzleRound),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.puzzle.findMany({
+        where: {
+          puzzleRound: input.round,
+        },
+        select: {
+          name: true,
+          route: true,
         },
       });
     }),

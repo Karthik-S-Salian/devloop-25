@@ -1,6 +1,6 @@
 import React from "react";
 
-import Excel from "../../components/excel/excel";
+import Excel from "../../../components/excel/excel";
 
 export default function page() {
   return (

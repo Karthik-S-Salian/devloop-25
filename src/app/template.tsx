@@ -1,21 +1,29 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
-import NotFound from "~/app/not-found";
-
-export default function RootTemplate({
+const RootTemplate = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
-  const { data: session } = useSession();
+}>) => {
+  const router = useRouter();
   const pathname = usePathname();
+  const { data: session } = useSession();
 
-  const unportectedRoutes: string[] = ["/", "/login"];
+  const unprotectedRoutes = [
+    "/",
+    "/login",
+    "/round/1",
+    "/round/1/intro",
+    "/round/2",
+    "/round/2/intro",
+  ];
 
-  if (!session && !unportectedRoutes.includes(pathname)) return <NotFound />;
+  if (!session && !unprotectedRoutes.includes(pathname)) router.push("/");
 
   return children;
-}
+};
+
+export default RootTemplate;
