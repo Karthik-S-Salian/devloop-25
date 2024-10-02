@@ -13,7 +13,7 @@ export default function RootTemplate({
   const { data: session } = useSession();
   const pathname = usePathname();
 
-  const unportectedRoutes: string[] = ["/login"];
+  const unportectedRoutes: string[] = ["/", "/login"];
 
   if (!session && !unportectedRoutes.includes(pathname)) return <NotFound />;
 

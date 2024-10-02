@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import { Toaster } from "~/components/ui/sonner";
 
+import Navbar from "~/components/navbar";
 import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 import { TRPCReactProvider } from "~/trpc/react";
@@ -25,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(inter.className, "h-screen w-screen")}>
         <AuthProvider>
-          {/* <Navbar /> */}
+          <Navbar />
           <TRPCReactProvider>{children}</TRPCReactProvider>
           <Toaster />
         </AuthProvider>

@@ -1,8 +1,13 @@
 import { z } from "zod";
-import { adminProcedure, createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+} from "~/server/api/trpc";
 
 import { idZ } from "~/zod/generalZ";
-import { addPuzzleZ, editPuzzleZ } from "~/zod/puzzleZ";
+import { addPuzzleZ, editPuzzleZ, getPuzzleZ } from "~/zod/puzzleZ";
 
 const puzzleRouter = createTRPCRouter({
   addPuzzle: adminProcedure
@@ -49,16 +54,17 @@ const puzzleRouter = createTRPCRouter({
       },
     });
   }),
-  
+
   getPuzzle: protectedProcedure
-    .input(z.string())
+    .input(getPuzzleZ)
     .query(async ({ input, ctx }) => {
+      console.log(input);
       return await ctx.db.puzzle.findUnique({
         where: {
-          route: input
+          route: input.route,
         },
       });
-    })
+    }),
 });
 
 export default puzzleRouter;

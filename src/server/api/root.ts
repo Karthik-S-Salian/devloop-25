@@ -1,4 +1,5 @@
 import puzzleRouter from "~/server/api/routers/puzzle";
+import submissionRouter from "~/server/api/routers/submission";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -8,6 +9,7 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   puzzle: puzzleRouter,
+  submission: submissionRouter,
 });
 
 // export type definition of API
