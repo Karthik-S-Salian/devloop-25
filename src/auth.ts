@@ -6,10 +6,10 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
-import authConfig from '~/auth.config';
 
 import { db } from "~/server/db";
 
+import authConfig from "~/auth.config";
 import { env } from "~/env";
 import { getUserById } from "~/utils/auth";
 
@@ -45,7 +45,7 @@ declare module "next-auth/jwt" {
     role: UserRole;
     accessToken: string;
     refreshToken: string;
-    isRound2:boolean;
+    isRound2: boolean;
   }
 }
 
@@ -56,8 +56,8 @@ declare module "next-auth/jwt" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: async({ session, user,token }) => {
-      if(token.sub && session.user){
+    session: async ({ session, user, token }) => {
+      if (token.sub && session.user) {
         session.user.id = token.sub;
         session.user.role = token.role;
         session.user.name = token.name;
@@ -65,24 +65,21 @@ export const authOptions: NextAuthOptions = {
       }
 
       return session;
-    
     },
-    jwt: async({ token, user }) => {
-      if(!token.sub) return token;
+    jwt: async ({ token, user }) => {
+      if (!token.sub) return token;
       const existingUser = await getUserById(token.sub);
-      if(!existingUser) return token;
+      if (!existingUser) return token;
       token.role = existingUser.role;
       token.name = existingUser.name;
-      token.email= existingUser.email;
+      token.email = existingUser.email;
       token.isRound2 = existingUser.isRound2;
       return token;
-
-  }
-},
+    },
+  },
   adapter: PrismaAdapter(db) as Adapter,
-  session:{strategy:"jwt"},
+  session: { strategy: "jwt" },
   ...authConfig,
- 
 };
 
 /**

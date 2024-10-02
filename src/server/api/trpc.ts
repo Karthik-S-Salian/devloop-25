@@ -10,8 +10,9 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import { getServerAuthSession } from "~/auth";
 import { db } from "~/server/db";
+
+import { getServerAuthSession } from "~/auth";
 
 /**
  * 1. CONTEXT
@@ -134,7 +135,8 @@ export const adminProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
     if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
-    if (ctx?.session?.user.role !== 'ADMIN') throw new TRPCError({ code: "UNAUTHORIZED" });
+    if (ctx.session.user.role !== "ADMIN")
+      throw new TRPCError({ code: "UNAUTHORIZED" });
 
     return next({
       ctx: {

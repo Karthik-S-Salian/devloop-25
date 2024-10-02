@@ -1,10 +1,8 @@
 import { type NextPage } from "next";
-import React from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 
 import AddPuzzle from "~/app/admin/puzzle/_components/addPuzzle";
-import ViewPuzzle from "~/app/admin/puzzle/_components/viewPuzzle";
 
 const Test: NextPage = () => {
   return (
@@ -24,7 +22,7 @@ const Test: NextPage = () => {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="view" className="container">
-        <ViewPuzzle />
+        {/* <ViewPuzzle /> */}
       </TabsContent>
       <TabsContent value="add" className="container">
         <AddPuzzle />

@@ -12,8 +12,8 @@ export const addPuzzleZ = z.object({
   minimumPoints: z.number(),
   redeemCode: z.string().optional(),
   minimumBountyPoints: z.number().optional(),
-  
-  
-})
+});
 
-
+export const getPuzzleZ = z.object({
+  route: z.string().min(1, "No puzzle selected"),
+});

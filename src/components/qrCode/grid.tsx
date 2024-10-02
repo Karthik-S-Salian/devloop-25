@@ -1,55 +1,53 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import React, { useState, type DragEvent } from "react";
+import Image from "next/image"
+import React, { useState, type DragEvent } from "react"
 
-// Define the type for the component props
 interface ImageGridProps {
-  images: string[];
-  columns: number; // Number of columns in the grid
-  rows: number; // Number of rows in the grid
+  images: string[]
+  columns: number
+  rows: number
 }
 
-// ImageGrid component
-const ImageGrid: React.FC<ImageGridProps> = ({ images, columns, rows }) => {
-  const [imageList, setImageList] = useState<string[]>(images);
+export default function ImageGrid({ images, columns, rows }: ImageGridProps) {
+  const [imageList, setImageList] = useState<string[]>(images)
 
-  // Handle drag start event
   const handleDragStart = (e: DragEvent<HTMLImageElement>, index: number) => {
-    e.dataTransfer.setData("text/plain", index.toString());
-  };
+    e.dataTransfer.setData("text/plain", index.toString())
+  }
 
-  // Handle drop event
   const handleDrop = (e: DragEvent<HTMLImageElement>, targetIndex: number) => {
-    e.preventDefault();
-    const sourceIndex = parseInt(e.dataTransfer.getData("text/plain"), 10);
-    const updatedList = [...imageList];
-    const [movedItem] = updatedList.splice(sourceIndex, 1);
-    updatedList.splice(targetIndex, 0, movedItem!);
-    setImageList(updatedList);
-  };
+    e.preventDefault()
+    const sourceIndex = parseInt(e.dataTransfer.getData("text/plain"), 10)
+    
+    // Swap the images instead of inserting
+    const updatedList = [...imageList]
+    const temp = updatedList[targetIndex]
+    updatedList[targetIndex] = updatedList[sourceIndex]!
+    updatedList[sourceIndex] = temp!
 
-  // Handle drag over event
+    setImageList(updatedList)
+  }
+
   const handleDragOver = (e: DragEvent<HTMLImageElement>) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
-  // Calculate grid styles based on props
   const gridStyle: React.CSSProperties = {
     display: "grid",
-    gridTemplateColumns: `repeat(${columns}, 1fr)`, // Dynamic number of columns
-    gridTemplateRows: `repeat(${rows}, 1fr)`, // Dynamic number of rows
+    gridTemplateColumns: `repeat(${columns}, 1fr)`,
+    gridTemplateRows: `repeat(${rows}, 1fr)`,
     gap: "1px",
-    width: "100%", // Full width of the parent container
-    height: "100%", // Full height of the parent container
-  };
+    width: "100%",
+    height: "100%",
+  }
 
   const imageStyle: React.CSSProperties = {
     width: "100%",
     height: "100%",
     objectFit: "cover",
     cursor: "move",
-  };
+  }
 
   return (
     <div style={gridStyle} className="bg-white p-3">
@@ -69,7 +67,5 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images, columns, rows }) => {
         />
       ))}
     </div>
-  );
-};
-
-export default ImageGrid;
+  )
+}
