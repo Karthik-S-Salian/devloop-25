@@ -1,11 +1,39 @@
-import type {NextAuthOptions} from 'next-auth';
-import GoogleProvider from "next-auth/providers/google";
-import {env} from '~/env';
+import { User } from "@prisma/client";
+import bcrypt from "bcryptjs";
+import type { NextAuthOptions } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+
+import { getUserByEmail } from "./utils/auth";
+import { LoginZ } from "./zod/authZ";
+
 export default {
-     providers: [
-    GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
+  providers: [
+    Credentials({
+      credentials: {},
+      async authorize(credentials): Promise<User | null> {
+        console.log("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIii");
+
+        const validateFields = LoginZ.safeParse(credentials);
+        if (validateFields.success) {
+          console.log("PArt 11111111111111111111111111111111111");
+
+          const { email, password } = validateFields.data;
+          console.log("email", email);
+
+          const user = await getUserByEmail(email);
+          console.log("user", user);
+
+          if (!user || !user.password) return null;
+          console.log(user.password, password);
+
+          const passwordMatch = password === user.password;
+          if (passwordMatch) {
+            console.log("Socessssssssssss ");
+            return user;
+          }
+        }
+        return null;
+      },
     }),
     /**
      * ...add more providers here.

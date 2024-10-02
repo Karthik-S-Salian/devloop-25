@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+
 import { Toaster } from "~/components/ui/sonner";
+
 import Navbar from "~/app/_components/navbar";
 import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 import { TRPCReactProvider } from "~/trpc/react";
+
 import AuthProvider from "./_components/authProvider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,17 +21,16 @@ export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>){
-
+}>) {
   return (
-     <html lang="en">
-      <body className={cn(inter.className, "h-screen w-screen")}>
-       <AuthProvider>
-         <Navbar />
-        <TRPCReactProvider>{children}</TRPCReactProvider>
-        <Toaster />
-       </AuthProvider>
+    <html lang="en">
+      <body className={cn(inter.className, "h-screen w-full")}>
+        <AuthProvider>
+          <Navbar />
+          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );
-};
+}
