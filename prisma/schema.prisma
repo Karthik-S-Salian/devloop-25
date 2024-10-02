@@ -106,9 +106,9 @@ model Puzzle {
   BountyOneClaimed    User?       @relation(fields: [userId], references: [id])
   minimumBountyPoints Int?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  userId       String?
   Submission   Submission[]
   redeemCodeId String?
 }
