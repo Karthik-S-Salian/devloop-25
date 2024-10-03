@@ -21,6 +21,8 @@ const Home = async () => {
     { path: "/puzzle7", title: "IPSum" },
     { path: "/puzzle8", title: "reverse audio" },
     { path: "/puzzle9", title: "optical illusion" },
+    { path: "/puzzle10", title: "mirror text" },
+    { path: "/puzzle11", title: "image processing" },
     // { path:"/puzzle9", title:""},
   ];
 

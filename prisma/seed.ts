@@ -56,6 +56,20 @@ const main = async () => {
         points: 0,
         solution: "Excel Slope",
       },
+      {
+        name: "mirror text",
+        route: "c8f9d09e5dfb7c66",
+        minimumPoints: 0,
+        points: 0,
+        solution: "mirror tex",
+      },
+      {
+        name: "image processing",
+        route: "65951defa4005f07",
+        minimumPoints: 0,
+        points: 0,
+        solution: "image processing",
+      },
     ],
   });
 };
