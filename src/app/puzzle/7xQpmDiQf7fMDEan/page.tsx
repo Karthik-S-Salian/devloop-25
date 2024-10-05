@@ -1,6 +1,6 @@
 import React from "react";
 
-import QrCode from "../../components/qrCode/qrCode";
+import QrCode from "../../../components/qrCode/qrCode";
 
 export default function page() {
   return (

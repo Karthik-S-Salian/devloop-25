@@ -18,6 +18,27 @@ const submissionRouter = createTRPCRouter({
       return { startTime: puzzle.startTime };
     }),
 
+  getStartPuzzleTime: protectedProcedure
+    .input(idZ)
+    .query(async ({ ctx, input }) => {
+      const submission = await ctx.db.submission.findUnique({
+        where: {
+          userId_puzzleId: {
+            userId: ctx.session.user.id,
+            puzzleId: input.id,
+          },
+        },
+      });
+
+      if (!submission)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "You have to start puzzle before submitting",
+        });
+
+      return { startTime: submission.startTime };
+    }),
+
   submitPuzzle: protectedProcedure
     .input(submitPuzzleZ)
     .mutation(async ({ ctx, input }) => {
@@ -97,17 +118,6 @@ const submissionRouter = createTRPCRouter({
         status: "QUIT",
         endTime: new Date(),
         points: 0,
-      },
-    });
-  }),
-
-  getSubmission: protectedProcedure.input(idZ).query(async ({ ctx, input }) => {
-    return await ctx.db.submission.findUnique({
-      where: {
-        userId_puzzleId: {
-          userId: ctx.session.user.id,
-          puzzleId: input.id,
-        },
       },
     });
   }),

@@ -20,7 +20,7 @@ export default function DashboardLayout({
     route: pathname.split("/")[2]!,
   });
 
-  const { data: submissionData } = api.submission.getSubmission.useQuery(
+  const { data: submissionData } = api.submission.getStartPuzzleTime.useQuery(
     { id: puzzle?.id ?? "" },
     { enabled: !!puzzle },
   );

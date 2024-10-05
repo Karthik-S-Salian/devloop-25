@@ -1,5 +1,4 @@
 import { User } from "@prisma/client";
-import bcrypt from "bcryptjs";
 import type { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
@@ -11,19 +10,15 @@ export default {
     Credentials({
       credentials: {},
       async authorize(credentials): Promise<User | null> {
-        console.log("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIii");
-
         const validateFields = LoginZ.safeParse(credentials);
         if (validateFields.success) {
-          console.log("PArt 11111111111111111111111111111111111");
-
           const { email, password } = validateFields.data;
           console.log("email", email);
 
           const user = await getUserByEmail(email);
           console.log("user", user);
 
-          if (!user || !user.password) return null;
+          if (!user?.password) return null;
           console.log(user.password, password);
 
           const passwordMatch = password === user.password;

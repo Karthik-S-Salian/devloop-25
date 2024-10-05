@@ -64,11 +64,12 @@ model VerificationToken {
 
 // Base models
 model Puzzle {
-  id         String     @id @default(cuid())
-  Name       String
-  route      String     @unique
-  puzzleType PuzzleType @default(POINTS)
-  difficulty Difficulty @default(EASY)
+  id          String      @id @default(cuid())
+  name        String
+  route       String      @unique
+  puzzleType  PuzzleType  @default(POINTS)
+  difficulty  Difficulty  @default(EASY)
+  puzzleRound PuzzleRound @default(ROUND_ONE)
 
   hint          String?
   hintDeduction Int?
@@ -145,4 +146,9 @@ enum SubmissionStatus {
   PENDING
   ACCEPTED
   QUIT
+}
+
+enum PuzzleRound {
+  ROUND_ONE
+  ROUND_TWO
 }

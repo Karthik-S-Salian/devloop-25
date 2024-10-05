@@ -1,8 +1,9 @@
-import { Difficulty, PuzzleType } from "@prisma/client";
+import { Difficulty, PuzzleRound, PuzzleType } from "@prisma/client";
 import { z } from "zod";
 
 export const addPuzzleZ = z
   .object({
+    name: z.string(),
     route: z.string(),
     PuzzleType: z.nativeEnum(PuzzleType),
     Difficulty: z.nativeEnum(Difficulty),
@@ -13,6 +14,7 @@ export const addPuzzleZ = z
     minimumPoints: z.number(),
     redeemCode: z.string().optional(),
     minimumBountyPoints: z.number().optional(),
+    puzzleRound: z.nativeEnum(PuzzleRound),
   })
   .refine((data) => {
     if (data.hint) {
@@ -31,6 +33,7 @@ export const addPuzzleZ = z
 export const editPuzzleZ = z
   .object({
     id: z.string(),
+    name: z.string(),
     route: z.string(),
     PuzzleType: z.nativeEnum(PuzzleType),
     Difficulty: z.nativeEnum(Difficulty),
@@ -41,6 +44,7 @@ export const editPuzzleZ = z
     minimumPoints: z.number(),
     redeemCode: z.string().optional(),
     minimumBountyPoints: z.number().optional(),
+    puzzleRound: z.nativeEnum(PuzzleRound),
   })
   .refine((data) => {
     if (data.hint) {

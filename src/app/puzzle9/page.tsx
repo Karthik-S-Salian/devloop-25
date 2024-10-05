@@ -1,8 +1,8 @@
 "use client"
 
-import Image from "next/image"
-import illusion from "../../resources/optical illusion.jpg"
-import { useState } from "react"
+import Image from "next/image";
+import { useState } from "react";
+import illusion from "../../resources/optical illusion.jpg";
 
 
 export default function Page(){
@@ -38,9 +38,9 @@ export default function Page(){
                     <input type="text" className="border-2 border-black rounded-2xl p-1" onChange={(e) => setInput(e.target.value)}/>
                 </div>
                 {
-                    showHint && 
+                    showHint &&
                     <div>
-                        "What your eyes perceive may not reveal the whole truth—dive beneath the surface and explore the hidden layers within the depths."
+                        &quot;What your eyes perceive may not reveal the whole truth—dive beneath the surface and explore the hidden layers within the depths.&quot;
                     </div>
                 }
                 <div className="flex flex-row space-x-8">
