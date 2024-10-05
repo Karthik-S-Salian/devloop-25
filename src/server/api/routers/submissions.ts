@@ -9,12 +9,13 @@ const submissionRouter = createTRPCRouter({
   startPuzzle: protectedProcedure
     .input(idZ)
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.submission.create({
+      const puzzle = await ctx.db.submission.create({
         data: {
           userId: ctx.session.user.id,
           puzzleId: input.id,
         },
       });
+      return { startTime: puzzle.startTime };
     }),
 
   submitPuzzle: protectedProcedure

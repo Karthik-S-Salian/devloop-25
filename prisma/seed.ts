@@ -14,6 +14,7 @@ const main = async () => {
   await prisma.puzzle.createMany({
     data: [
       {
+        Name: "hui",
         minimumPoints: 1,
         points: 1,
         puzzleType: "POINTS",
