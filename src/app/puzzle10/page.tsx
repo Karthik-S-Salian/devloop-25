@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import Component from '~/components/mirror-text'
+import MirrorCard from '~/components/mirror-text'
 export default function Page() {
  
 
   return (
     <div>
-    <Component></Component>
+    <MirrorCard></MirrorCard>
     </div>
   )
 }

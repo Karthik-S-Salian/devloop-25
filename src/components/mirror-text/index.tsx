@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 
-export default function Component() {
+export default function MirrorCard() {
   const contentRef = useRef<HTMLDivElement>(null)
   const mirrorContentRef = useRef<HTMLDivElement>(null)
   const textContentRef = useRef<HTMLDivElement>(null)

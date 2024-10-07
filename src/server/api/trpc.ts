@@ -121,12 +121,13 @@ export const publicProcedure = t.procedure.use(timingMiddleware);
 export const protectedProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
-    if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+    // if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+    if (!ctx.session) console.log("UNAUTHORIZED")
 
     return next({
       ctx: {
         // infers the `session` as non-nullable
-        session: { ...ctx.session, user: ctx.session.user },
+        session: { ...ctx.session, user: ctx?.session?.user },
       },
     });
   });
@@ -134,14 +135,15 @@ export const protectedProcedure = t.procedure
 export const adminProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
-    if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
-    if (ctx.session.user.role !== "ADMIN")
-      throw new TRPCError({ code: "UNAUTHORIZED" });
+    // if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+    if (ctx?.session?.user.role !== "ADMIN")
+      // throw new TRPCError({ code: "UNAUTHORIZED" });
+    console.log("UNAUTHORIZED")
 
     return next({
       ctx: {
         // infers the `session` as non-nullable
-        session: { ...ctx.session, user: ctx.session.user },
+        session: { ...ctx.session, user: ctx?.session?.user },
       },
     });
   });

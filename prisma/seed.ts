@@ -70,6 +70,14 @@ const main = async () => {
         points: 0,
         solution: "image processing",
       },
+      {
+        name: "code Snippet",
+        route: "be0qt6jmquy2b36j",
+        minimumPoints: 0,
+        points: 0,
+        solution: "code Snippet",
+      },
+      // be0qt6jmquy2b36j
     ],
   });
 };

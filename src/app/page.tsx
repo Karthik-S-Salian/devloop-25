@@ -23,6 +23,7 @@ const Home = async () => {
     { path: "/puzzle9", title: "optical illusion" },
     { path: "/puzzle10", title: "mirror text" },
     { path: "/puzzle11", title: "image processing" },
+    { path: "/puzzle12", title: "code Snippet" },
     // { path:"/puzzle9", title:""},
   ];
 

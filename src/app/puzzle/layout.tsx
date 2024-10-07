@@ -41,7 +41,7 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (puzzle && !startTime) {
-      startPuzzleMutation.mutate({ id: puzzle.id });
+      // startPuzzleMutation.mutate({ id: puzzle.id });
     }
   }, [puzzle, startTime, startPuzzleMutation]);
 
