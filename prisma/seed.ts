@@ -77,6 +77,13 @@ const main = async () => {
         points: 0,
         solution: "code Snippet",
       },
+      {
+        name: "Find Imposter",
+        route: "2gfwlaz3zf9r00gp",
+        minimumPoints: 0,
+        points: 0,
+        solution: "Find Imposter",
+      },
       // be0qt6jmquy2b36j
     ],
   });

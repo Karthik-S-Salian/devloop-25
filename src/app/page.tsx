@@ -24,6 +24,7 @@ const Home = async () => {
     { path: "/puzzle10", title: "mirror text" },
     { path: "/puzzle11", title: "image processing" },
     { path: "/puzzle12", title: "code Snippet" },
+    { path: "/puzzle13", title: "Find Imposter" },
     // { path:"/puzzle9", title:""},
   ];
 
