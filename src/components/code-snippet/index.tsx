@@ -6,19 +6,18 @@ import Script from "next/script";
 import Snippet from "./snippet";
 
 declare global {
-    interface Window {
-      puzzleSnippetFunction: () => void; 
-    }
+  interface Window {
+    puzzleSnippetFunction: () => void;
   }
-  
-  
+}
+
 export default function CodeSnippetIndex() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
     
-    window.puzzleSnippetFunction = puzzleSnippetFunction1 as any;
+    window.puzzleSnippetFunction = puzzleSnippetFunction1;
   }, []);
 
   if (!isMounted) {
@@ -33,7 +32,6 @@ export default function CodeSnippetIndex() {
         strategy="lazyOnload"
         dangerouslySetInnerHTML={{
         __html: `
-            window.puzzleSnippetFunction = ${puzzleSnippetFunction1};
             console.log('Puzzle function is now available in the console as puzzleFunction');
         `,
         }}

@@ -11,7 +11,7 @@ const submissionRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const puzzle = await ctx.db.submission.create({
         data: {
-          userId: ctx?.session?.user?.id!,
+          userId: ctx?.session?.user?.id ?? "123",
           puzzleId: input.id,
         },
       });
@@ -24,7 +24,7 @@ const submissionRouter = createTRPCRouter({
       const submission = await ctx.db.submission.findUnique({
         where: {
           userId_puzzleId: {
-            userId: ctx?.session?.user?.id!, //@LEN temporary build error patchup this is
+            userId: ctx?.session?.user?.id ?? "123", //@LEN temporary build error patchup this is
             puzzleId: input.id,
           },
         },
@@ -45,7 +45,7 @@ const submissionRouter = createTRPCRouter({
       const submission = await ctx.db.submission.findUnique({
         where: {
           userId_puzzleId: {
-            userId: ctx?.session.user?.id!,
+            userId: ctx?.session.user?.id ?? "123",
             puzzleId: input.puzzleId,
           },
         },
@@ -94,7 +94,7 @@ const submissionRouter = createTRPCRouter({
       await ctx.db.submission.update({
         where: {
           userId_puzzleId: {
-            userId: ctx?.session?.user?.id!,
+            userId: ctx?.session?.user?.id ?? "123",
             puzzleId: input.puzzleId,
           },
         },
@@ -110,7 +110,7 @@ const submissionRouter = createTRPCRouter({
     await ctx.db.submission.update({
       where: {
         userId_puzzleId: {
-          userId: ctx?.session?.user?.id!,
+          userId: ctx?.session?.user?.id ?? "123",
           puzzleId: input.id,
         },
       },

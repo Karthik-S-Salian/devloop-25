@@ -1,6 +1,6 @@
 
 //Snippet code with variable details and meaningful comments - for dev
-export const puzzleSnippetFunction1 = () => {
+export const puzzleSnippetFunction1 = ():void => {
     const X08E3ZNAUISEPJ = "This is"; // This is the outer layer message
     const I1VQQO4KWRLUKH = "JEFF";
     const ZYORAW9O1AZCRZ = " the Answer"; // This will be used in the answer
@@ -21,7 +21,7 @@ export const puzzleSnippetFunction1 = () => {
   
     function XBT409MUU9OA2A() {
       // Another layer with misleading variable names
-      let junkData = "randomData";
+      const junkData = "randomData";
       let result = false;
       if (junkData.length > 0) {
         result = true;
@@ -85,7 +85,7 @@ export const puzzleSnippetFunction1 = () => {
   };
   
  //Snippet code with empty variables and less comments- for participants 
-  export const puzzleSnippetFunction2 = () => {
+  export const puzzleSnippetFunction2 = ():void => {
   
     // find these
     const X08E3ZNAUISEPJ = ""; 
@@ -107,7 +107,7 @@ export const puzzleSnippetFunction1 = () => {
     }
   
     function XBT409MUU9OA2A() {
-      let junkData = "randomData";
+      const junkData = "randomData";
       let result = false;
       if (junkData.length > 0) {
         result = true;

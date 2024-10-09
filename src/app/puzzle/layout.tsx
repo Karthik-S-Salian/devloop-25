@@ -49,7 +49,7 @@ export default function DashboardLayout({
 
   return (
     <div className="relative size-full">
-      <UpCounter initialTime={startTime?.toDateString()!} />
+      <UpCounter initialTime={startTime?.toDateString()} />
       {children}
       <div className="absolute bottom-5 right-10">
         <Submission puzzle={puzzle} />
