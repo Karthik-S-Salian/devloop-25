@@ -1,4 +1,5 @@
 import { type Config } from "tailwindcss";
+import TWA from "tailwindcss-animate";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
@@ -7,6 +8,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        "digital-number": ["Digital Numbers", ...fontFamily.mono],
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
       },
       borderRadius: {
@@ -58,5 +60,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [TWA],
 } satisfies Config;

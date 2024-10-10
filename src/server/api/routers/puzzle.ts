@@ -1,5 +1,4 @@
-import { PuzzleRound } from "@prisma/client";
-import { z } from "zod";
+import { Submission } from "@prisma/client";
 
 import {
   adminProcedure,
@@ -7,10 +6,15 @@ import {
   protectedProcedure,
 } from "~/server/api/trpc";
 
-import { idZ } from "~/zod/generalZ";
-import { addPuzzleZ, editPuzzleZ, getPuzzleZ } from "~/zod/puzzleZ";
+import {
+  addPuzzleZ,
+  editPuzzleZ,
+  getRoundPuzzlesZ,
+  removePuzzleZ,
+} from "~/zod/puzzleZ";
 
 const puzzleRouter = createTRPCRouter({
+  // Add(Create)
   addPuzzle: adminProcedure
     .input(addPuzzleZ)
     .mutation(async ({ input, ctx }) => {
@@ -21,15 +25,33 @@ const puzzleRouter = createTRPCRouter({
           minimumPoints: input.minimumPoints,
           minimumBountyPoints: input.minimumBountyPoints,
           points: input.points,
-          puzzleType: input.PuzzleType,
+          puzzleType: input.puzzleType,
           route: input.route,
           solution: input.solution,
           name: input.name,
+          difficulty: input.difficulty,
+          puzzleRound: input.puzzleRound,
         },
       });
     }),
 
-  updatePuzzle: adminProcedure
+  // Get(Retrieve), NOTE: infiniteQuery is always preferred
+  getRoundPuzzles: adminProcedure
+    .input(getRoundPuzzlesZ)
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.puzzle.findMany({
+        where: {
+          puzzleRound: input.round,
+        },
+        select: {
+          name: true,
+          route: true,
+        },
+      });
+    }),
+
+  // Edit(Update)
+  editPuzzle: adminProcedure
     .input(editPuzzleZ)
     .mutation(async ({ input, ctx }) => {
       await ctx.db.puzzle.update({
@@ -43,46 +65,20 @@ const puzzleRouter = createTRPCRouter({
           minimumPoints: input.minimumPoints,
           minimumBountyPoints: input.minimumBountyPoints,
           points: input.points,
-          puzzleType: input.PuzzleType,
+          puzzleType: input.puzzleType,
           route: input.route,
           solution: input.solution,
         },
       });
     }),
 
-  deletePuzzle: adminProcedure.input(idZ).mutation(async ({ input, ctx }) => {
-    await ctx.db.puzzle.delete({
-      where: {
-        id: input.id,
-      },
-    });
-  }),
-
-  getPuzzle: protectedProcedure
-    .input(getPuzzleZ)
-    .query(async ({ input, ctx }) => {
-      console.log(input);
-      return await ctx.db.puzzle.findUnique({
+  // Remove(Delete)
+  removePuzzle: adminProcedure
+    .input(removePuzzleZ)
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.puzzle.delete({
         where: {
-          route: input.route,
-        },
-      });
-    }),
-
-  getRoundPuzzles: adminProcedure
-    .input(
-      z.object({
-        round: z.nativeEnum(PuzzleRound),
-      }),
-    )
-    .query(async ({ ctx, input }) => {
-      return await ctx.db.puzzle.findMany({
-        where: {
-          puzzleRound: input.round,
-        },
-        select: {
-          name: true,
-          route: true,
+          id: input.puzzleId,
         },
       });
     }),

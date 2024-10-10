@@ -20,17 +20,19 @@ import { api } from "~/trpc/server";
 const Puzzles = async () => {
   const session = await getServerAuthSession();
 
-  const roundOnePuzzles = session
-    ? await api.puzzle.getRoundPuzzles({
-        round: "ROUND_ONE",
-      })
-    : [];
+  const roundOnePuzzles =
+    session?.user.role === "ADMIN"
+      ? await api.puzzle.getRoundPuzzles({
+          round: "ROUND_ONE",
+        })
+      : [];
 
-  const roundTwoPuzzles = session
-    ? await api.puzzle.getRoundPuzzles({
-        round: "ROUND_TWO",
-      })
-    : [];
+  const roundTwoPuzzles =
+    session?.user.role === "ADMIN"
+      ? await api.puzzle.getRoundPuzzles({
+          round: "ROUND_TWO",
+        })
+      : [];
 
   return (
     <Sheet>

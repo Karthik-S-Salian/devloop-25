@@ -1,50 +1,43 @@
 "use client";
 
+import { type inferProcedureOutput } from "@trpc/server";
+import React from "react";
 import { useState, useEffect } from "react";
 
-const SECOND = 1000;
-const MINUTE = SECOND * 60;
-const HOUR = MINUTE * 60;
+import { type AppRouter } from "~/server/api/root";
 
-const UpCounter = ({ initialTime }: { initialTime: string | number }) => {
+const SECOND = 1000;
+const MINUTE = 60 * 1000;
+const HOUR = 60 * 60 * 1000;
+
+const Timer = ({
+  puzzle,
+}: {
+  puzzle: inferProcedureOutput<AppRouter["submission"]["startPuzzle"]>;
+}) => {
   const [timePassed, setTimePassed] = useState<number>(0);
 
-  const startTime =
-    typeof initialTime === "string" ? Date.parse(initialTime) : initialTime;
-
   useEffect(() => {
-    if (!isNaN(startTime)) {
-      const interval = setInterval(() => {
-        const timeElapsed = Date.now() - startTime;
-        setTimePassed(timeElapsed);
-      }, 1000);
+    const interval = setInterval(() => {
+      const timeElapsed = Date.now() - puzzle.Submission[0].startTime.getTime();
+      setTimePassed(timeElapsed);
+    }, 1000);
 
-      return () => clearInterval(interval);
-    }
-  }, [startTime]);
+    return () => clearInterval(interval);
+  }, [puzzle]);
 
   const hours = Math.floor(timePassed / HOUR);
   const minutes = Math.floor((timePassed % HOUR) / MINUTE);
   const seconds = Math.floor((timePassed % MINUTE) / SECOND);
 
   return (
-    <div className="timer absolute right-0 top-0 flex gap-0 bg-black p-1">
-      {[
-        { label: "Hours", value: hours },
-        { label: "Minutes", value: minutes },
-        { label: "Seconds", value: seconds },
-      ].map(({ label, value }) => (
-        <div key={label} className="text-white">
-          <div className="box">
-            <p>
-              {label != "Hours" && ":"}
-              {String(value).padStart(2, "0")}
-            </p>
-          </div>
-        </div>
-      ))}
+    <div className="flex">
+      <p className="font-mono">Solving since</p>
+      <p className="font-digital-number">:{String(hours).padStart(2, "0")}</p>
+      <p className="font-digital-number">:{String(minutes).padStart(2, "0")}</p>
+      <p className="font-digital-number">:{String(seconds).padStart(2, "0")}</p>
     </div>
   );
 };
 
-export default UpCounter;
+export default Timer;

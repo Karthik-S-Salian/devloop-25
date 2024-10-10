@@ -1,4 +1,5 @@
 import Link from "next/link";
+import React from "react";
 
 import { getServerAuthSession } from "~/auth";
 import Puzzles from "~/components/navbar/puzzles";
@@ -9,13 +10,14 @@ const Navbar = async () => {
   const session = await getServerAuthSession();
 
   return (
-    <nav className="fixed flex h-16 w-full flex-row items-center justify-center">
+    <nav className="flex h-16 min-h-16 w-full flex-row items-center justify-center border-b">
       <Link
         href={session ? "/auth/signOut" : `/auth/signIn`}
         className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
       >
         {session ? "Sign out" : "Sign in"}
       </Link>
+
       {env.NODE_ENV === "development" && (
         <div className="flex gap-4">
           <Puzzles />

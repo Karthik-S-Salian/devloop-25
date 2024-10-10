@@ -1,60 +1,62 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
 
 import Hint from "~/app/puzzle/_components/hint";
+import Quit from "~/app/puzzle/_components/quit";
+import RoundTimer from "~/app/puzzle/_components/roundTimer";
 import Submission from "~/app/puzzle/_components/submission";
+import Timer from "~/app/puzzle/_components/timer";
 import { api } from "~/trpc/react";
 
-import UpCounter from "./_components/timer";
-
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
   const pathname = usePathname();
+  const { data: session } = useSession();
 
-  const { data: puzzle } = api.puzzle.getPuzzle.useQuery({
-    route: pathname.split("/")[2]!,
-  });
-
-  const { data: submissionData } = api.submission.getStartPuzzleTime.useQuery(
-    { id: puzzle?.id ?? "" },
-    { enabled: !!puzzle },
+  const { data: puzzle } = api.submission.startPuzzle.useQuery(
+    {
+      route: pathname.split("/")[2]!,
+    },
+    {
+      enabled: !!session && !!pathname.split("/")[2],
+    },
   );
 
-  const [startTime, setStartTime] = useState<Date | null>(null);
+  if (!session) {
+    router.push("/auth/signIn");
+    return null;
+  }
 
-  const startPuzzleMutation = api.submission.startPuzzle.useMutation({
-    onSuccess: (data) => {
-      setStartTime(data.startTime);
-    },
-  });
+  if (!puzzle) {
+    router.push("/");
+    return null;
+  }
 
-  useEffect(() => {
-    if (submissionData?.startTime) {
-      setStartTime(submissionData.startTime);
-    }
-  }, [submissionData]);
-
-  useEffect(() => {
-    if (puzzle && !startTime) {
-      // startPuzzleMutation.mutate({ id: puzzle.id });
-    }
-  }, [puzzle, startTime, startPuzzleMutation]);
-
-  if (!puzzle) return null;
+  if (puzzle.Submission[0].status !== "PENDING") {
+    router.push(puzzle.puzzleRound === "ROUND_ONE" ? "/round/1" : "/round/2");
+    return null;
+  }
 
   return (
     <div className="relative size-full">
-      <UpCounter initialTime={startTime?.toDateString() ?? ""} />
       {children}
-      <div className="absolute bottom-5 right-10">
-        <Submission puzzle={puzzle} />
-        <Hint puzzle={puzzle} />
+      <div className="absolute bottom-5 left-0 flex w-full items-center justify-between gap-4 px-10">
+        <div className="flex w-1/3 items-center justify-center">
+          <RoundTimer />
+        </div>
+        <div className="flex w-1/3 items-center justify-center gap-4">
+          <Quit puzzle={puzzle} />
+          <Hint puzzle={puzzle} />
+          <Submission puzzle={puzzle} />
+        </div>
+        <div className="flex w-1/3 items-center justify-center">
+          <Timer puzzle={puzzle} />
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default DashboardLayout;

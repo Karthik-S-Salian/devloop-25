@@ -1,12 +1,12 @@
 import { Difficulty, PuzzleRound, PuzzleType } from "@prisma/client";
 import { z } from "zod";
 
-export const addPuzzleZ = z
+const addPuzzleZ = z
   .object({
     name: z.string(),
     route: z.string(),
-    PuzzleType: z.nativeEnum(PuzzleType),
-    Difficulty: z.nativeEnum(Difficulty),
+    puzzleType: z.nativeEnum(PuzzleType),
+    difficulty: z.nativeEnum(Difficulty),
     hint: z.string().optional(),
     hintDeduction: z.number().optional(),
     solution: z.string(),
@@ -17,26 +17,22 @@ export const addPuzzleZ = z
     puzzleRound: z.nativeEnum(PuzzleRound),
   })
   .refine((data) => {
-    if (data.hint) {
-      if (!data.hintDeduction)
-        throw new Error("hintDeduction is required when hint is provided");
-    }
+    if (data.hint && !data.hintDeduction)
+      throw new Error("hintDeduction is required when hint is provided");
 
-    if (data.PuzzleType !== "POINTS") {
-      if (!data.minimumBountyPoints)
-        throw new Error(
-          "minimumBountyPoints is required when PuzzleType is not POINTS",
-        );
-    }
+    if (data.puzzleType !== "POINTS" && !data.minimumBountyPoints)
+      throw new Error(
+        "minimumBountyPoints is required when PuzzleType is not POINTS",
+      );
   });
 
-export const editPuzzleZ = z
+const editPuzzleZ = z
   .object({
     id: z.string(),
     name: z.string(),
     route: z.string(),
-    PuzzleType: z.nativeEnum(PuzzleType),
-    Difficulty: z.nativeEnum(Difficulty),
+    puzzleType: z.nativeEnum(PuzzleType),
+    difficulty: z.nativeEnum(Difficulty),
     hint: z.string().optional(),
     hintDeduction: z.number().optional(),
     solution: z.string(),
@@ -47,19 +43,21 @@ export const editPuzzleZ = z
     puzzleRound: z.nativeEnum(PuzzleRound),
   })
   .refine((data) => {
-    if (data.hint) {
-      if (!data.hintDeduction)
-        throw new Error("hintDeduction is required when hint is provided");
-    }
+    if (data.hint && !data.hintDeduction)
+      throw new Error("hintDeduction is required when hint is provided");
 
-    if (data.PuzzleType !== "POINTS") {
-      if (!data.minimumBountyPoints)
-        throw new Error(
-          "minimumBountyPoints is required when PuzzleType is not POINTS",
-        );
-    }
+    if (data.puzzleType !== "POINTS" && !data.minimumBountyPoints)
+      throw new Error(
+        "minimumBountyPoints is required when PuzzleType is not POINTS",
+      );
   });
 
-export const getPuzzleZ = z.object({
-  route: z.string().min(1, "No puzzle selected"),
+const getRoundPuzzlesZ = z.object({
+  round: z.nativeEnum(PuzzleRound, { message: "Invalid round" }),
 });
+
+const removePuzzleZ = z.object({
+  puzzleId: z.string().min(1, { message: "No puzzle selected" }),
+});
+
+export { addPuzzleZ, editPuzzleZ, getRoundPuzzlesZ, removePuzzleZ };

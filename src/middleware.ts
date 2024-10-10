@@ -1,45 +1,40 @@
 import { withAuth } from "next-auth/middleware";
 
+// TODO(Omkar): Better role hierarchy and sibling routes
 const routeConfig = {
-  unprotected: ["/", "/login", "/round/(.*)"],
+  unprotected: ["/", "/auth/(.*)", "/round/(.*)"],
   protected: {
     USER: ["/puzzle/(.*)"],
-    ADMIN: ["/admin/(.*)"],
   },
 } as const;
 
 const middlewareWithAuth = withAuth(
-  (req) => {
-    console.log("i am running");
+  async (req) => {
+    const pathname = new URL(req.url).pathname;
+    console.log("Middleware running on: ", pathname);
+
+    // TODO(Omkar): Authorize puzzle based on round
   },
   {
     callbacks: {
       authorized: ({ req, token }) => {
+        if (token?.role === "ADMIN") return true;
+
         const pathname = new URL(req.url).pathname;
 
-        if (token) {
-          const userRole = token.role;
+        if (
+          pathname.startsWith("/api") ||
+          routeConfig.unprotected.some((pattern) =>
+            new RegExp(`^${pattern}$`).test(pathname),
+          ) ||
+          (token &&
+            routeConfig.protected[token.role].some((pattern) =>
+              new RegExp(`^${pattern}$`).test(pathname),
+            ))
+        )
+          return true;
 
-          if (
-            routeConfig.unprotected.some((pattern) => {
-              const matched = new RegExp(pattern).test(pathname);
-              console.log("Matched route: ", pattern);
-              return matched;
-            }) ||
-            routeConfig.protected[userRole].some((pattern) => {
-              const matched = new RegExp(pattern).test(pathname);
-              console.log("Matched route: ", pattern);
-              return matched;
-            })
-          )
-            return true;
-
-          console.log("unauthorized to view the page");
-        } else {
-          console.log("Not logged in");
-        }
-
-        return true;
+        return false;
       },
     },
   },

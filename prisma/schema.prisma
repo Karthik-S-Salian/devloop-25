@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
 }
 
 datasource db {
@@ -28,12 +29,14 @@ model User {
   // redeemCodeId String?
   // RedeemCode   RedeemCode? @relation(fields: [redeemCodeId], references: [id])
 
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  Puzzle       Puzzle[]
-  Submission   Submission[]
-  RedeemCode   RedeemCode?  @relation(fields: [redeemCodeId], references: [id])
   redeemCodeId String?
+  RedeemCode   RedeemCode? @relation(fields: [redeemCodeId], references: [id])
+
+  Puzzle     Puzzle[]
+  Submission Submission[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Session {
@@ -79,31 +82,35 @@ model Puzzle {
   minimumPoints Int
 
   RedeemCode          RedeemCode? @relation(fields: [redeemCodeId], references: [id])
-  BountyOneClaimed    User?       @relation(fields: [userId], references: [id])
   minimumBountyPoints Int?
 
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  userId       String?
+  userId           String?
+  BountyOneClaimed User?   @relation(fields: [userId], references: [id])
+
   Submission   Submission[]
   redeemCodeId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Submission {
-  id     String           @id @default(cuid())
-  User   User             @relation(fields: [userId], references: [id])
-  userId String
+  id String @id @default(cuid())
+
   status SubmissionStatus @default(PENDING)
   answer String?
 
   startTime DateTime  @default(now())
   endTime   DateTime?
 
-  Puzzle   Puzzle @relation(fields: [puzzleId], references: [id])
-  puzzleId String
-
   points    Int?
   hintTaken Boolean @default(false)
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  puzzleId String
+  Puzzle   Puzzle @relation(fields: [puzzleId], references: [id])
 
   @@unique([userId, puzzleId])
 }

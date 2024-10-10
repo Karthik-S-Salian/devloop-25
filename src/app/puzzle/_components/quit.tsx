@@ -1,8 +1,8 @@
 "use client";
 
 import { type inferProcedureOutput } from "@trpc/server";
-import { Lightbulb } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { Ban } from "lucide-react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
 import { type AppRouter } from "~/server/api/root";
@@ -20,65 +20,45 @@ import {
 
 import { api } from "~/trpc/react";
 
-const Hint = ({
+const Quit = ({
   puzzle,
 }: {
   puzzle: inferProcedureOutput<AppRouter["submission"]["startPuzzle"]>;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [hint, setHint] = useState<string | null>(null);
 
-  const helpPuzzle = api.submission.helpPuzzle.useMutation();
+  const quitPuzzle = api.submission.quitPuzzle.useMutation();
   const startPuzzle = api.useUtils().submission.startPuzzle;
-
-  useEffect(() => {
-    if (puzzle.Submission[0].hintTaken)
-      helpPuzzle.mutate(
-        { puzzleId: puzzle.id },
-        {
-          onSuccess: (dbPuzzle) => {
-            setHint(dbPuzzle.hint);
-          },
-        },
-      );
-  }, [puzzle, helpPuzzle]);
 
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogTrigger asChild>
-        <Button className="bg-blue-500 hover:bg-blue-600">
-          <Lightbulb />
+        <Button className="bg-red-500 hover:bg-red-600">
+          <Ban />
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you sure you need a hint?</DialogTitle>
+          <DialogTitle>Are you sure you want to quit?</DialogTitle>
           <DialogDescription>
-            <p>Taking a hint is a disadvantage</p>
-            <p>Points deduction: {puzzle.hintDeduction ?? 0} Points</p>
+            <p>Once you quit you can never attempt this puzzle again</p>
+            <p>You won&apos;t lose any points (even if hint was taken)</p>
           </DialogDescription>
         </DialogHeader>
-        {hint && (
-          <>
-            <p>You have already taken hint for this puzzle</p>
-            <p>Hint: {hint}</p>
-          </>
-        )}
         <DialogFooter>
           <Button
             className="bg-green-500 hover:bg-green-600"
             onClick={() => {
-              toast.loading("Receiving hint...");
-              helpPuzzle.mutate(
+              toast.loading("Quiting puzzle...");
+              quitPuzzle.mutate(
                 {
                   puzzleId: puzzle.id,
                 },
                 {
-                  onSuccess: (dbPuzzle) => {
+                  onSuccess: () => {
                     toast.dismiss();
-                    toast.success("Hint received successfully");
+                    toast.success("Puzzle quited successfully");
                     void startPuzzle.refetch();
-                    setHint(dbPuzzle.hint);
                     setOpen(false);
                   },
                   onError: (error) => {
@@ -89,7 +69,6 @@ const Hint = ({
                 },
               );
             }}
-            disabled={!!hint}
           >
             Confirm
           </Button>
@@ -99,4 +78,4 @@ const Hint = ({
   );
 };
 
-export default Hint;
+export default Quit;
