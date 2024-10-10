@@ -1,31 +1,22 @@
-import { User } from "@prisma/client";
+import { type User } from "@prisma/client";
 import type { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 import { getUserByEmail } from "./utils/auth";
-import { LoginZ } from "./zod/authZ";
+import { signInZ } from "./zod/authZ";
 
 export default {
   providers: [
     Credentials({
       credentials: {},
       async authorize(credentials): Promise<User | null> {
-        const validateFields = LoginZ.safeParse(credentials);
+        const validateFields = signInZ.safeParse(credentials);
         if (validateFields.success) {
           const { email, password } = validateFields.data;
-          console.log("email", email);
-
           const user = await getUserByEmail(email);
-          console.log("user", user);
-
           if (!user?.password) return null;
-          console.log(user.password, password);
-
           const passwordMatch = password === user.password;
-          if (passwordMatch) {
-            console.log("Socessssssssssss ");
-            return user;
-          }
+          if (passwordMatch) return user;
         }
         return null;
       },

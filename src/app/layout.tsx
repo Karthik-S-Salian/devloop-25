@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import React from "react";
 
 import { Toaster } from "~/components/ui/sonner";
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     "Intercollege Capture the flag like event organised by Finite Loop Club, NMAMIT",
 };
 
-const RootLayout = ({
+const RootLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -25,7 +26,9 @@ const RootLayout = ({
       <body className={cn("h-screen w-screen")}>
         <AuthProvider>
           <Navbar />
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            <main className="size-full pt-16">{children}</main>
+          </TRPCReactProvider>
           <Toaster />
         </AuthProvider>
       </body>

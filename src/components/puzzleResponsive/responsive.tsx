@@ -8,13 +8,11 @@ import { IoKeySharp } from "react-icons/io5";
 // LOGIC: Responsiveness
 // 1.there are 2 icons, a lock and a key
 // 2.Lock will be visible always, but key is invisible for full screen (lg:invisible)
-// 3.open inspect or in mobile to see the key 
+// 3.open inspect or in mobile to see the key
 // 4.bring key near lock and open it for answer
-
 
 export default function PuzzleResponsive() {
   const [lockedState, setLockedkStae] = useState<boolean>(true);
-
 
   const calculateDistanceBetweenLockAndKey = () => {
     const lock = document.querySelector(".lock");
@@ -29,7 +27,7 @@ export default function PuzzleResponsive() {
       if (distance === 0) {
         setLockedkStae(false);
         setTimeout(() => {
-          alert("Here You go: **Clues/Answer**")
+          alert("Here You go: **Clues/Answer**");
           window.location.reload();
         }, 1000); //for smoother transition of opening of lock to answer
       }
@@ -48,19 +46,18 @@ export default function PuzzleResponsive() {
     <div>
       <h2 className="text-center">This is a responsive puzzle</h2>
       <div className="mt-24 flex justify-between text-center text-black">
-        
         {/* LOCK */}
-        <div className="lock h-36 w-36 rounded-md bg-red-400 ml-12 text-center">
+        <div className="lock ml-12 h-36 w-36 rounded-md bg-red-400 text-center">
           {lockedState ? (
-            <IoIosLock className="text-9xl m-auto" />
+            <IoIosLock className="m-auto text-9xl" />
           ) : (
-            <IoIosUnlock className="text-9xl m-auto" />
+            <IoIosUnlock className="m-auto text-9xl" />
           )}
         </div>
-         
-         {/*KEY  */}
-        <div className="key h-36 w-36 rounded-md p-2 mr-12 bg-green-300 md:visible sm:visible lg:invisible">
-        <IoKeySharp className="text-9xl rotate-45 m-auto "></IoKeySharp>
+
+        {/*KEY  */}
+        <div className="key mr-12 h-36 w-36 rounded-md bg-green-300 p-2 sm:visible md:visible lg:invisible">
+          <IoKeySharp className="m-auto rotate-45 text-9xl"></IoKeySharp>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import Hint from "~/app/puzzle/_components/hint";
 import Submission from "~/app/puzzle/_components/submission";
 import { api } from "~/trpc/react";
 
-import { UpCounter } from "./_components/timer";
+import UpCounter from "./_components/timer";
 
 export default function DashboardLayout({
   children,
@@ -49,7 +49,7 @@ export default function DashboardLayout({
 
   return (
     <div className="relative size-full">
-      <UpCounter initialTime={startTime?.toDateString()} />
+      <UpCounter initialTime={startTime?.toDateString() ?? ""} />
       {children}
       <div className="absolute bottom-5 right-10">
         <Submission puzzle={puzzle} />

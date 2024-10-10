@@ -7,10 +7,10 @@ import { Button, type ButtonProps } from "~/components/ui/button";
 import {
   Command,
   CommandEmpty,
-  CommandList,
+  CommandGroup,
   CommandInput,
   CommandItem,
-  CommandGroup,
+  CommandList,
 } from "~/components/ui/command";
 import {
   Popover,
@@ -20,29 +20,82 @@ import {
 
 import { cn } from "~/lib/utils";
 
-interface Props extends ButtonProps {
-  data: {
-    id: string;
-    name: string;
-    [key: string]: unknown;
-  }[];
-  value?: string;
-  setValue?: (value: string) => void;
+export type InnerComboboxProps<T> = {
+  data: T[];
+  dataValueKey: keyof T;
+  dataDisplayKey: keyof T;
+  dataSearchKeys?: (keyof T)[];
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
   placeholder: string;
-  keywords?: string[];
-}
+  noResultPlaceholder?: string | React.ReactElement;
+};
 
-const ComboBox: React.FunctionComponent<Props> = ({
+const InnerCombobox = <T extends Record<string, string>>({
   data,
+  dataValueKey,
+  dataDisplayKey,
+  dataSearchKeys,
   value,
   setValue,
   placeholder,
+  noResultPlaceholder = "No results found",
+  setOpen,
+}: InnerComboboxProps<T> & {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => (
+  <Command>
+    <CommandInput placeholder={placeholder} />
+    <CommandList>
+      <CommandEmpty asChild={typeof noResultPlaceholder !== "string"}>
+        {noResultPlaceholder}
+      </CommandEmpty>
+      <CommandGroup>
+        {data.map((d, idx) => (
+          <CommandItem
+            key={idx}
+            value={d[dataValueKey]}
+            onSelect={(currentValue) => {
+              setValue(currentValue === value ? "" : currentValue);
+              setOpen(false);
+            }}
+            // TODO(Omkar): also searches d[dataValueKey], implement custom filter()
+            keywords={[d[dataDisplayKey]].concat(
+              dataSearchKeys?.map((key) => d[key]) ?? [],
+            )}
+          >
+            <Check
+              className={cn(
+                "mr-2 h-4 w-4",
+                value === d[dataValueKey] ? "opacity-100" : "opacity-0",
+              )}
+            />
+            {d[dataDisplayKey]}
+          </CommandItem>
+        ))}
+      </CommandGroup>
+    </CommandList>
+  </Command>
+);
+
+const Combobox = <T extends Record<string, string>>({
+  data,
+  dataValueKey,
+  dataDisplayKey,
+  dataSearchKeys,
+  value,
+  setValue,
+  placeholder,
+  noResultPlaceholder = "No results found",
   className,
-  children,
-  keywords,
+  ref,
   ...props
-}) => {
-  const [open, setOpen] = React.useState(false);
+}: InnerComboboxProps<T> &
+  ButtonProps & {
+    // TODO(Omkar): can we combine forwardRef and generics?
+    ref?: React.RefObject<HTMLButtonElement>;
+  }) => {
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -50,58 +103,38 @@ const ComboBox: React.FunctionComponent<Props> = ({
     <div ref={containerRef}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button className={cn("h-10", className)} {...props}>
-            {data.find((ele) => ele.id === value)?.name ?? placeholder}
-            <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+          <Button
+            ref={ref}
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className={(cn("w-[200px] justify-between"), className)}
+            {...props}
+          >
+            {data.find((d) => d[dataValueKey] === value)?.[dataDisplayKey] ??
+              placeholder}
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent
           container={containerRef.current}
           className="w-[200px] p-0"
         >
-          <Command loop>
-            <CommandInput placeholder={placeholder} />
-            <CommandList>
-              <CommandEmpty>No results.{children}</CommandEmpty>
-              <CommandGroup>
-                {data.map((ele) => (
-                  <CommandItem
-                    key={ele.id}
-                    value={ele.id}
-                    onSelect={(currentValue) => {
-                      setValue?.(currentValue === value ? "" : ele.id);
-                      setOpen(false);
-                    }}
-                    // By default, command searches in the values provided
-                    // Since we want to uniquely identify each item we have passed the id
-                    // But we are not searching indexed on the id, rather indexed on the name
-                    // Hence we provide additional keywords to match name and get correct results
-                    // FIXME(Omkar): This still searches against id provided, implement custom filter() on Command
-                    keywords={[
-                      ele.name,
-                      ...(keywords?.map((key) => {
-                        const temp = ele[key];
-                        if (typeof temp === "string") return temp;
-                        else return "";
-                      }) ?? []),
-                    ]}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        value === ele.id ? "opacity-100" : "opacity-0",
-                      )}
-                    />
-                    {ele.name}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
+          <InnerCombobox
+            data={data}
+            dataValueKey={dataValueKey}
+            dataDisplayKey={dataDisplayKey}
+            dataSearchKeys={dataSearchKeys}
+            value={value}
+            setValue={setValue}
+            placeholder={placeholder}
+            noResultPlaceholder={noResultPlaceholder}
+            setOpen={setOpen}
+          />
         </PopoverContent>
       </Popover>
     </div>
   );
 };
 
-export { ComboBox };
+export { InnerCombobox, Combobox };

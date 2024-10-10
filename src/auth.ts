@@ -10,7 +10,6 @@ import { type Adapter } from "next-auth/adapters";
 import { db } from "~/server/db";
 
 import authConfig from "~/auth.config";
-import { env } from "~/env";
 import { getUserById } from "~/utils/auth";
 
 /**
@@ -29,10 +28,10 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    // ...other properties
+    role: UserRole;
+  }
 }
 
 declare module "next-auth/jwt" {
@@ -56,17 +55,16 @@ declare module "next-auth/jwt" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: async ({ session, user, token }) => {
+    session: async ({ session, token }) => {
       if (token.sub && session.user) {
         session.user.id = token.sub;
         session.user.role = token.role;
         session.user.name = token.name;
         session.user.isRound2 = token.isRound2;
       }
-
       return session;
     },
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token }) => {
       if (!token.sub) return token;
       const existingUser = await getUserById(token.sub);
       if (!existingUser) return token;
@@ -78,7 +76,13 @@ export const authOptions: NextAuthOptions = {
     },
   },
   adapter: PrismaAdapter(db) as Adapter,
-  session: { strategy: "jwt" },
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/auth/signIn",
+    signOut: "/auth/signOut",
+  },
   ...authConfig,
 };
 

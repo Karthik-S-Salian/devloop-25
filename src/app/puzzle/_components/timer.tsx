@@ -6,11 +6,7 @@ const SECOND = 1000;
 const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
 
-interface UpCounterProps {
-  initialTime: string | number;
-}
-
-export const UpCounter: React.FC<UpCounterProps> = ({ initialTime }) => {
+const UpCounter = ({ initialTime }: { initialTime: string | number }) => {
   const [timePassed, setTimePassed] = useState<number>(0);
 
   const startTime =
@@ -50,3 +46,5 @@ export const UpCounter: React.FC<UpCounterProps> = ({ initialTime }) => {
     </div>
   );
 };
+
+export default UpCounter;

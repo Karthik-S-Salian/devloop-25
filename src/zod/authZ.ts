@@ -1,10 +1,8 @@
 import { z } from "zod";
 
-const LoginZ = z.object({
-  email: z.string().min(1, { message: "Enter valid email" }),
-  password: z
-    .string()
-    .min(1, { message: "Password should contain 1 character atleast" }),
+const signInZ = z.object({
+  email: z.string().email({ message: "Enter valid email" }),
+  password: z.string().min(1, { message: "Password cannot be empty" }),
 });
 
-export { LoginZ };
+export { signInZ };
