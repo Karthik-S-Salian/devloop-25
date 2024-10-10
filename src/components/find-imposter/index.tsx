@@ -2,6 +2,11 @@
 import Image from "next/image";
 import { findImposterstyle } from "./style";
 import Plane from "./sprite";
+
+// LOGIC: Finding Imposter plane,looking up image link on hover
+// 1.there are 5 plane images flying on screen
+// 2. all look same, exept for 1 plane has different url as source
+// 3. clicking on correct plane on first try should yield points 
 export default function FindImposter() {
   
   function correct(){

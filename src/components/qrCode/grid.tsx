@@ -1,37 +1,37 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import React, { useState, type DragEvent } from "react"
+import Image from "next/image";
+import React, { useState, type DragEvent } from "react";
 
 interface ImageGridProps {
-  images: string[]
-  columns: number
-  rows: number
+  images: string[];
+  columns: number;
+  rows: number;
 }
 
 export default function ImageGrid({ images, columns, rows }: ImageGridProps) {
-  const [imageList, setImageList] = useState<string[]>(images)
+  const [imageList, setImageList] = useState<string[]>(images);
 
   const handleDragStart = (e: DragEvent<HTMLImageElement>, index: number) => {
-    e.dataTransfer.setData("text/plain", index.toString())
-  }
+    e.dataTransfer.setData("text/plain", index.toString());
+  };
 
   const handleDrop = (e: DragEvent<HTMLImageElement>, targetIndex: number) => {
-    e.preventDefault()
-    const sourceIndex = parseInt(e.dataTransfer.getData("text/plain"), 10)
-    
-    // Swap the images instead of inserting
-    const updatedList = [...imageList]
-    const temp = updatedList[targetIndex]
-    updatedList[targetIndex] = updatedList[sourceIndex]!
-    updatedList[sourceIndex] = temp!
+    e.preventDefault();
+    const sourceIndex = parseInt(e.dataTransfer.getData("text/plain"), 10);
 
-    setImageList(updatedList)
-  }
+    // Swap the images instead of inserting
+    const updatedList = [...imageList];
+    const temp = updatedList[targetIndex];
+    updatedList[targetIndex] = updatedList[sourceIndex]!;
+    updatedList[sourceIndex] = temp!;
+
+    setImageList(updatedList);
+  };
 
   const handleDragOver = (e: DragEvent<HTMLImageElement>) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   const gridStyle: React.CSSProperties = {
     display: "grid",
@@ -40,14 +40,14 @@ export default function ImageGrid({ images, columns, rows }: ImageGridProps) {
     gap: "1px",
     width: "100%",
     height: "100%",
-  }
+  };
 
   const imageStyle: React.CSSProperties = {
     width: "100%",
     height: "100%",
     objectFit: "cover",
     cursor: "move",
-  }
+  };
 
   return (
     <div style={gridStyle} className="bg-white p-3">
@@ -67,5 +67,5 @@ export default function ImageGrid({ images, columns, rows }: ImageGridProps) {
         />
       ))}
     </div>
-  )
+  );
 }
