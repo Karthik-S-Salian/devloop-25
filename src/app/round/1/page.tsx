@@ -1,6 +1,6 @@
 import React from "react";
 
-const Round1 = () => {
+const Round1 = async () => {
   return <div>Round1</div>;
 };
 

@@ -1,11 +1,16 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { type UrlObject } from "url";
 
 import { Button } from "~/components/ui/button";
 
+import { getServerAuthSession } from "~/auth";
 import { api } from "~/trpc/server";
 
 const Home = async () => {
+  const session = await getServerAuthSession();
+  if (!session) redirect("/login");
+
   const roundOnePuzzles = await api.puzzle.getRoundPuzzles({
     round: "ROUND_ONE",
   });
@@ -35,7 +40,6 @@ const Home = async () => {
   return (
     <div className="flex size-full flex-col gap-10">
       <h1>Puzzle List</h1>
-
       <div className="flex items-center justify-center gap-10">
         <div className="flex w-fit flex-col gap-4">
           <h3>Round 1</h3>
@@ -49,7 +53,6 @@ const Home = async () => {
             ))}
           </div>
         </div>
-
         <div className="flex w-fit flex-col gap-4">
           <h3>Round 2</h3>
           <div className="flex flex-col gap-4">
