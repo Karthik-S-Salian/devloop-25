@@ -1,9 +1,22 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { IoIosLock } from "react-icons/io";
+import { IoIosUnlock } from "react-icons/io";
+import { IoKeySharp } from "react-icons/io5";
+
+// LOGIC: Responsiveness
+// 1.there are 2 icons, a lock and a key
+// 2.Lock will be visible always, but key is invisible for full screen (lg:invisible)
+// 3.open inspect or in mobile to see the key 
+// 4.bring key near lock and open it for answer
+
 
 export default function PuzzleResponsive() {
-  const calculateAndPrintDistance = () => {
+  const [lockedState, setLockedkStae] = useState<boolean>(true);
+
+
+  const calculateDistanceBetweenLockAndKey = () => {
     const lock = document.querySelector(".lock");
     const key = document.querySelector(".key");
 
@@ -14,16 +27,20 @@ export default function PuzzleResponsive() {
       const distance = Math.abs(lockRect.right - keyRect.left);
 
       if (distance === 0) {
-        alert("Here You go: **Clues/Anwser**");
+        setLockedkStae(false);
+        setTimeout(() => {
+          alert("Here You go: **Clues/Answer**")
+          window.location.reload();
+        }, 1000); //for smoother transition of opening of lock to answer
       }
     }
   };
 
   useEffect(() => {
-    calculateAndPrintDistance();
-    window.addEventListener("resize", calculateAndPrintDistance);
+    calculateDistanceBetweenLockAndKey();
+    window.addEventListener("resize", calculateDistanceBetweenLockAndKey);
     return () => {
-      window.removeEventListener("resize", calculateAndPrintDistance);
+      window.removeEventListener("resize", calculateDistanceBetweenLockAndKey);
     };
   }, []);
 
@@ -31,8 +48,20 @@ export default function PuzzleResponsive() {
     <div>
       <h2 className="text-center">This is a responsive puzzle</h2>
       <div className="mt-24 flex justify-between text-center text-black">
-        <div className="lock h-24 w-24 rounded-md bg-red-400">lock</div>
-        <div className="key h-24 w-24 rounded-md bg-green-300">key</div>
+        
+        {/* LOCK */}
+        <div className="lock h-36 w-36 rounded-md bg-red-400 ml-12 text-center">
+          {lockedState ? (
+            <IoIosLock className="text-9xl m-auto" />
+          ) : (
+            <IoIosUnlock className="text-9xl m-auto" />
+          )}
+        </div>
+         
+         {/*KEY  */}
+        <div className="key h-36 w-36 rounded-md p-2 mr-12 bg-green-300 md:visible sm:visible lg:invisible">
+        <IoKeySharp className="text-9xl rotate-45 m-auto "></IoKeySharp>
+        </div>
       </div>
     </div>
   );
