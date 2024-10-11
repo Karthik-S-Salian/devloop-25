@@ -41,13 +41,13 @@ const Quit = ({
         <DialogHeader>
           <DialogTitle>Are you sure you want to quit?</DialogTitle>
           <DialogDescription>
-            <p>Once you quit you can never attempt this puzzle again</p>
-            <p>You won&apos;t lose any points (even if hint was taken)</p>
+            <span>Once you quit you can never attempt this puzzle again</span>
+            <span>You won&apos;t lose any points (even if hint was taken)</span>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <Button
-            className="bg-green-500 hover:bg-green-600"
+            className="bg-red-500 hover:bg-red-600"
             onClick={() => {
               toast.loading("Quiting puzzle...");
               quitPuzzle.mutate(

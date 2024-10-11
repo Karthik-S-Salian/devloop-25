@@ -5,6 +5,8 @@ const startPuzzleZ = z.object({
 });
 
 const submitPuzzleZ = z.object({
+  manualSubmission: z.boolean().default(true),
+  // manualSubmission == false => puzzleId == puzzle.route
   puzzleId: z.string().min(1, {
     message: "No puzzle selected",
   }),

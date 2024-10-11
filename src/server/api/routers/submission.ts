@@ -58,10 +58,20 @@ const submissionRouter = createTRPCRouter({
   submitPuzzle: protectedProcedure
     .input(submitPuzzleZ)
     .mutation(async ({ ctx, input }) => {
+      if (!input.manualSubmission) {
+        // input.puzzleId == puzzle.route != puzzle.id
+        const puzzle = await ctx.db.puzzle.findUniqueOrThrow({
+          where: {
+            route: input.puzzleId,
+          },
+        });
+        input.puzzleId = puzzle.id;
+      }
+
       const submission = await ctx.db.submission.findUniqueOrThrow({
         where: {
           userId_puzzleId: {
-            userId: ctx?.session.user?.id ?? "123",
+            userId: ctx.session.user.id,
             puzzleId: input.puzzleId,
           },
         },
@@ -99,7 +109,7 @@ const submissionRouter = createTRPCRouter({
       const newSubmission = await ctx.db.submission.update({
         where: {
           userId_puzzleId: {
-            userId: ctx?.session?.user?.id ?? "123",
+            userId: ctx.session.user.id,
             puzzleId: input.puzzleId,
           },
         },

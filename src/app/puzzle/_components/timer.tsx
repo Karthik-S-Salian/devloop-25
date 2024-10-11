@@ -1,7 +1,7 @@
 "use client";
 
 import { type inferProcedureOutput } from "@trpc/server";
-import React from "react";
+import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
 
 import { type AppRouter } from "~/server/api/root";
@@ -17,14 +17,16 @@ const Timer = ({
 }) => {
   const [timePassed, setTimePassed] = useState<number>(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const timeElapsed = Date.now() - puzzle.Submission[0].startTime.getTime();
-      setTimePassed(timeElapsed);
-    }, 1000);
-
-    return () => clearInterval(interval);
+  const updateTime = useCallback(() => {
+    const timeElapsed = Date.now() - puzzle.Submission[0].startTime.getTime();
+    setTimePassed(timeElapsed);
   }, [puzzle]);
+
+  useEffect(() => {
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, [puzzle, updateTime]);
 
   const hours = Math.floor(timePassed / HOUR);
   const minutes = Math.floor((timePassed % HOUR) / MINUTE);

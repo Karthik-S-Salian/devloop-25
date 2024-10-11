@@ -10,7 +10,6 @@ const RGBImageSplitter: React.FC<RGBImageSplitterProps> = ({ imageSrc }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const redCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const greenCanvasRef = useRef<HTMLCanvasElement | null>(null);
-  const blueCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const combinedCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -20,14 +19,12 @@ const RGBImageSplitter: React.FC<RGBImageSplitterProps> = ({ imageSrc }) => {
       const canvas = canvasRef.current;
       const redCanvas = redCanvasRef.current;
       const greenCanvas = greenCanvasRef.current;
-      const blueCanvas = blueCanvasRef.current;
       const combinedCanvas = combinedCanvasRef.current;
 
-      if (canvas && redCanvas && greenCanvas && blueCanvas && combinedCanvas) {
+      if (canvas && redCanvas && greenCanvas && combinedCanvas) {
         const ctx = canvas.getContext("2d");
         const redCtx = redCanvas.getContext("2d");
         const greenCtx = greenCanvas.getContext("2d");
-        const blueCtx = blueCanvas.getContext("2d");
         const combinedCtx = combinedCanvas.getContext("2d");
 
         // Set canvas dimensions
@@ -37,8 +34,6 @@ const RGBImageSplitter: React.FC<RGBImageSplitterProps> = ({ imageSrc }) => {
         redCanvas.height = image.height;
         greenCanvas.width = image.width;
         greenCanvas.height = image.height;
-        blueCanvas.width = image.width;
-        blueCanvas.height = image.height;
         combinedCanvas.width = image.width;
         combinedCanvas.height = image.height;
 
@@ -53,30 +48,25 @@ const RGBImageSplitter: React.FC<RGBImageSplitterProps> = ({ imageSrc }) => {
           // Clear the canvases
           redCtx?.clearRect(0, 0, redCanvas.width, redCanvas.height);
           greenCtx?.clearRect(0, 0, greenCanvas.width, greenCanvas.height);
-          blueCtx?.clearRect(0, 0, blueCanvas.width, blueCanvas.height);
           combinedCtx?.clearRect(
             0,
             0,
             combinedCanvas.width,
-            combinedCanvas.height,
+            combinedCanvas.height
           );
 
           // Create RGB channels
           const redImageData = ctx!.createImageData(
             canvas.width,
-            canvas.height,
+            canvas.height
           );
           const greenImageData = ctx!.createImageData(
             canvas.width,
-            canvas.height,
-          );
-          const blueImageData = ctx!.createImageData(
-            canvas.width,
-            canvas.height,
+            canvas.height
           );
           const combinedImageData = ctx!.createImageData(
             canvas.width,
-            canvas.height,
+            canvas.height
           );
 
           for (let i = 0; i < data.length; i += 4) {
@@ -92,23 +82,16 @@ const RGBImageSplitter: React.FC<RGBImageSplitterProps> = ({ imageSrc }) => {
             greenImageData.data[i + 2] = 0; // Blue
             greenImageData.data[i + 3] = data[i + 3]!; // Alpha
 
-            // Set blue channel
-            blueImageData.data[i] = 0; // Red
-            blueImageData.data[i + 1] = 0; // Green
-            blueImageData.data[i + 2] = data[i + 2]!; // Blue
-            blueImageData.data[i + 3] = data[i + 3]!; // Alpha
-
-            // Combine the channels
+            // Combine the red and green channels
             combinedImageData.data[i] = data[i]!; // Red
             combinedImageData.data[i + 1] = data[i + 1]!; // Green
-            combinedImageData.data[i + 2] = data[i + 2]!; // Blue
+            combinedImageData.data[i + 2] = 0; // Blue
             combinedImageData.data[i + 3] = data[i + 3]!; // Alpha
           }
 
           // Draw the RGB channels on their respective canvases
           redCtx?.putImageData(redImageData, 0, 0);
           greenCtx?.putImageData(greenImageData, 0, 0);
-          blueCtx?.putImageData(blueImageData, 0, 0);
           combinedCtx?.putImageData(combinedImageData, 0, 0); // Draw combined image
         }
       }
@@ -120,7 +103,7 @@ const RGBImageSplitter: React.FC<RGBImageSplitterProps> = ({ imageSrc }) => {
       <h2 className="mb-4 text-2xl">RGB Image Splitter</h2>
       <canvas ref={canvasRef} className="hidden" />
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         <div>
           <h3 className="text-center text-lg text-red-500">Red Channel</h3>
           <canvas className="w-[400px]" ref={redCanvasRef} />
@@ -129,14 +112,10 @@ const RGBImageSplitter: React.FC<RGBImageSplitterProps> = ({ imageSrc }) => {
           <h3 className="text-center text-lg text-green-500">Green Channel</h3>
           <canvas className="w-[400px]" ref={greenCanvasRef} />
         </div>
-        <div>
-          <h3 className="text-center text-lg text-blue-500">Blue Channel</h3>
-          <canvas className="w-[400px]" ref={blueCanvasRef} />
-        </div>
       </div>
 
       <h2 className="mt-6">
-        use EdgeDetecting algorithm to read the hidden text
+        Combine images to find hidden message
       </h2>
       <div className="mt-4">
         <h3 className="text-center text-lg">Combined Image</h3>

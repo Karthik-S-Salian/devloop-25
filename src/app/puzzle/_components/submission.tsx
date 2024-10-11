@@ -1,14 +1,14 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { inferProcedureOutput } from "@trpc/server";
+import { type inferProcedureOutput } from "@trpc/server";
 import { Send } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
 
-import { AppRouter } from "~/server/api/root";
+import { type AppRouter } from "~/server/api/root";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -30,6 +30,7 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 
+import { useSubmission } from "~/store";
 import { api } from "~/trpc/react";
 import { submitPuzzleZ } from "~/zod/submissionsZ";
 
@@ -38,6 +39,8 @@ const Submission = ({
 }: {
   puzzle: inferProcedureOutput<AppRouter["submission"]["startPuzzle"]>;
 }) => {
+  const { manualSubmission } = useSubmission();
+
   const [open, setOpen] = useState<boolean>(false);
 
   const submitPuzzle = api.submission.submitPuzzle.useMutation();
@@ -84,22 +87,26 @@ const Submission = ({
         form.reset();
       }}
     >
-      <DialogTrigger asChild>
-        <Button className="bg-green-500 hover:bg-green-600">
-          <Send />
-        </Button>
-      </DialogTrigger>
+      {manualSubmission && (
+        <DialogTrigger asChild>
+          <Button className="bg-green-500 hover:bg-green-600">
+            <Send />
+          </Button>
+        </DialogTrigger>
+      )}
       <DialogContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <DialogHeader>
               <DialogTitle>Puzzle Submission</DialogTitle>
               <DialogDescription>
-                <p>
+                <span>
                   If answer is correct, depending on time usage and hint usage
                   points will be awarded
-                </p>
-                <p>If answer is wrong, no points will be awarded or deducted</p>
+                </span>
+                <span>
+                  If answer is wrong, no points will be awarded or deducted
+                </span>
               </DialogDescription>
             </DialogHeader>
 
@@ -110,7 +117,7 @@ const Submission = ({
                 <FormItem>
                   <FormLabel>Answer</FormLabel>
                   <FormControl>
-                    <Input placeholder="1234" {...field} />
+                    <Input placeholder="Answer" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
