@@ -1,6 +1,7 @@
 import { type Submission } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
+import { ee } from "~/utils/eventEmitter";
 import {
   startPuzzleZ,
   submitPuzzleZ,
@@ -95,7 +96,7 @@ const submissionRouter = createTRPCRouter({
         (1 - DEDUCTION_RATE[submission.Puzzle.difficulty] * timeTakenMinutes);
       const finalPoints = Math.floor(Math.max(0, deductedPoints));
 
-      await ctx.db.submission.update({
+      const newSubmission = await ctx.db.submission.update({
         where: {
           userId_puzzleId: {
             userId: ctx?.session?.user?.id ?? "123",
@@ -108,6 +109,8 @@ const submissionRouter = createTRPCRouter({
           endTime: new Date(),
         },
       });
+
+      ee.emit("newSubmission", newSubmission);
     }),
 
   helpPuzzle: protectedProcedure
@@ -124,7 +127,7 @@ const submissionRouter = createTRPCRouter({
           },
         });
 
-        await db.submission.update({
+        const newSubmission = await db.submission.update({
           where: {
             userId_puzzleId: {
               userId: ctx.session.user.id,
@@ -135,6 +138,8 @@ const submissionRouter = createTRPCRouter({
             hintTaken: true,
           },
         });
+
+        ee.emit("newSubmission", newSubmission);
 
         return puzzle;
       });
