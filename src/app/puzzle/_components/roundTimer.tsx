@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
 
 const SECOND = 1000;
@@ -23,31 +23,33 @@ const RoundTimer = () => {
     | "EVENT_DONE"
   >("BEFORE_ROUND_ONE");
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const r1s = ROUND_ONE_START.getTime() - Date.now();
-      const r1e = ROUND_ONE_END.getTime() - Date.now();
-      const r2s = ROUND_TWO_START.getTime() - Date.now();
-      const r2e = ROUND_TWO_END.getTime() - Date.now();
+  const updateTime = useCallback(() => {
+    const r1s = ROUND_ONE_START.getTime() - Date.now();
+    const r1e = ROUND_ONE_END.getTime() - Date.now();
+    const r2s = ROUND_TWO_START.getTime() - Date.now();
+    const r2e = ROUND_TWO_END.getTime() - Date.now();
 
-      setTimePassed(
-        r1s > 0 ? r1s : r1e > 0 ? r1e : r2s > 0 ? r2s : r2e > 0 ? r2e : -r2e,
-      );
-      setActiveSlot(
-        r1s > 0
-          ? "BEFORE_ROUND_ONE"
-          : r1e > 0
-            ? "DURING_ROUND_ONE"
-            : r2s > 0
-              ? "BEFORE_ROUND_TWO"
-              : r2e > 0
-                ? "DURING_ROUND_TWO"
-                : "EVENT_DONE",
-      );
-    }, 1000);
-
-    return () => clearInterval(interval);
+    setTimePassed(
+      r1s > 0 ? r1s : r1e > 0 ? r1e : r2s > 0 ? r2s : r2e > 0 ? r2e : -r2e,
+    );
+    setActiveSlot(
+      r1s > 0
+        ? "BEFORE_ROUND_ONE"
+        : r1e > 0
+          ? "DURING_ROUND_ONE"
+          : r2s > 0
+            ? "BEFORE_ROUND_TWO"
+            : r2e > 0
+              ? "DURING_ROUND_TWO"
+              : "EVENT_DONE",
+    );
   }, []);
+
+  useEffect(() => {
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, [updateTime]);
 
   const hours = Math.floor(timePassed / HOUR);
   const minutes = Math.floor((timePassed % HOUR) / MINUTE);

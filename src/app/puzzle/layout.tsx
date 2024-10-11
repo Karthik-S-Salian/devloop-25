@@ -13,22 +13,25 @@ import { api } from "~/trpc/react";
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session, status: sessionStatus } = useSession();
 
-  const { data: puzzle } = api.submission.startPuzzle.useQuery(
-    {
-      route: pathname.split("/")[2]!,
-    },
-    {
-      enabled: !!session && !!pathname.split("/")[2],
-    },
-  );
+  const { data: puzzle, status: puzzleStatus } =
+    api.submission.startPuzzle.useQuery(
+      {
+        route: pathname.split("/")[2]!,
+      },
+      {
+        enabled: !!session && !!pathname.split("/")[2],
+      },
+    );
 
+  if (sessionStatus === "loading") return null;
   if (!session) {
     router.push("/auth/signIn");
     return null;
   }
 
+  if (puzzleStatus === "pending") return null;
   if (!puzzle) {
     router.push("/");
     return null;

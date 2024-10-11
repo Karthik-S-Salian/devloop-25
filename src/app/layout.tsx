@@ -3,11 +3,10 @@ import React from "react";
 
 import { Toaster } from "~/components/ui/sonner";
 
-import AuthProvider from "~/components/authProvider";
 import Navbar from "~/components/navbar";
+import { RootProvider } from "~/contexts/root";
 import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
-import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
   title: "Digital Hunt",
@@ -23,12 +22,10 @@ const RootLayout = async ({
   return (
     <html lang="en">
       <body className={cn("flex h-screen w-screen flex-col")}>
-        <AuthProvider>
-          <TRPCReactProvider>
-            <Navbar />
-            <main className="size-full h-[calc(100%_-_4rem)]">{children}</main>
-          </TRPCReactProvider>
-        </AuthProvider>
+        <RootProvider>
+          <Navbar />
+          <main className="size-full h-[calc(100%_-_4rem)]">{children}</main>
+        </RootProvider>
         <Toaster />
       </body>
     </html>

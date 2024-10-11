@@ -41,7 +41,9 @@ const Hint = ({
           },
         },
       );
-  }, [puzzle, helpPuzzle]);
+    // helpPuzzle as a dependency will cause infinite render loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [puzzle]);
 
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
@@ -54,8 +56,8 @@ const Hint = ({
         <DialogHeader>
           <DialogTitle>Are you sure you need a hint?</DialogTitle>
           <DialogDescription>
-            <p>Taking a hint is a disadvantage</p>
-            <p>Points deduction: {puzzle.hintDeduction ?? 0} Points</p>
+            <span>Taking a hint is a disadvantage</span>
+            <span>Points deduction: {puzzle.hintDeduction ?? 0} Points</span>
           </DialogDescription>
         </DialogHeader>
         {hint && (
@@ -66,7 +68,7 @@ const Hint = ({
         )}
         <DialogFooter>
           <Button
-            className="bg-green-500 hover:bg-green-600"
+            className="bg-blue-500 hover:bg-blue-600"
             onClick={() => {
               toast.loading("Receiving hint...");
               helpPuzzle.mutate(

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React from "react";
 
+import { Button } from "~/components/ui/button";
+
 import { getServerAuthSession } from "~/auth";
 import Puzzles from "~/components/navbar/puzzles";
 import UserView from "~/components/navbar/userView";
@@ -10,13 +12,12 @@ const Navbar = async () => {
   const session = await getServerAuthSession();
 
   return (
-    <nav className="flex h-16 min-h-16 w-full flex-row items-center justify-center border-b">
-      <Link
-        href={session ? "/auth/signOut" : `/auth/signIn`}
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-      >
-        {session ? "Sign out" : "Sign in"}
-      </Link>
+    <nav className="flex h-16 min-h-16 w-full flex-row items-center justify-center gap-4 border-b">
+      <Button asChild>
+        <Link href={session ? "/auth/signOut" : `/auth/signIn`}>
+          {session ? "Sign out" : "Sign in"}
+        </Link>
+      </Button>
 
       {env.NODE_ENV === "development" && (
         <div className="flex gap-4">
