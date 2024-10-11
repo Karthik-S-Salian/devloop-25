@@ -10,7 +10,7 @@ const Page = () => {
   const { makeAutoSubmission } = useSubmission();
   const submitPuzzle = useSubmitPuzzle();
 
-  const [solved, setSolved] = useState<boolean>(true);
+  const [solved, setSolved] = useState<boolean>(false);
 
   const lockRef = React.useRef<HTMLDivElement>(null);
   const keyRef = React.useRef<HTMLDivElement>(null);
@@ -25,11 +25,11 @@ const Page = () => {
         const lockRect = lockRef.current.getBoundingClientRect();
         const keyRect = keyRef.current.getBoundingClientRect();
         if (keyRect.left <= lockRect.right) {
-          if (solved)
+          if (!solved)
             submitPuzzle({
               answer: "Key in Lock",
             });
-          setSolved(false);
+          setSolved(true);
         }
       }
     };
@@ -45,9 +45,9 @@ const Page = () => {
           className="absolute left-0 top-0 aspect-square h-full text-center"
         >
           {solved ? (
-            <LockKeyhole className="h-full w-full" />
-          ) : (
             <LockKeyholeOpen className="h-full w-full" />
+          ) : (
+            <LockKeyhole className="h-full w-full" />
           )}
         </div>
 
