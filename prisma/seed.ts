@@ -37,7 +37,7 @@ const puzzles = [
     route: "iP7FYmV7ypzJuk-Q",
     minimumPoints: 0,
     points: 0,
-    solution: "Excel Slope",
+    solution: "4.9157",
   },
   {
     name: "Who am i?",
@@ -100,7 +100,7 @@ const puzzles = [
     route: "be0qt6jmquy2b36j",
     minimumPoints: 0,
     points: 0,
-    solution: "Code Snippet",
+    solution: "Name of a comedian who joked about Bezos in oscards: CHRIS ROCK",
   },
   {
     name: "Find Imposter",

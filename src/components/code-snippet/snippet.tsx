@@ -4,7 +4,7 @@ import Script from "next/script";
 import React from "react";
 import { CopyBlock, dracula } from "react-code-blocks";
 
-import { puzzleSnippetFunction1, puzzleSnippetFunction2 } from "./constant";
+import { puzzleSnippetFunction2 } from "./constant";
 
 export default function Snippet() {
   return (

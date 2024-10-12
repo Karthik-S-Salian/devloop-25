@@ -8,8 +8,15 @@ import Snippet from "./snippet";
 declare global {
   interface Window {
     puzzleSnippetFunction: () => void;
+    X08E3ZNAUISEPJ: string;
+    I1VQQO4KWRLUKH: string;
+    ZYORAW9O1AZCRZ: string;
+    MC31UUHKT29NAA: string;
+    YK9O87A3AR1LUR: string;
+    FX8AGW92XZCQJ0: string;
   }
 }
+
 
 export default function CodeSnippetIndex() {
   const [isMounted, setIsMounted] = useState(false);
