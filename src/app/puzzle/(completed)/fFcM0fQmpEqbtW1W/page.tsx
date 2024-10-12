@@ -42,7 +42,7 @@ const Page = () => {
       >
         <Image
           src="/image/broken-image.svg"
-          alt="Click Me"
+          alt="click-me"
           width={600}
           height={400}
         />

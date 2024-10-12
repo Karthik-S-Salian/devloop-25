@@ -9,6 +9,7 @@ const puzzles = [
     route: "vpzg4DDdlfPPPTsp",
     minimumPoints: 0,
     points: 0,
+    hint: "Somtimes smaller things can see more",
     solution: "Key in Lock",
   },
   {
@@ -16,6 +17,7 @@ const puzzles = [
     route: "fFcM0fQmpEqbtW1W",
     minimumPoints: 0,
     points: 0,
+    hint: "If I dont like rick roll, I delete it",
     solution: "Button behind Image",
   },
   {
@@ -23,24 +25,26 @@ const puzzles = [
     route: "Xa2OLBJrqtz4sxtP",
     minimumPoints: 0,
     points: 0,
-    solution: "Internet Login IP",
     hint: "172.16.3.100",
+    solution: "Internet Login IP",
   },
   {
     name: "QR Code Scramble",
     route: "Vmtl46XxjZ2UevMG",
     minimumPoints: 0,
     points: 0,
+    hint: "Good old trial and error",
     solution: "QR Code Scramble",
   },
-  // ----------------
   {
-    name: "Million Checkbox",
-    route: "5YwGNisBqwJE7uM8",
+    name: "Thousand Checkbox",
+    route: "zXCNA5z9OfLcEpRr",
     minimumPoints: 0,
     points: 0,
-    solution: "Million Checkbox",
+    hint: 'Odd man out wants you "click-me"',
+    solution: "Thousand Checkbox",
   },
+  // ----------------
 
   {
     name: "Excel Slope",
