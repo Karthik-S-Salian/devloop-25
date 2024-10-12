@@ -40,7 +40,7 @@ const Quit = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Are you sure you want to quit?</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="flex flex-col">
             <span>Once you quit you can never attempt this puzzle again</span>
             <span>You won&apos;t lose any points (even if hint was taken)</span>
           </DialogDescription>

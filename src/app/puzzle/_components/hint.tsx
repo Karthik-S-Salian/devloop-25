@@ -55,7 +55,7 @@ const Hint = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Are you sure you need a hint?</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="flex flex-col">
             <span>Taking a hint is a disadvantage</span>
             <span>Points deduction: {puzzle.hintDeduction ?? 0} Points</span>
           </DialogDescription>

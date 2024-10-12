@@ -19,11 +19,12 @@ const puzzles = [
     solution: "Button behind Image",
   },
   {
-    name: "Million Checkbox",
-    route: "5YwGNisBqwJE7uM8",
+    name: "Internet Login IP",
+    route: "Xa2OLBJrqtz4sxtP",
     minimumPoints: 0,
     points: 0,
-    solution: "Million Checkbox",
+    solution: "Internet Login IP",
+    hint: "172.16.3.100",
   },
   {
     name: "QR Code Scramble",
@@ -32,6 +33,15 @@ const puzzles = [
     points: 0,
     solution: "QR Code Scramble",
   },
+  // ----------------
+  {
+    name: "Million Checkbox",
+    route: "5YwGNisBqwJE7uM8",
+    minimumPoints: 0,
+    points: 0,
+    solution: "Million Checkbox",
+  },
+
   {
     name: "Excel Slope",
     route: "iP7FYmV7ypzJuk-Q",
@@ -40,19 +50,13 @@ const puzzles = [
     solution: "4.9157",
   },
   {
-    name: "Who am i?",
-    route: "5AMhMqizo3RSPYEg",
+    name: "Mona Lisa",
+    route: "SmJOr1YKzrXPoG2w",
     minimumPoints: 0,
     points: 0,
     solution: "Mona Lisa",
   },
-  {
-    name: "Login IP",
-    route: "JLWZAK-cOUz386Iu",
-    minimumPoints: 0,
-    points: 0,
-    solution: "Internet Login IP",
-  },
+
   {
     name: "Mirror Text",
     route: "K7uCVTJroiuY1Xj9",

@@ -12,12 +12,12 @@ import { useSubmission } from "~/store";
 const DIMENSION = 4;
 
 const Page = () => {
-  const pathname = usePathname();
   const { makeAutoSubmission } = useSubmission();
-
   useEffect(() => {
     makeAutoSubmission();
   }, [makeAutoSubmission]);
+
+  const pathname = usePathname();
 
   const [imageList, setImageList] = useState<string[]>([]);
 

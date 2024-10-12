@@ -99,7 +99,7 @@ const Submission = ({
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <DialogHeader>
               <DialogTitle>Puzzle Submission</DialogTitle>
-              <DialogDescription>
+              <DialogDescription className="flex flex-col">
                 <span>
                   If answer is correct, depending on time usage and hint usage
                   points will be awarded
