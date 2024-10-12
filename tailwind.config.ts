@@ -58,6 +58,33 @@ export default {
           "5": "hsl(var(--chart-5))",
         },
       },
+      keyframes: {
+        plane: {
+          "0%": {
+            left: "0px;",
+            top: "200px;",
+          },
+          "20%": {
+            left: "25vw;",
+            top: "150px;",
+          },
+          "50%": {
+            left: "50vw;",
+            top: "100px;",
+          },
+          "80%": {
+            left: "75vw;",
+            top: "150px;",
+          },
+          "100%": {
+            left: "100vw;",
+            top: "200px;",
+          },
+        },
+      },
+      animation: {
+        plane: "plane 20s linear infinite",
+      },
     },
   },
   plugins: [TWA],

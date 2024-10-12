@@ -5,7 +5,7 @@ import { api } from "~/trpc/react";
 
 const useSubmitPuzzle = () => {
   const pathname = usePathname();
-  const puzzleRoute = pathname.split("/")[2]!;
+  const puzzleRoute = pathname.split("/")[2];
 
   const submitPuzzle = api.submission.submitPuzzle.useMutation();
   const startPuzzle = api.useUtils().submission.startPuzzle;

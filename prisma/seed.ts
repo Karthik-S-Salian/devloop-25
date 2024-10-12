@@ -27,7 +27,7 @@ const puzzles = [
   },
   {
     name: "QR Code Scramble",
-    route: "7xQpmDiQf7fMDEan",
+    route: "Vmtl46XxjZ2UevMG",
     minimumPoints: 0,
     points: 0,
     solution: "QR Code Scramble",
@@ -104,10 +104,10 @@ const puzzles = [
   },
   {
     name: "Find Imposter",
-    route: "2gfwlaz3zf9r00gp",
+    route: "vuugZwWNIi57Bzdi",
     minimumPoints: 0,
     points: 0,
-    solution: "Find Imposter",
+    solution: "eqw4rK7SRu2q7QcK",
   },
 ];
 

@@ -8,7 +8,7 @@ const Page = () => {
 
   useEffect(() => {
     void (async () => {
-      const response = await fetch("/docs/gm_v9mwnhX64ry0_.csv");
+      const response = await fetch("/docs/Zsz2MQXNknD216Ys.csv");
       if (response.ok) {
         const csvData = await response.text();
         const parsedData = csvData.split("\n").map((row) =>
@@ -19,7 +19,7 @@ const Page = () => {
         );
         setData(parsedData);
       } else {
-        console.error("Error fetching or parsing CSV:", await response.json());
+        console.error("Error fetching csv:", await response.json());
       }
     })();
   }, []);

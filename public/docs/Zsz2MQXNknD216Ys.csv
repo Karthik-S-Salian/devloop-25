@@ -1,0 +1,61 @@
+Order ID,Date,Product Name,Quantity,Price per Unit,Total Sale,Buyer Name
+ORD0001,2023-11-22,Nendoroid Luffy,5,10,50,Mason Wright
+ORD0002,2024-06-02,Figma Mikasa,5,20,100,Laura Taylor
+ORD0003,2024-02-23,Nendoroid Goku,5,30,150,Valdamir Putin
+ORD0004,2024-04-27,Figurine Rem,5,40,200,Sophia Walker
+ORD0005,2024-05-08,Scale Figure Asuka,5,50,250,Aiden Baker
+ORD0006,2024-06-29,Figma Shinobu,5,60,300,Sophia Walker
+ORD0007,2024-09-07,Nendoroid Kaguya,5,70,350,Mia Nelson
+ORD0008,2024-01-03,Scale Figure Erza,5,80,400,Charlotte Hill
+ORD0009,2024-08-05,Nendoroid Kirito,5,90,450,Amelia Roberts
+ORD0010,2024-06-13,Figma Saber,5,100,500,Jeff Bezos
+ORD0011,2024-07-14,Scale Figure Rei,5,200,1000,Maria Harris
+ORD0012,2024-08-20,Nendoroid Nezuko,5,220,1100,Oliver Adams
+ORD0013,2024-05-24,Figurine Saitama,5,240,1200,Daniel Anderson
+ORD0014,2024-06-15,Nendoroid Chika,5,260,1300,Mason Wright
+ORD0015,2024-08-27,Figma Lala,5,280,1400,Chris Lee
+ORD0016,2023-10-20,Nendoroid Tanjiro,5,300,1500,John Doe
+ORD0017,2024-06-27,Scale Figure Bulma,5,320,1600,James White
+ORD0018,2024-02-25,Figma Shinoa,5,340,1700,David Martinez
+ORD0019,2024-01-06,Nendoroid Kaguya,5,360,1800,Aiden Baker
+ORD0020,2024-07-15,Figma Miku,5,380,1900,Jessica Thomas
+ORD0021,2023-11-22,Nendoroid Luffy,5,10,50,Mason Wright
+ORD0022,2024-06-02,Figma Mikasa,5,20,100,Laura Taylor
+ORD0023,2024-02-23,Nendoroid Goku,5,30,150,Valdamir Putin
+ORD0024,2024-04-27,Figurine Rem,5,40,200,Sophia Walker
+ORD0025,2024-05-08,Scale Figure Asuka,5,50,250,Aiden Baker
+ORD0026,2024-06-29,Figma Shinobu,5,60,300,Sophia Walker
+ORD0027,2024-09-07,Nendoroid Kaguya,5,70,350,Mia Nelson
+ORD0028,2024-01-03,Scale Figure Erza,5,80,400,Charlotte Hill
+ORD0029,2024-08-05,Nendoroid Kirito,5,90,450,Amelia Roberts
+ORD0030,2024-06-13,Figma Saber,5,100,500,Jeff Bezos
+ORD0031,2024-07-14,Scale Figure Rei,5,200,1000,Maria Harris
+ORD0032,2024-08-20,Nendoroid Nezuko,5,220,1100,Oliver Adams
+ORD0033,2024-05-24,Figurine Saitama,5,240,1200,Daniel Anderson
+ORD0034,2024-06-15,Nendoroid Chika,5,260,1300,Mason Wright
+ORD0035,2024-08-27,Figma Lala,5,280,1400,Chris Lee
+ORD0036,2023-10-20,Nendoroid Tanjiro,5,300,1500,John Doe
+ORD0037,2024-06-27,Scale Figure Bulma,5,320,1600,James White
+ORD0038,2024-02-25,Figma Shinoa,5,340,1700,David Martinez
+ORD0039,2024-01-06,Nendoroid Kaguya,5,360,1800,Aiden Baker
+ORD0040,2024-07-15,Figma Miku,5,380,1900,Jessica Thomas
+ORD0041,2023-11-22,Nendoroid Luffy,5,10,50,Mason Wright
+ORD0042,2024-06-02,Figma Mikasa,5,20,100,Laura Taylor
+ORD0043,2024-02-23,Nendoroid Goku,5,30,150,Putin
+ORD0044,2024-04-27,Figurine Rem,5,40,200,Sophia Walker
+ORD0045,2024-05-08,Scale Figure Asuka,5,50,250,Aiden Baker
+ORD0046,2024-06-29,Figma Shinobu,5,60,300,Sophia Walker
+ORD0047,2024-09-07,Nendoroid Kaguya,5,70,350,Mia Nelson
+ORD0048,2024-01-03,Scale Figure Erza,5,80,400,Charlotte Hill
+ORD0049,2024-08-05,Nendoroid Kirito,5,90,450,Amelia Roberts
+ORD0050,2024-06-13,Figma Saber,5,100,500,Bezos
+ORD0051,2024-07-14,Scale Figure Rei,5,200,1000,Maria Harris
+ORD0052,2024-08-20,Nendoroid Nezuko,5,220,1100,Oliver Adams
+ORD0053,2024-05-24,Figurine Saitama,5,240,1200,Daniel Anderson
+ORD0054,2024-06-15,Nendoroid Chika,5,260,1300,Mason Wright
+ORD0055,2024-08-27,Figma Lala,5,280,1400,Chris Lee
+ORD0056,2023-10-20,Nendoroid Tanjiro,5,300,1500,John Doe
+ORD0057,2024-06-27,Scale Figure Bulma,5,320,1600,James White
+ORD0058,2024-02-25,Figma Shinoa,5,340,1700,David Martinez
+ORD0059,2024-01-06,Nendoroid Kaguya,5,360,1800,Aiden Baker
+ORD0060,2024-07-15,Figma Miku,5,380,1900,Jessica Thomas

@@ -13,7 +13,9 @@ const config = {
    */
 
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
+      // -----
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
