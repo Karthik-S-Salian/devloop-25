@@ -11,9 +11,9 @@ const MiniPuzzle = ({ idx }: { idx: number }) => {
             <Image src="/image/UJBzOOpkq0V2mkE7.jpeg" alt="Genie" fill />
           </div>
           <p>
-            "In a land of dreams where fortunes gleam, I appear to grant wishes
-            and scheme. Ask me nicely, with a heart so pure, And I'll reveal a
-            number, that's for sure!"
+            &quot;In a land of dreams where fortunes gleam, I appear to grant
+            wishes and scheme. Ask me nicely, with a heart so pure, And
+            I&apos;ll reveal a number, that&apos;s for sure!&quot;
           </p>
         </div>
       );
@@ -37,9 +37,10 @@ const MiniPuzzle = ({ idx }: { idx: number }) => {
             <pre>l2IJBtdUF@flc.jp</pre>
           </div>
           <p>
-            "Among these e<b>x</b>trodinary emails, a treasure lies, One email's
-            the key, it's wise to be wise. Compose you<b>r</b> thoughts and make
-            them polite, Find it out gently, and wait for the light."
+            &quot;Among these e<b>x</b>trodinary emails, a treasure lies, One
+            email&apos;s the key, it&apos;s wise to be wise. Compose you<b>r</b>{" "}
+            thoughts and make them polite, Find it out gently, and wait for the
+            light.&quot;
           </p>
         </div>
       );
@@ -59,9 +60,9 @@ const MiniPuzzle = ({ idx }: { idx: number }) => {
             <div className="size-4 bg-rose-500"></div>
           </div>
           <p>
-            "In shadows cast by colors so bright, A number hides, just out of
-            sight. Look closely now, and trust your sight, To find the answer
-            that feels just right."
+            &quot;In shadows cast by colors so bright, A number hides, just out
+            of sight. Look closely now, and trust your sight, To find the answer
+            that feels just right.&quot;
           </p>
         </div>
       );
@@ -76,9 +77,9 @@ const MiniPuzzle = ({ idx }: { idx: number }) => {
             🥵
           </a>
           <p>
-            "In a digital realm where connections flow, A channel united, with
-            profiles to show. Explore their profiles, and you may see, A number
-            in hidden, that unlocks your key."
+            &quot;In a digital realm where connections flow, A channel united,
+            with profiles to show. Explore their profiles, and you may see, A
+            number in hidden, that unlocks your key.&quot;
           </p>
         </div>
       );
