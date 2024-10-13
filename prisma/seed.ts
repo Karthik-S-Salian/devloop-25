@@ -84,6 +84,14 @@ const puzzles = [
     hint: "Oscars 2020",
     solution: "Chris Rock",
   },
+  {
+    name: "Morse Song",
+    route: "UsIopGqPDsfc2XC7",
+    minimumPoints: 0,
+    points: 0,
+    hint: "Dots and Dashes",
+    solution: "HelloKitty",
+  },
 
   // ----------------
   // ----------------
@@ -94,13 +102,6 @@ const puzzles = [
     minimumPoints: 0,
     points: 0,
     solution: "Image Processing",
-  },
-  {
-    name: "Morose Song",
-    route: "Izi_VG6bwjZqZneq",
-    minimumPoints: 0,
-    points: 0,
-    solution: "Frequency Morose",
   },
   {
     name: "Docker Logo Hidden",

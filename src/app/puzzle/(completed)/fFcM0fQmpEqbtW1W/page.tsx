@@ -41,7 +41,7 @@ const Page = () => {
         target="_blank"
       >
         <Image
-          src="/image/broken-image.svg"
+          src="/image/wMc07v5GSO8RVQrJ.svg"
           alt="click-me"
           width={600}
           height={400}
