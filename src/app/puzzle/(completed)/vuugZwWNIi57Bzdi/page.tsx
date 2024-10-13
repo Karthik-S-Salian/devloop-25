@@ -10,7 +10,7 @@ const Page = () => {
 
   useEffect(() => {
     makeManualSubmission();
-    setSubmissionNote("Enter only the last part");
+    setSubmissionNote("Only the final path");
   }, [makeManualSubmission, setSubmissionNote]);
 
   return (

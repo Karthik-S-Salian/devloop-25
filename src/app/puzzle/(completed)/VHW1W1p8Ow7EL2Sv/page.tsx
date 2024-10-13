@@ -9,7 +9,7 @@ const Page = () => {
   const { setSubmissionNote } = useSubmission();
 
   useEffect(() => {
-    setSubmissionNote("Put only 4 after .");
+    setSubmissionNote("Should have 4 after .");
   }, [setSubmissionNote]);
 
   const [data, setData] = useState<Matrix<CellBase> | null>(null);
