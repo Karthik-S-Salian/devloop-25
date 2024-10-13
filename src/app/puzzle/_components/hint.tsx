@@ -26,6 +26,7 @@ const Hint = ({
   puzzle: inferProcedureOutput<AppRouter["submission"]["startPuzzle"]>;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [noHint, setNoHint] = useState<boolean>(false);
   const [hint, setHint] = useState<string | null>(null);
 
   const helpPuzzle = api.submission.helpPuzzle.useMutation();
@@ -37,6 +38,7 @@ const Hint = ({
         { puzzleId: puzzle.id },
         {
           onSuccess: (dbPuzzle) => {
+            setNoHint(!dbPuzzle.hint);
             setHint(dbPuzzle.hint);
           },
         },
@@ -66,6 +68,12 @@ const Hint = ({
             <p>Hint: {hint}</p>
           </>
         )}
+        {noHint && (
+          <>
+            <p>Sorry, there is no hint for this puzzle</p>
+            <p>Chill! No points deducted</p>
+          </>
+        )}
         <DialogFooter>
           <Button
             className="bg-blue-500 hover:bg-blue-600"
@@ -78,8 +86,11 @@ const Hint = ({
                 {
                   onSuccess: (dbPuzzle) => {
                     toast.dismiss();
-                    toast.success("Hint received successfully");
+                    if (dbPuzzle.hint)
+                      toast.success("Hint received successfully");
+                    else toast.error("No hint available! No points deducted");
                     void startPuzzle.refetch();
+                    setNoHint(!dbPuzzle.hint);
                     setHint(dbPuzzle.hint);
                     setOpen(false);
                   },

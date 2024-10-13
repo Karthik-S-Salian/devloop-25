@@ -68,7 +68,24 @@ const puzzles = [
     hint: "Those aren't random characters, find the language",
     solution: "Ukrainian",
   },
+  {
+    name: "Plane Imposter",
+    route: "vuugZwWNIi57Bzdi",
+    minimumPoints: 0,
+    points: 0,
+    hint: "Imposter has a different path(iykyk)",
+    solution: "eqw4rK7SRu2q7QcK",
+  },
+  {
+    name: "Code Snippet",
+    route: "be0qt6jmquy2b36j",
+    minimumPoints: 0,
+    points: 0,
+    hint: "Oscars 2020",
+    solution: "Chris Rock",
+  },
 
+  // ----------------
   // ----------------
 
   {
@@ -105,20 +122,6 @@ const puzzles = [
     minimumPoints: 0,
     points: 0,
     solution: "Reverse Base64 Audio",
-  },
-  {
-    name: "Code Snippet",
-    route: "be0qt6jmquy2b36j",
-    minimumPoints: 0,
-    points: 0,
-    solution: "Name of a comedian who joked about Bezos in oscards: CHRIS ROCK",
-  },
-  {
-    name: "Find Imposter",
-    route: "vuugZwWNIi57Bzdi",
-    minimumPoints: 0,
-    points: 0,
-    solution: "eqw4rK7SRu2q7QcK",
   },
 ];
 
