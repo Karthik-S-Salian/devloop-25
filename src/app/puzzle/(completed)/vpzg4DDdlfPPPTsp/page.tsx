@@ -27,7 +27,7 @@ const Page = () => {
         if (keyRect.left <= lockRect.right) {
           if (!solved)
             submitPuzzle({
-              answer: "Key in Lock",
+              answer: "Mobile Screen",
             });
           setSolved(true);
         }

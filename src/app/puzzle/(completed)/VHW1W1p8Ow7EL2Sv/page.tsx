@@ -3,7 +3,15 @@
 import React, { useEffect, useState } from "react";
 import Spreadsheet, { type Matrix, type CellBase } from "react-spreadsheet";
 
+import { useSubmission } from "~/store";
+
 const Page = () => {
+  const { setSubmissionNote } = useSubmission();
+
+  useEffect(() => {
+    setSubmissionNote("Put only 4 after .");
+  }, [setSubmissionNote]);
+
   const [data, setData] = useState<Matrix<CellBase> | null>(null);
 
   useEffect(() => {

@@ -12,7 +12,7 @@ const Page = () => {
   useEffect(() => {
     if (!solved)
       submitPuzzle({
-        answer: "QR Code Scramble",
+        answer: "Secret Page",
       });
     setSolved(true);
   }, [solved, submitPuzzle]);

@@ -39,7 +39,7 @@ const Submission = ({
 }: {
   puzzle: inferProcedureOutput<AppRouter["submission"]["startPuzzle"]>;
 }) => {
-  const { manualSubmission } = useSubmission();
+  const { manualSubmission, submissionNote } = useSubmission();
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -115,7 +115,9 @@ const Submission = ({
               name="answer"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Answer</FormLabel>
+                  <FormLabel>
+                    Answer {submissionNote.length > 0 && `(${submissionNote})`}
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder="Answer" {...field} />
                   </FormControl>

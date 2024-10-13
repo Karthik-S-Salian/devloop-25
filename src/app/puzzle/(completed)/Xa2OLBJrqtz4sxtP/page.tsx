@@ -181,7 +181,7 @@ const Page = () => {
     if (matrix[NO_OF_ROWS - 1]!.join("") === "172163100") {
       if (!solved)
         submitPuzzle({
-          answer: "Internet Login IP",
+          answer: "172.16.3.100",
         });
       setSolved(true);
     }

@@ -3,7 +3,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { Checkbox } from "~/components/ui/checkbox";
-import { Input } from "~/components/ui/input";
 
 import Goto from "~/app/puzzle/(completed)/zXCNA5z9OfLcEpRr/_components/goto";
 import { useSubmitPuzzle } from "~/hooks/submission";
@@ -26,13 +25,13 @@ const Page = () => {
   const onClick = useCallback(() => {
     if (!solved)
       submitPuzzle({
-        answer: "Thousand Checkbox",
+        answer: "Golden Checkbox",
       });
     setSolved(true);
     console.log(
       `Special checkbox clicked, you shall join the elite group https://chat.whatsapp.com/CoR8icLCDmNLcazWwaXYyE`,
     );
-  }, []);
+  }, [solved, submitPuzzle]);
 
   return (
     <div className="flex size-full flex-col items-center justify-center gap-4 px-10 pb-20 pt-4">

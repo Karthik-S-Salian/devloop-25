@@ -2,18 +2,27 @@
 
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import Hint from "~/app/puzzle/_components/hint";
 import Quit from "~/app/puzzle/_components/quit";
 import RoundTimer from "~/app/puzzle/_components/roundTimer";
 import Submission from "~/app/puzzle/_components/submission";
 import Timer from "~/app/puzzle/_components/timer";
+import { useSubmission } from "~/store";
 import { api } from "~/trpc/react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
   const { data: session, status: sessionStatus } = useSession();
+
+  const { makeManualSubmission, setSubmissionNote } = useSubmission();
+  useEffect(() => {
+    makeManualSubmission();
+    setSubmissionNote("");
+    // Forcefully reset submission on route change
+  }, [makeManualSubmission, setSubmissionNote, pathname]);
 
   const { data: puzzle, status: puzzleStatus } =
     api.submission.startPuzzle.useQuery(

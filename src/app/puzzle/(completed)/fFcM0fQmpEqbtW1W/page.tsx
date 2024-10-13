@@ -22,7 +22,7 @@ const Page = () => {
   const onClickHandler = useCallback(() => {
     if (!solved)
       submitPuzzle({
-        answer: "Button behind Image",
+        answer: "Hidden button clicked",
       });
     setSolved(true);
   }, [solved, submitPuzzle]);
