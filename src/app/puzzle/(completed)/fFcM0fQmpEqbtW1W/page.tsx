@@ -11,6 +11,10 @@ import { useSubmission } from "~/store";
 
 const Page = () => {
   const { makeAutoSubmission } = useSubmission();
+  useEffect(() => {
+    makeAutoSubmission();
+  }, [makeAutoSubmission]);
+
   const submitPuzzle = useSubmitPuzzle();
 
   const [solved, setSolved] = useState<boolean>(false);
@@ -22,10 +26,6 @@ const Page = () => {
       });
     setSolved(true);
   }, [solved, submitPuzzle]);
-
-  useEffect(() => {
-    makeAutoSubmission();
-  }, [makeAutoSubmission]);
 
   return (
     <div className="relative size-full">
@@ -42,7 +42,7 @@ const Page = () => {
       >
         <Image
           src="/image/broken-image.svg"
-          alt="Click Me"
+          alt="click-me"
           width={600}
           height={400}
         />

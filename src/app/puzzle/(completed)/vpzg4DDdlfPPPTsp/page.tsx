@@ -8,16 +8,16 @@ import { useSubmission } from "~/store";
 
 const Page = () => {
   const { makeAutoSubmission } = useSubmission();
+  useEffect(() => {
+    makeAutoSubmission();
+  }, [makeAutoSubmission]);
+
   const submitPuzzle = useSubmitPuzzle();
 
   const [solved, setSolved] = useState<boolean>(false);
 
   const lockRef = React.useRef<HTMLDivElement>(null);
   const keyRef = React.useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    makeAutoSubmission();
-  }, [makeAutoSubmission]);
 
   useEffect(() => {
     const onResizeHandler = () => {

@@ -9,6 +9,7 @@ const puzzles = [
     route: "vpzg4DDdlfPPPTsp",
     minimumPoints: 0,
     points: 0,
+    hint: "Somtimes smaller things can see more",
     solution: "Key in Lock",
   },
   {
@@ -16,22 +17,35 @@ const puzzles = [
     route: "fFcM0fQmpEqbtW1W",
     minimumPoints: 0,
     points: 0,
+    hint: "If I dont like rick roll, I delete it",
     solution: "Button behind Image",
   },
   {
-    name: "Million Checkbox",
-    route: "5YwGNisBqwJE7uM8",
+    name: "Internet Login IP",
+    route: "Xa2OLBJrqtz4sxtP",
     minimumPoints: 0,
     points: 0,
-    solution: "Million Checkbox",
+    hint: "172.16.3.100",
+    solution: "Internet Login IP",
   },
   {
     name: "QR Code Scramble",
     route: "Vmtl46XxjZ2UevMG",
     minimumPoints: 0,
     points: 0,
+    hint: "Good old trial and error",
     solution: "QR Code Scramble",
   },
+  {
+    name: "Thousand Checkbox",
+    route: "zXCNA5z9OfLcEpRr",
+    minimumPoints: 0,
+    points: 0,
+    hint: 'Odd man out wants you "click-me"',
+    solution: "Thousand Checkbox",
+  },
+  // ----------------
+
   {
     name: "Excel Slope",
     route: "iP7FYmV7ypzJuk-Q",
@@ -40,19 +54,13 @@ const puzzles = [
     solution: "4.9157",
   },
   {
-    name: "Who am i?",
-    route: "5AMhMqizo3RSPYEg",
+    name: "Mona Lisa",
+    route: "SmJOr1YKzrXPoG2w",
     minimumPoints: 0,
     points: 0,
     solution: "Mona Lisa",
   },
-  {
-    name: "Login IP",
-    route: "JLWZAK-cOUz386Iu",
-    minimumPoints: 0,
-    points: 0,
-    solution: "Internet Login IP",
-  },
+
   {
     name: "Mirror Text",
     route: "K7uCVTJroiuY1Xj9",

@@ -59,6 +59,10 @@ export default {
         },
       },
       keyframes: {
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
         plane: {
           "0%": {
             left: "0px;",
@@ -83,6 +87,7 @@ export default {
         },
       },
       animation: {
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
         plane: "plane 20s linear infinite",
       },
     },
