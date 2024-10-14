@@ -7,14 +7,26 @@ export default {
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
-      fontFamily: {
-        "digital-number": ["Digital Numbers", ...fontFamily.mono],
-        sans: ["var(--font-geist-sans)", ...fontFamily.sans],
+      animation: {
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
+        plane: "plane 1s linear infinite",
+        slideshow: "slideshow 1s linear infinite;",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      backgroundSize: {
+        "0-100": "0% 100%",
+        "100-0": "100% 0%",
+        "25-100": "25% 100%",
+        "100-25": "100% 25%",
+        "50-100": "50% 100%",
+        "100-50": "100% 50%",
+        "75-100": "75% 100%",
+        "100-75": "100% 75%",
+        "100-100": "100% 100%",
       },
       colors: {
         background: "hsl(var(--background))",
@@ -57,6 +69,54 @@ export default {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+      },
+      fontFamily: {
+        "digital-number": ["Digital Numbers", ...fontFamily.mono],
+        "fira-code": ["Fira Code", ...fontFamily.mono],
+        sans: ["var(--font-geist-sans)", ...fontFamily.sans],
+      },
+      keyframes: {
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
+        plane: {
+          "0%": {
+            left: "0%;",
+            top: "200px;",
+          },
+          "20%": {
+            left: "25%;",
+            top: "150px;",
+          },
+          "50%": {
+            left: "50%;",
+            top: "100px;",
+          },
+          "80%": {
+            left: "75%;",
+            top: "150px;",
+          },
+          "100%": {
+            left: "100%;",
+            top: "200px;",
+          },
+        },
+        slideshow: {
+          "0%": {
+            transform: "translateX(0%)",
+          },
+          "100%": {
+            transform: "translateX(-50%)",
+          },
+        },
+      },
+      transitionDuration: {
+        "20s": "20s",
+        "30s": "30s",
+        "60s": "60s",
+        "120s": "120s",
+        "240s": "240s",
       },
     },
   },

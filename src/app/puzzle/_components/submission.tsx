@@ -39,7 +39,7 @@ const Submission = ({
 }: {
   puzzle: inferProcedureOutput<AppRouter["submission"]["startPuzzle"]>;
 }) => {
-  const { manualSubmission } = useSubmission();
+  const { manualSubmission, submissionNote } = useSubmission();
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -99,7 +99,7 @@ const Submission = ({
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <DialogHeader>
               <DialogTitle>Puzzle Submission</DialogTitle>
-              <DialogDescription>
+              <DialogDescription className="flex flex-col">
                 <span>
                   If answer is correct, depending on time usage and hint usage
                   points will be awarded
@@ -115,7 +115,9 @@ const Submission = ({
               name="answer"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Answer</FormLabel>
+                  <FormLabel>
+                    Answer {submissionNote.length > 0 && `(${submissionNote})`}
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder="Answer" {...field} />
                   </FormControl>
