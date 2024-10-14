@@ -38,7 +38,7 @@ const Hint = ({
         { puzzleId: puzzle.id },
         {
           onSuccess: (dbPuzzle) => {
-            setNoHint(!dbPuzzle.hint);
+            setNoHint(dbPuzzle.hint.length === 0);
             setHint(dbPuzzle.hint);
           },
         },
@@ -59,7 +59,7 @@ const Hint = ({
           <DialogTitle>Are you sure you need a hint?</DialogTitle>
           <DialogDescription className="flex flex-col">
             <span>Taking a hint is a disadvantage</span>
-            <span>Points deduction: {puzzle.hintDeduction ?? 0} Points</span>
+            <span>Points deduction: {puzzle.minusPoints ?? 0} Points</span>
           </DialogDescription>
         </DialogHeader>
         {hint && (
@@ -90,7 +90,7 @@ const Hint = ({
                       toast.success("Hint received successfully");
                     else toast.error("No hint available! No points deducted");
                     void startPuzzle.refetch();
-                    setNoHint(!dbPuzzle.hint);
+                    setNoHint(dbPuzzle.hint.length === 0);
                     setHint(dbPuzzle.hint);
                     setOpen(false);
                   },

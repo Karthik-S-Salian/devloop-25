@@ -5,11 +5,9 @@ import { env } from "~/env";
 
 const Plane = ({
   idx,
-  time,
   isOddOneOut = false,
 }: {
   idx: number;
-  time: number;
   isOddOneOut?: boolean;
 }) => {
   const imageSrc = isOddOneOut
@@ -18,9 +16,9 @@ const Plane = ({
 
   return (
     <div
-      className="duration-20s relative size-32 animate-plane"
+      className="relative size-32 animate-plane"
       style={{
-        animationDuration: `${time}s`,
+        animationDuration: `${15 + Math.random() * 10}s`,
         filter: `hue-rotate(${idx * 60}deg)`,
       }}
     >
@@ -32,7 +30,7 @@ const Plane = ({
         <div className="relative size-full">
           <Image
             src={imageSrc}
-            alt={imageSrc}
+            alt="hello-kitty"
             className="object-contain"
             fill
           />

@@ -23,7 +23,7 @@ declare module "next-auth" {
     user: {
       id: string;
       role: UserRole;
-      isRound2: boolean;
+      roundTwoSelected: boolean;
       // ...other properties
     } & DefaultSession["user"];
   }
@@ -44,7 +44,7 @@ declare module "next-auth/jwt" {
     role: UserRole;
     accessToken: string;
     refreshToken: string;
-    isRound2: boolean;
+    roundTwoSelected: boolean;
   }
 }
 
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.sub;
         session.user.role = token.role;
         session.user.name = token.name;
-        session.user.isRound2 = token.isRound2;
+        session.user.roundTwoSelected = token.roundTwoSelected;
       }
       return session;
     },
@@ -71,7 +71,7 @@ export const authOptions: NextAuthOptions = {
       token.role = existingUser.role;
       token.name = existingUser.name;
       token.email = existingUser.email;
-      token.isRound2 = existingUser.isRound2;
+      token.roundTwoSelected = existingUser.roundTwoSelected;
       return token;
     },
   },

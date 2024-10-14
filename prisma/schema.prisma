@@ -17,31 +17,23 @@ datasource db {
 
 // Necessary for NextAuth
 model User {
-  id       String   @id @default(cuid())
-  name     String
-  email    String   @unique
-  role     UserRole @default(USER)
-  isRound2 Boolean  @default(false)
-  password String
+  id               String   @id @default(cuid())
+  name             String
+  email            String   @unique
+  password         String
+  role             UserRole @default(USER)
+  roundTwoSelected Boolean  @default(false)
+
+  Submission Submission[]
 
   sessions Session[]
-
-  // redeemCodeId String?
-  // RedeemCode   RedeemCode? @relation(fields: [redeemCodeId], references: [id])
-
-  redeemCodeId String?
-  RedeemCode   RedeemCode? @relation(fields: [redeemCodeId], references: [id])
-
-  Puzzle     Puzzle[]
-  Submission Submission[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Session {
-  id String @id @default(cuid())
-
+  id           String   @id @default(cuid())
   sessionToken String   @unique
   expires      DateTime
 
@@ -67,28 +59,20 @@ model VerificationToken {
 
 // Base models
 model Puzzle {
-  id          String      @id @default(cuid())
-  name        String
-  route       String      @unique
-  puzzleType  PuzzleType  @default(POINTS)
-  difficulty  Difficulty  @default(EASY)
-  puzzleRound PuzzleRound @default(ROUND_ONE)
+  id    String @id @default(cuid())
+  name  String @unique
+  route String @unique
 
-  hint          String?
-  hintDeduction Int?
+  difficulty PuzzleDifficulty @default(EASY)
+  round      PuzzleRound      @default(ONE)
 
-  solution      String
-  points        Int
-  minimumPoints Int
+  minusPoints Int
+  hint        String
 
-  RedeemCode          RedeemCode? @relation(fields: [redeemCodeId], references: [id])
-  minimumBountyPoints Int?
+  plusPoints Int
+  solution   String
 
-  userId           String?
-  BountyOneClaimed User?   @relation(fields: [userId], references: [id])
-
-  Submission   Submission[]
-  redeemCodeId String?
+  Submission Submission[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -97,14 +81,13 @@ model Puzzle {
 model Submission {
   id String @id @default(cuid())
 
-  status SubmissionStatus @default(PENDING)
-  answer String?
-
-  startTime DateTime  @default(now())
+  status    SubmissionStatus @default(PENDING)
+  startTime DateTime         @default(now())
   endTime   DateTime?
 
-  points    Int?
   hintTaken Boolean @default(false)
+  points    Int?
+  answer    String?
 
   userId String
   User   User   @relation(fields: [userId], references: [id])
@@ -112,23 +95,10 @@ model Submission {
   puzzleId String
   Puzzle   Puzzle @relation(fields: [puzzleId], references: [id])
 
-  @@unique([userId, puzzleId])
-}
-
-model RedeemCode {
-  id String @id @default(cuid())
-
-  code       String  @unique @default(cuid())
-  oneTimeUse Boolean
-  revoked    Boolean @default(false)
-
-  RevokedBy User[]
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Puzzle    Puzzle[]
 
-  @@index([code])
+  @@unique([userId, puzzleId])
 }
 
 // Base enums
@@ -137,16 +107,10 @@ enum UserRole {
   ADMIN
 }
 
-enum Difficulty {
+enum PuzzleDifficulty {
   EASY
   MEDIUM
   HARD
-}
-
-enum PuzzleType {
-  BOUNTY_ONE
-  BOUNTY_MANY
-  POINTS
 }
 
 enum SubmissionStatus {
@@ -156,6 +120,6 @@ enum SubmissionStatus {
 }
 
 enum PuzzleRound {
-  ROUND_ONE
-  ROUND_TWO
+  ONE
+  TWO
 }

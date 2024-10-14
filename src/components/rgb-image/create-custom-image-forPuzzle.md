@@ -29,3 +29,4 @@ image_with_text = cv2.merge([B, G, R])
 
 # Save the final image
 cv2.imwrite('image_with_hidden_text.jpg', image_with_text)
+```

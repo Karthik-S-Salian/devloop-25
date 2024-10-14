@@ -55,7 +55,7 @@ const Page = () => {
               id={`cb-${idx}`}
               className={cn(
                 "size-6 focus:border-4",
-                idx === 742 && "click-me pointer-events-none",
+                idx === 742 && "click-me",
                 idx === 64 && "border-4 border-cyan-500",
                 idx === 107 && "border-4 border-amber-500",
                 idx === 131 && "border-4 border-emerald-500",

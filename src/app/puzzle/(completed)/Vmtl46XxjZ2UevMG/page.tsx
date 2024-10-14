@@ -113,7 +113,7 @@ const Page = () => {
               <NextJSImage
                 fill
                 src={src}
-                alt="QR Fragment"
+                alt="hello-kitty"
                 className="size-full cursor-move object-cover"
                 draggable
                 onDragStart={(e) => handleDragStart(e, idx)}
