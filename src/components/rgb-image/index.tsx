@@ -52,21 +52,21 @@ const RGBImageSplitter: React.FC<RGBImageSplitterProps> = ({ imageSrc }) => {
             0,
             0,
             combinedCanvas.width,
-            combinedCanvas.height
+            combinedCanvas.height,
           );
 
           // Create RGB channels
           const redImageData = ctx!.createImageData(
             canvas.width,
-            canvas.height
+            canvas.height,
           );
           const greenImageData = ctx!.createImageData(
             canvas.width,
-            canvas.height
+            canvas.height,
           );
           const combinedImageData = ctx!.createImageData(
             canvas.width,
-            canvas.height
+            canvas.height,
           );
 
           for (let i = 0; i < data.length; i += 4) {
@@ -114,9 +114,7 @@ const RGBImageSplitter: React.FC<RGBImageSplitterProps> = ({ imageSrc }) => {
         </div>
       </div>
 
-      <h2 className="mt-6">
-        Combine images to find hidden message
-      </h2>
+      <h2 className="mt-6">Combine images to find hidden message</h2>
       <div className="mt-4">
         <h3 className="text-center text-lg">Combined Image</h3>
         <canvas className="w-[700px]" ref={combinedCanvasRef} />

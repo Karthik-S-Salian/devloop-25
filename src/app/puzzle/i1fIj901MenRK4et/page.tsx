@@ -5,8 +5,7 @@ import React, { useState } from "react";
 import { QUIZZES } from "~/components/QnaDialog/constant";
 import Dialog from "~/components/QnaDialog/dialog";
 
-export default function Page() {
-  const [points, setPoints] = useState(0);
+const Page = () => {
   const [rulesDialogView, setViewDialogView] = useState(false);
   const quizzes = QUIZZES;
 
@@ -16,7 +15,6 @@ export default function Page() {
     <div>
       <div>
         <div className="fixed flex w-full justify-between p-4">
-          <div className="p-2">Points : {points}</div>
           <button
             onClick={() => setViewDialogView((prev) => !prev)}
             className="rounded-md bg-green-400 p-2"
@@ -57,7 +55,6 @@ export default function Page() {
           quiz: {
             questionNo: number;
             answer: string;
-            points: number;
             question: string;
             imageUrl: string | undefined;
             hint: string;
@@ -68,14 +65,14 @@ export default function Page() {
             key={index}
             questionNo={quiz.questionNo}
             answer={quiz.answer}
-            points={quiz.points}
             question={quiz.question}
             imageUrl={quiz.imageUrl}
             hint={quiz.hint}
-            setPoints={setPoints}
           />
         ),
       )}
     </div>
   );
-}
+};
+
+export default Page;

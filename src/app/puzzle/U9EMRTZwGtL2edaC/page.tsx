@@ -6,7 +6,9 @@ export default function Page() {
   return (
     <div>
       {/* <RGBImageSplitter imageSrc={"../rgb-image-text.png"}></RGBImageSplitter> */}
-      <RGBImageSplitter imageSrc={"../image_with_hidden_text (7).jpg"}></RGBImageSplitter>
+      <RGBImageSplitter
+        imageSrc={"../image_with_hidden_text (7).jpg"}
+      ></RGBImageSplitter>
     </div>
   );
 }

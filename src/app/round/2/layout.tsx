@@ -9,7 +9,7 @@ const Round2Layout = async ({
 }>) => {
   const session = await getServerAuthSession();
 
-  if (!session?.user.isRound2) redirect("/");
+  if (!session?.user.roundTwoSelected) redirect("/");
 
   return children;
 };

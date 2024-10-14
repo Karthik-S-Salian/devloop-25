@@ -1,59 +1,33 @@
-import { Difficulty, PuzzleRound, PuzzleType } from "@prisma/client";
+import { PuzzleDifficulty, PuzzleRound } from "@prisma/client";
 import { z } from "zod";
 
-const addPuzzleZ = z
-  .object({
-    name: z.string(),
-    route: z.string(),
-    puzzleType: z.nativeEnum(PuzzleType),
-    difficulty: z.nativeEnum(Difficulty),
-    hint: z.string().optional(),
-    hintDeduction: z.number().optional(),
-    solution: z.string(),
-    points: z.number(),
-    minimumPoints: z.number(),
-    redeemCode: z.string().optional(),
-    minimumBountyPoints: z.number().optional(),
-    puzzleRound: z.nativeEnum(PuzzleRound),
-  })
-  .refine((data) => {
-    if (data.hint && !data.hintDeduction)
-      throw new Error("hintDeduction is required when hint is provided");
+const addPuzzleZ = z.object({
+  name: z.string(),
+  route: z.string(),
+  difficulty: z.nativeEnum(PuzzleDifficulty),
+  round: z.nativeEnum(PuzzleRound),
+  hint: z.string(),
+  minusPoints: z.number(),
+  solution: z.string(),
+  plusPoints: z.number(),
+});
 
-    if (data.puzzleType !== "POINTS" && !data.minimumBountyPoints)
-      throw new Error(
-        "minimumBountyPoints is required when PuzzleType is not POINTS",
-      );
-  });
-
-const editPuzzleZ = z
-  .object({
-    id: z.string(),
-    name: z.string(),
-    route: z.string(),
-    puzzleType: z.nativeEnum(PuzzleType),
-    difficulty: z.nativeEnum(Difficulty),
-    hint: z.string().optional(),
-    hintDeduction: z.number().optional(),
-    solution: z.string(),
-    points: z.number(),
-    minimumPoints: z.number(),
-    redeemCode: z.string().optional(),
-    minimumBountyPoints: z.number().optional(),
-    puzzleRound: z.nativeEnum(PuzzleRound),
-  })
-  .refine((data) => {
-    if (data.hint && !data.hintDeduction)
-      throw new Error("hintDeduction is required when hint is provided");
-
-    if (data.puzzleType !== "POINTS" && !data.minimumBountyPoints)
-      throw new Error(
-        "minimumBountyPoints is required when PuzzleType is not POINTS",
-      );
-  });
+const editPuzzleZ = z.object({
+  id: z.string(),
+  name: z.string(),
+  route: z.string(),
+  difficulty: z.nativeEnum(PuzzleDifficulty),
+  round: z.nativeEnum(PuzzleRound),
+  minusPoints: z.number(),
+  hint: z.string(),
+  plusPoints: z.number(),
+  solution: z.string(),
+});
 
 const getRoundPuzzlesZ = z.object({
-  round: z.nativeEnum(PuzzleRound, { message: "Invalid round" }),
+  round: z.union([z.nativeEnum(PuzzleRound), z.literal("BOTH")], {
+    message: "Invalid round",
+  }),
 });
 
 const removePuzzleZ = z.object({

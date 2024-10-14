@@ -23,14 +23,14 @@ const Puzzles = async () => {
   const roundOnePuzzles =
     session?.user.role === "ADMIN"
       ? await api.puzzle.getRoundPuzzles({
-          round: "ROUND_ONE",
+          round: "ONE",
         })
       : [];
 
   const roundTwoPuzzles =
     session?.user.role === "ADMIN"
       ? await api.puzzle.getRoundPuzzles({
-          round: "ROUND_TWO",
+          round: "TWO",
         })
       : [];
 

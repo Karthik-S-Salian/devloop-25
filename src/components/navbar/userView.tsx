@@ -13,6 +13,8 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 
+import { api } from "~/trpc/react";
+
 const UserRoles = {
   ...DBUserRole,
   UNPROTECTED: "UNPROTECTED" as const,
@@ -25,6 +27,8 @@ const UserView = () => {
   const [userRole, setUserRole] = useState<keyof typeof UserRoles>(
     session?.user.role ?? UserRoles.UNPROTECTED,
   );
+
+  const getRoundPuzzles = api.useUtils().puzzle.getRoundPuzzles;
 
   useEffect(
     () => setUserRole(session?.user.role ?? UserRoles.UNPROTECTED),
@@ -56,6 +60,7 @@ const UserView = () => {
             redirect: false,
           });
 
+        void getRoundPuzzles.refetch();
         setUserRole(newUserRole);
         router.refresh();
       }}

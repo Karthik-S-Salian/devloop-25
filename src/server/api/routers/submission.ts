@@ -1,6 +1,12 @@
 import { type Submission } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+} from "~/server/api/trpc";
+
 import { pusherServer } from "~/lib/pusher";
 import {
   startPuzzleZ,
@@ -9,9 +15,20 @@ import {
   quitPuzzleZ,
 } from "~/zod/submissionsZ";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
-
 const submissionRouter = createTRPCRouter({
+  resetAllPuzzle: adminProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.submission.updateMany({
+      where: {
+        userId: {
+          equals: ctx.session.user.id,
+        },
+      },
+      data: {
+        status: "PENDING",
+      },
+    });
+  }),
+
   startPuzzle: protectedProcedure
     .input(startPuzzleZ)
     .query(async ({ input, ctx }) => {
@@ -22,10 +39,9 @@ const submissionRouter = createTRPCRouter({
         select: {
           id: true,
           difficulty: true,
-          hintDeduction: true,
+          minusPoints: true,
           name: true,
-          puzzleRound: true,
-          puzzleType: true,
+          round: true,
           route: true,
           Submission: {
             where: {
@@ -88,24 +104,6 @@ const submissionRouter = createTRPCRouter({
           message: "Invalid answer",
         });
 
-      const timeTakenMinutes = Math.floor(
-        // BUG(Omkar): server time and client time are not in sync, UTC & IST
-        (Date.now() - submission.startTime.getTime()) / 60000,
-      );
-
-      const DEDUCTION_RATE = {
-        HARD: 0.06,
-        MEDIUM: 0.04,
-        EASY: 0.02,
-      } as const;
-
-      const initialPoints = submission.Puzzle.points;
-      const deductedPoints =
-        initialPoints *
-        // BUG(Omkar): what logic is this, correct??
-        (1 - DEDUCTION_RATE[submission.Puzzle.difficulty] * timeTakenMinutes);
-      const finalPoints = Math.floor(Math.max(0, deductedPoints));
-
       const newSubmission = await ctx.db.submission.update({
         where: {
           userId_puzzleId: {
@@ -114,7 +112,9 @@ const submissionRouter = createTRPCRouter({
           },
         },
         data: {
-          points: Math.max(submission.Puzzle.minimumPoints, finalPoints),
+          points:
+            submission.Puzzle.plusPoints -
+            (submission.hintTaken ? submission.Puzzle.minusPoints : 0),
           status: "ACCEPTED",
           endTime: new Date(),
         },
@@ -133,7 +133,7 @@ const submissionRouter = createTRPCRouter({
           },
           select: {
             hint: true,
-            hintDeduction: true,
+            minusPoints: true,
           },
         });
 
@@ -149,6 +149,7 @@ const submissionRouter = createTRPCRouter({
           },
         });
 
+        // TODO(Omkar): Needed?
         await pusherServer.trigger(
           "submissions",
           "newSubmission",
@@ -170,7 +171,6 @@ const submissionRouter = createTRPCRouter({
           },
         },
         data: {
-          points: 0,
           endTime: new Date(),
           status: "QUIT",
         },
