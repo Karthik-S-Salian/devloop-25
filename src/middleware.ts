@@ -4,7 +4,7 @@ import { withAuth } from "next-auth/middleware";
 const routeConfig = {
   unprotected: ["/", "/auth/(.*)", "/round/(.*)"],
   protected: {
-    USER: ["/puzzle/(.*)"],
+    USER: ["/puzzle/(.*)", "/leaderboard"],
   },
 } as const;
 

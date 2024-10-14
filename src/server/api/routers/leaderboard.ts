@@ -1,13 +1,11 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { DefaultArgs } from "@prisma/client/runtime/library";
-import { on } from "events";
-
-import { ee } from "~/utils/eventEmitter";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 const getLeaderboardArray = async (
   db: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>,
+  userId: string,
 ) => {
   const submissions = await db.submission.findMany({
     include: {
@@ -21,10 +19,7 @@ const getLeaderboardArray = async (
   });
 
   const leaderboard = submissions.reduce(
-    (
-      acc: { [key: string]: { totalScore: number; name: string } },
-      submission,
-    ) => {
+    (acc: Record<string, { totalScore: number; name: string }>, submission) => {
       const userId = submission.userId;
       const userName = submission.User?.name;
 
@@ -50,23 +45,18 @@ const getLeaderboardArray = async (
       name,
     }))
     .sort((a, b) => b.totalScore - a.totalScore);
+  const currentUserRank = leaderboardArray.findIndex(
+    (entry) => entry.userId === userId,
+  );
 
-  return leaderboardArray;
+  return {
+    leaderboard: leaderboardArray,
+    currentUserRank,
+  };
 };
 
 export const leaderboardRouter = createTRPCRouter({
   getLeaderBoard: protectedProcedure.query(async ({ ctx }) => {
-    return await getLeaderboardArray(ctx.db);
+    return await getLeaderboardArray(ctx.db, ctx.session.user.id);
   }),
-
-  leaderboardSubscription: protectedProcedure.subscription(
-    async function* (opts) {
-      for await (const [submission] of on(ee, "newSubmission", {
-        signal: opts.signal,
-      })) {
-        const leaderboard = await getLeaderboardArray(opts.ctx.db);
-        yield leaderboard;
-      }
-    },
-  ),
 });

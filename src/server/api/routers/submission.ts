@@ -1,7 +1,7 @@
 import { type Submission } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
-import { ee } from "~/utils/eventEmitter";
+import { pusherServer } from "~/lib/pusher";
 import {
   startPuzzleZ,
   submitPuzzleZ,
@@ -120,7 +120,7 @@ const submissionRouter = createTRPCRouter({
         },
       });
 
-      ee.emit("newSubmission", newSubmission);
+      await pusherServer.trigger("submissions", "newSubmission", newSubmission);
     }),
 
   helpPuzzle: protectedProcedure
@@ -149,7 +149,11 @@ const submissionRouter = createTRPCRouter({
           },
         });
 
-        ee.emit("newSubmission", newSubmission);
+        await pusherServer.trigger(
+          "submissions",
+          "newSubmission",
+          newSubmission,
+        );
 
         return puzzle;
       });
