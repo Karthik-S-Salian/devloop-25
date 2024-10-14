@@ -1,7 +1,7 @@
 "use client";
 
-import { Submission } from "@prisma/client";
-import { useEffect, useRef, useState } from "react";
+import { type Submission } from "@prisma/client";
+import { useEffect, useRef } from "react";
 
 import { pusherClient } from "~/lib/pusher";
 import { api } from "~/trpc/react";
@@ -31,7 +31,7 @@ const LeaderBoard = () => {
       channel.unbind_all();
       pusherClient.unsubscribe("submissions");
     };
-  }, []);
+  }, [fetchLeaderboard]);
 
   useEffect(() => {
     if (leaderboardData?.leaderboard) {

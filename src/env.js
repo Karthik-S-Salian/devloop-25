@@ -22,8 +22,6 @@ export const env = createEnv({
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
       process.env.VERCEL ? z.string() : z.string().url(),
     ),
-    PUSHER_APP_ID: z.string(),
-    PUSHER_SECRET: z.string(),
   },
 
   /**
@@ -33,7 +31,9 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_URL: z.string().url(),
+    NEXT_PUBLIC_PUSHER_APP_ID: z.string(),
     NEXT_PUBLIC_PUSHER_APP_KEY: z.string(),
+    NEXT_PUBLIC_PUSHER_SECRET: z.string(),
   },
 
   /**
@@ -46,9 +46,9 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
-    PUSHER_APP_ID: process.env.PUSHER_APP_ID,
+    NEXT_PUBLIC_PUSHER_APP_ID: process.env.NEXT_PUBLIC_PUSHER_APP_ID,
     NEXT_PUBLIC_PUSHER_APP_KEY: process.env.NEXT_PUBLIC_PUSHER_APP_KEY,
-    PUSHER_SECRET: process.env.PUSHER_SECRET,
+    NEXT_PUBLIC_PUSHER_SECRET: process.env.NEXT_PUBLIC_PUSHER_SECRET,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
@@ -60,4 +60,13 @@ export const env = createEnv({
    * `SOME_VAR=''` will throw an error.
    */
   emptyStringAsUndefined: true,
+  /**
+   * Called when a server-side environment variable is accessed on the client.
+   * By default an error is thrown.
+   */
+  onInvalidAccess: (variable) => {
+    throw new Error(
+      `❌ Attempted to access a server-side environment variable on the client: [${variable}]`,
+    );
+  },
 });
