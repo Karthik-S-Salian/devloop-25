@@ -1,5 +1,6 @@
 "use client";
 
+// TODO: Trusted package?
 import { FlippingPages } from "flipping-pages";
 import "flipping-pages/dist/style.css";
 import { useState } from "react";
@@ -34,11 +35,11 @@ const Page = () => {
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               Voluptatem consequatur alias, ab assumenda, aliquam dolorum veniam
               minus, esse nostrum nobis nisi et quo culpa repellendus illo
-              mollitia necessitatibus q
-              uasi? Placeat? Lorem, ipsum dolor sit amet consectetur adipisicing
-              elit. Aut adipisci repudiandae, quod maiores ipsam esse ea placeat
-              optio, nesciunt consequuntur incidunt illum impedit dignissimos
-              similique eius debitis, rerum assumenda ipsa!
+              mollitia necessitatibus q uasi? Placeat? Lorem, ipsum dolor sit
+              amet consectetur adipisicing elit. Aut adipisci repudiandae, quod
+              maiores ipsam esse ea placeat optio, nesciunt consequuntur
+              incidunt illum impedit dignissimos similique eius debitis, rerum
+              assumenda ipsa!
             </div>
             <div className="grid place-content-center">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
