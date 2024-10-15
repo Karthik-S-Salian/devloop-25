@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 
-const page = () => {
+const Page = () => {
   const [value, setValue] = useState("");
   return (
     <div className="flex flex-col items-center">
@@ -127,4 +127,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
