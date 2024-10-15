@@ -11,7 +11,9 @@ const Page = () => {
     bottomRight: false,
   });
 
-  const handleClick = (corner: any) => {
+  const handleClick = (
+    corner: "topLeft" | "topRight" | "bottomLeft" | "bottomRight",
+  ) => {
     setClicked((prev) => {
       const updatedClicked = { ...prev, [corner]: true };
 
