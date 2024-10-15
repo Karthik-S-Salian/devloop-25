@@ -6,21 +6,17 @@ import React, { useState } from "react";
 type propType = {
   questionNo: number;
   answer: string;
-  points: number;
   question: string;
   imageUrl?: string;
   hint: string;
-  setPoints: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function Dialog({
   questionNo,
   question,
   answer,
-  points,
   imageUrl,
   hint,
-  setPoints,
 }: propType) {
   const [userAnswer, setUserAnswer] = useState("");
   const [hintDialogView, setHintDialogView] = useState(false);
@@ -29,7 +25,6 @@ export default function Dialog({
   const verifyAnswer = () => {
     if (userAnswer === `finiteCTF{${answer}}`) {
       alert("Bingo");
-      setPoints((prev) => prev + points);
       setUserAnsweredState(true);
     } else {
       alert("Incorrect");
@@ -53,8 +48,8 @@ export default function Dialog({
               height={100}
               className="w-full"
               src={imageUrl}
-              alt={""}
-            ></Image>
+              alt="hello-kitty"
+            />
           )}
         </div>
 

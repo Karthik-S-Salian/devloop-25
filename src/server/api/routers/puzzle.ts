@@ -14,17 +14,14 @@ const puzzleRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       await ctx.db.puzzle.create({
         data: {
-          hint: input.hint,
-          hintDeduction: input.hintDeduction,
-          minimumPoints: input.minimumPoints,
-          minimumBountyPoints: input.minimumBountyPoints,
-          points: input.points,
-          puzzleType: input.puzzleType,
-          route: input.route,
-          solution: input.solution,
           name: input.name,
+          route: input.route,
           difficulty: input.difficulty,
-          puzzleRound: input.puzzleRound,
+          round: input.round,
+          minusPoints: input.minusPoints,
+          hint: input.hint,
+          plusPoints: input.plusPoints,
+          solution: input.solution,
         },
       });
     }),
@@ -34,13 +31,7 @@ const puzzleRouter = createTRPCRouter({
     .input(getRoundPuzzlesZ)
     .query(async ({ ctx, input }) => {
       return await ctx.db.puzzle.findMany({
-        where: {
-          puzzleRound: input.round,
-        },
-        select: {
-          name: true,
-          route: true,
-        },
+        where: input.round === "BOTH" ? {} : { round: input.round },
       });
     }),
 
@@ -54,13 +45,12 @@ const puzzleRouter = createTRPCRouter({
         },
         data: {
           name: input.name,
-          hint: input.hint,
-          hintDeduction: input.hintDeduction,
-          minimumPoints: input.minimumPoints,
-          minimumBountyPoints: input.minimumBountyPoints,
-          points: input.points,
-          puzzleType: input.puzzleType,
           route: input.route,
+          difficulty: input.difficulty,
+          round: input.round,
+          minusPoints: input.minusPoints,
+          hint: input.hint,
+          plusPoints: input.plusPoints,
           solution: input.solution,
         },
       });

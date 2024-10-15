@@ -5,6 +5,7 @@ import { Button } from "~/components/ui/button";
 
 import { getServerAuthSession } from "~/auth";
 import Puzzles from "~/components/navbar/puzzles";
+import Reset from "~/components/navbar/reset";
 import UserView from "~/components/navbar/userView";
 import { env } from "~/env";
 
@@ -23,6 +24,7 @@ const Navbar = async () => {
         <div className="flex gap-4">
           <Puzzles />
           <UserView />
+          <Reset />
         </div>
       )}
     </nav>
