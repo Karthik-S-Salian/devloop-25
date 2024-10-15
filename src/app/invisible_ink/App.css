@@ -1,0 +1,10 @@
+.pages {
+  height: 400px;
+  aspect-ratio: 6/4;
+}
+
+.page {
+  height: 100%;
+  width: 100%;
+  touch-action: none;
+}
