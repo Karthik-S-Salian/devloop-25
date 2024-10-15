@@ -1,62 +1,49 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-import { DefaultArgs } from "@prisma/client/runtime/library";
-
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
-const getLeaderboardArray = async (
-  db: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>,
-  userId: string,
-) => {
-  const submissions = await db.submission.findMany({
-    include: {
-      User: {
-        select: {
-          id: true,
-          name: true,
+const leaderboardRouter = createTRPCRouter({
+  getLeaderboard: protectedProcedure.query(async ({ ctx }) => {
+    const submissions = await ctx.db.submission.findMany({
+      where: {
+        status: "ACCEPTED",
+      },
+      select: {
+        points: true,
+        User: {
+          select: {
+            id: true,
+            name: true,
+          },
         },
       },
-    },
-  });
+    });
 
-  const leaderboard = submissions.reduce(
-    (acc: Record<string, { totalScore: number; name: string }>, submission) => {
-      const userId = submission.userId;
-      const userName = submission.User?.name;
+    const leaderboard = submissions.reduce(
+      (acc, submission) => {
+        const { id: userId, name: userName } = submission.User;
 
-      if (userId && userName) {
-        if (!acc[userId]) {
+        if (!acc[userId])
           acc[userId] = {
             totalScore: 0,
-            name: userName,
+            userName,
           };
-        }
 
         acc[userId].totalScore += submission.points ?? 0;
-      }
-      return acc;
-    },
-    {},
-  );
 
-  const leaderboardArray = Object.entries(leaderboard)
-    .map(([userId, { totalScore, name }]) => ({
-      userId,
-      totalScore,
-      name,
-    }))
-    .sort((a, b) => b.totalScore - a.totalScore);
-  const currentUserRank = leaderboardArray.findIndex(
-    (entry) => entry.userId === userId,
-  );
+        return acc;
+      },
+      {} as Record<string, { totalScore: number; userName: string }>,
+    );
 
-  return {
-    leaderboard: leaderboardArray,
-    currentUserRank,
-  };
-};
+    const leaderboardArray = Object.entries(leaderboard)
+      .map(([userId, { totalScore, userName }]) => ({
+        userId,
+        userName,
+        totalScore,
+      }))
+      .sort((a, b) => b.totalScore - a.totalScore);
 
-export const leaderboardRouter = createTRPCRouter({
-  getLeaderBoard: protectedProcedure.query(async ({ ctx }) => {
-    return await getLeaderboardArray(ctx.db, ctx.session.user.id);
+    return leaderboardArray;
   }),
 });
+
+export default leaderboardRouter;

@@ -1,6 +1,7 @@
 "use client";
 
 import { type Submission } from "@prisma/client";
+import { useSession } from "next-auth/react";
 import { useEffect, useRef } from "react";
 
 import { pusherClient } from "~/lib/pusher";
@@ -8,16 +9,18 @@ import { api } from "~/trpc/react";
 
 import styles from "./leaderboard.module.css";
 
-interface LeaderboardEntry {
-  userId: string;
-  name: string;
-  totalScore: number;
-}
-
 const LeaderBoard = () => {
+  const { data: session } = useSession();
+
   const tableRef = useRef<HTMLDivElement>(null);
-  const { data: leaderboardData, refetch: fetchLeaderboard } =
-    api.leaderboard.getLeaderBoard.useQuery();
+
+  const { data: leaderboard, refetch: fetchLeaderboard } =
+    api.leaderboard.getLeaderboard.useQuery();
+
+  const currentUserRank =
+    leaderboard && session
+      ? leaderboard.findIndex((entry) => entry.userId === session.user.id)
+      : undefined;
 
   useEffect(() => {
     const channel = pusherClient.subscribe("submissions");
@@ -34,11 +37,14 @@ const LeaderBoard = () => {
   }, [fetchLeaderboard]);
 
   useEffect(() => {
-    if (leaderboardData?.leaderboard) {
-      const currentUserIndex = leaderboardData.currentUserRank;
-      if (currentUserIndex >= 0 && tableRef.current) {
+    if (
+      leaderboard &&
+      tableRef.current &&
+      typeof currentUserRank !== "undefined"
+    ) {
+      if (currentUserRank >= 0) {
         const rowElements = tableRef.current.getElementsByTagName("tr");
-        const currentUserRow = rowElements[currentUserIndex + 1];
+        const currentUserRow = rowElements[currentUserRank + 1];
         if (currentUserRow) {
           const container = tableRef.current;
           const rowBottom = currentUserRow.getBoundingClientRect().bottom;
@@ -50,16 +56,14 @@ const LeaderBoard = () => {
         }
       }
     }
-  }, [leaderboardData]);
+  }, [leaderboard, currentUserRank]);
 
   const maxScore = 1000;
 
-  if (!leaderboardData?.leaderboard) {
-    return <div>Loading...</div>;
-  }
+  if (!leaderboard) return <div>Loading...</div>;
 
   return (
-    <main className="min-h-[90vh] w-full">
+    <div className="size-full">
       <section className="flex w-full flex-col items-center gap-12 py-4">
         <h1 className="text-4xl font-bold">Leaderboard</h1>
         <div
@@ -75,35 +79,33 @@ const LeaderBoard = () => {
               </tr>
             </thead>
             <tbody className="text-left">
-              {leaderboardData.leaderboard.map(
-                (entry: LeaderboardEntry, index: number) => (
-                  <tr
-                    key={entry.userId}
-                    className={`text-lg} ${index === leaderboardData.currentUserRank ? "bg-orange-100" : "bg-white"}`}
-                  >
-                    <td className="w-1/3 p-2">{index + 1}</td>{" "}
-                    <td className="w-1/3 p-2 capitalize">{entry.name}</td>{" "}
-                    <td className="w-1/3 p-2">
-                      <div className="flex w-full items-center justify-center">
-                        <div className="mr-2 h-5 w-48 rounded-full bg-gray-200">
-                          <div
-                            className="h-5 rounded-full bg-gray-700"
-                            style={{
-                              width: `${(entry.totalScore / maxScore) * 100}%`,
-                            }}
-                          ></div>
-                        </div>
-                        <span>{entry.totalScore}</span>
+              {leaderboard.map((entry, index) => (
+                <tr
+                  key={entry.userId}
+                  className={`text-lg} ${index === currentUserRank ? "bg-orange-100" : "bg-white"}`}
+                >
+                  <td className="w-1/3 p-2">{index + 1}</td>{" "}
+                  <td className="w-1/3 p-2 capitalize">{entry.userName}</td>{" "}
+                  <td className="w-1/3 p-2">
+                    <div className="flex w-full items-center justify-center">
+                      <div className="mr-2 h-5 w-48 rounded-full bg-gray-200">
+                        <div
+                          className="h-5 rounded-full bg-gray-700"
+                          style={{
+                            width: `${(entry.totalScore / maxScore) * 100}%`,
+                          }}
+                        ></div>
                       </div>
-                    </td>
-                  </tr>
-                ),
-              )}
+                      <span>{entry.totalScore}</span>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 

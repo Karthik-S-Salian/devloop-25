@@ -58,10 +58,26 @@ model VerificationToken {
 // End of necessary models for NextAuth
 
 // Base models
+
+model ServerSettings {
+  id String @id @default(cuid())
+
+  roundOneStartTime DateTime
+  roundOneEndTime   DateTime
+
+  roundTwoStoryAccessToken String
+  roundTwoStartTime        DateTime
+  roundTwoEndTime          DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Puzzle {
-  id    String @id @default(cuid())
-  name  String @unique
-  route String @unique
+  id      String @id @default(cuid())
+  name    String @unique
+  devName String @unique
+  route   String @unique
 
   difficulty PuzzleDifficulty @default(EASY)
   round      PuzzleRound      @default(ONE)

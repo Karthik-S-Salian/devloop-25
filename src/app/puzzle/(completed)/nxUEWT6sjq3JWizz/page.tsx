@@ -11,6 +11,7 @@ const Page = () => {
       </p>
       <div className="relative size-full">
         <Image
+          className="object-contain"
           src="/image/xEISCJIINyKYp3vx.jpg"
           alt="hello-kitty"
           quality={100}
