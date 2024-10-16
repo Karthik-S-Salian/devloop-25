@@ -8,7 +8,12 @@ const MiniPuzzle = ({ idx }: { idx: number }) => {
       return (
         <div className="flex size-full flex-col items-center justify-center gap-4">
           <div className="relative size-60">
-            <Image src="/image/UJBzOOpkq0V2mkE7.jpeg" alt="image" fill />
+            <Image
+              priority
+              src="/image/UJBzOOpkq0V2mkE7.jpeg"
+              alt="image"
+              fill
+            />
           </div>
           <p>
             &quot;In a land of dreams where fortunes gleam, I appear to grant

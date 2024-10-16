@@ -41,6 +41,7 @@ const Page = () => {
         target="_blank"
       >
         <Image
+          priority
           src="/image/wMc07v5GSO8RVQrJ.svg"
           alt="click-me"
           width={600}

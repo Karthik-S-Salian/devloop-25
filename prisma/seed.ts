@@ -136,6 +136,17 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
     plusPoints: 0,
     solution: "Docker",
   },
+  {
+    name: "Reverse Base64 Audio",
+    devName: "Reverse Base64 Audio",
+    route: "DgXeXX6UBp3O7IDu",
+    difficulty: "EASY",
+    round: "ONE",
+    minusPoints: 0,
+    hint: "",
+    plusPoints: 0,
+    solution: "24122003",
+  },
 
   // ----------------
   // ----------------
@@ -161,17 +172,6 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
     hint: "",
     plusPoints: 0,
     solution: "Quiz CTF",
-  },
-  {
-    name: "Reverse Base64 Audio",
-    devName: "Reverse Base64 Audio",
-    route: "om9Ll6OYV-oIeHND",
-    difficulty: "EASY",
-    round: "ONE",
-    minusPoints: 0,
-    hint: "",
-    plusPoints: 0,
-    solution: "Reverse Base64 Audio",
   },
 ];
 

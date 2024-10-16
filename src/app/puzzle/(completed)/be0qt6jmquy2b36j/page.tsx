@@ -9,6 +9,7 @@ import {
 } from "~/app/puzzle/(completed)/be0qt6jmquy2b36j/_components/data";
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface Window {
     snippetFunction: () => void;
   }
