@@ -59,7 +59,7 @@ const Hint = ({
           <DialogTitle>Are you sure you need a hint?</DialogTitle>
           <DialogDescription className="flex flex-col">
             <span>Taking a hint is a disadvantage</span>
-            <span>Points deduction: {puzzle.minusPoints ?? 0} Points</span>
+            <span>Points deduction: {puzzle.minusPoints} Points</span>
           </DialogDescription>
         </DialogHeader>
         {hint && (

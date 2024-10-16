@@ -57,7 +57,7 @@ const Puzzles = async () => {
                   <Link
                     href={`/puzzle/${puzzle.route}` as unknown as UrlObject}
                   >
-                    {puzzle.name}
+                    {puzzle.devName}
                   </Link>
                 </Button>
               ))}
@@ -70,7 +70,7 @@ const Puzzles = async () => {
                   <Link
                     href={`/puzzle/${puzzle.route}` as unknown as UrlObject}
                   >
-                    {puzzle.name}
+                    {puzzle.devName}
                   </Link>
                 </Button>
               ))}

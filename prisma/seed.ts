@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   {
     name: "Key in Lock",
+    devName: "Key in Lock",
     route: "vpzg4DDdlfPPPTsp",
     difficulty: "EASY",
     round: "ONE",
@@ -16,6 +17,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Button behind Image",
+    devName: "Button behind Image",
     route: "fFcM0fQmpEqbtW1W",
     difficulty: "EASY",
     round: "ONE",
@@ -26,6 +28,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Internet Login IP",
+    devName: "Internet Login IP",
     route: "Xa2OLBJrqtz4sxtP",
     difficulty: "EASY",
     round: "ONE",
@@ -36,6 +39,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "QR Code",
+    devName: "QR Code",
     route: "Vmtl46XxjZ2UevMG",
     difficulty: "EASY",
     round: "ONE",
@@ -46,6 +50,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Thousand Checkbox",
+    devName: "Thousand Checkbox",
     route: "zXCNA5z9OfLcEpRr",
     difficulty: "EASY",
     round: "ONE",
@@ -56,6 +61,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Mona Lisa",
+    devName: "Mona Lisa",
     route: "SmJOr1YKzrXPoG2w",
     difficulty: "EASY",
     round: "ONE",
@@ -66,16 +72,18 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Excel Slope",
+    devName: "Excel Slope",
     route: "VHW1W1p8Ow7EL2Sv",
     difficulty: "EASY",
     round: "ONE",
     minusPoints: 0,
-    hint: "Not slope of a line, 2 plusPoints",
+    hint: "Not slope of a line, 2 points",
     plusPoints: 0,
     solution: "7.0695",
   },
   {
     name: "Mirror Text",
+    devName: "Mirror Text",
     route: "K7uCVTJroiuY1Xj9",
     difficulty: "EASY",
     round: "ONE",
@@ -86,6 +94,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Plane Imposter",
+    devName: "Plane Imposter",
     route: "vuugZwWNIi57Bzdi",
     difficulty: "EASY",
     round: "ONE",
@@ -96,6 +105,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Code Snippet",
+    devName: "Code Snippet",
     route: "be0qt6jmquy2b36j",
     difficulty: "EASY",
     round: "ONE",
@@ -106,6 +116,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Morse Song",
+    devName: "Morse Song",
     route: "UsIopGqPDsfc2XC7",
     difficulty: "EASY",
     round: "ONE",
@@ -116,6 +127,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Docker Hidden",
+    devName: "Docker Hidden",
     route: "nxUEWT6sjq3JWizz",
     difficulty: "EASY",
     round: "ONE",
@@ -130,6 +142,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
 
   {
     name: "Image Processing",
+    devName: "Image Processing",
     route: "U9EMRTZwGtL2edaC",
     difficulty: "EASY",
     round: "ONE",
@@ -140,6 +153,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Quiz CTF",
+    devName: "Quiz CTF",
     route: "i1fIj901MenRK4et",
     difficulty: "EASY",
     round: "ONE",
@@ -150,6 +164,7 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
   },
   {
     name: "Reverse Base64 Audio",
+    devName: "Reverse Base64 Audio",
     route: "om9Ll6OYV-oIeHND",
     difficulty: "EASY",
     round: "ONE",
@@ -161,6 +176,23 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
 ];
 
 const main = async () => {
+  try {
+    const serverSettings = await prisma.serverSettings.create({
+      data: {
+        roundOneStartTime: new Date("2024-10-19T09:00:00.000Z"),
+        roundOneEndTime: new Date("2024-10-19T10:30:00.000Z"),
+        roundTwoStoryAccessToken: "DgQI5Q44",
+        roundTwoStartTime: new Date("2024-10-19T11:00:00.000Z"),
+        roundTwoEndTime: new Date("2024-10-19T12:30:00.000Z"),
+      },
+    });
+
+    console.log("serverSettings : ", serverSettings);
+  } catch (e) {
+    if (!(e instanceof PrismaClientKnownRequestError && e.code === "P2002"))
+      console.log(e);
+  }
+
   try {
     await prisma.user.createMany({
       data: [

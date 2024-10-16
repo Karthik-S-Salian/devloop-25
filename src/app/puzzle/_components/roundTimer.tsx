@@ -69,9 +69,7 @@ const RoundTimer = () => {
       {activeSlot === "DURING_ROUND_TWO" && (
         <p className="font-mono">Round 2 ends in</p>
       )}
-      {activeSlot === "EVENT_DONE" && (
-        <p className="font-mono">Event ended before</p>
-      )}
+      {activeSlot === "EVENT_DONE" && <p className="font-mono">Event ended</p>}
       <p className="font-digital-number">:{String(hours).padStart(2, "0")}</p>
       <p className="font-digital-number">:{String(minutes).padStart(2, "0")}</p>
       <p className="font-digital-number">:{String(seconds).padStart(2, "0")}</p>

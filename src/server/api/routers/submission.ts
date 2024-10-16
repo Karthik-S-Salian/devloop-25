@@ -32,17 +32,49 @@ const submissionRouter = createTRPCRouter({
   startPuzzle: protectedProcedure
     .input(startPuzzleZ)
     .query(async ({ input, ctx }) => {
+      const activePuzzle = await ctx.db.submission.findMany({
+        where: {
+          AND: [
+            {
+              userId: ctx.session.user.id,
+            },
+            {
+              status: "PENDING",
+            },
+          ],
+        },
+        select: {
+          Puzzle: {
+            select: {
+              route: true,
+            },
+          },
+        },
+      });
+
+      if (
+        activePuzzle.length > 0 &&
+        activePuzzle[0]!.Puzzle.route !== input.route
+      ) {
+        console.log(activePuzzle);
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "You already have an active puzzle",
+        });
+      }
+
       const puzzle = await ctx.db.puzzle.findUniqueOrThrow({
         where: {
           route: input.route,
         },
         select: {
           id: true,
-          difficulty: true,
-          minusPoints: true,
-          name: true,
+          devName: true,
           round: true,
+          difficulty: true,
           route: true,
+          minusPoints: true,
+          plusPoints: true,
           Submission: {
             where: {
               userId: ctx.session.user.id,
@@ -91,8 +123,15 @@ const submissionRouter = createTRPCRouter({
             puzzleId: input.puzzleId,
           },
         },
-        include: {
-          Puzzle: true,
+        select: {
+          hintTaken: true,
+          Puzzle: {
+            select: {
+              solution: true,
+              plusPoints: true,
+              minusPoints: true,
+            },
+          },
         },
       });
 
@@ -171,6 +210,7 @@ const submissionRouter = createTRPCRouter({
           },
         },
         data: {
+          points: 0,
           endTime: new Date(),
           status: "QUIT",
         },

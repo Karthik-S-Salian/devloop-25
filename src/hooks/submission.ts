@@ -9,6 +9,7 @@ const useSubmitPuzzle = () => {
 
   const submitPuzzle = api.submission.submitPuzzle.useMutation();
   const startPuzzle = api.useUtils().submission.startPuzzle;
+  const getRoundOnePuzzles = api.useUtils().puzzle.getRoundOnePuzzles;
 
   return ({ answer }: { answer: string }) => {
     if (!puzzleRoute) return;
@@ -24,6 +25,7 @@ const useSubmitPuzzle = () => {
           toast.dismiss();
           toast.success("Submitted Puzzle Successfully");
           void startPuzzle.refetch();
+          void getRoundOnePuzzles.refetch();
         },
         onError: (error) => {
           toast.dismiss();

@@ -6,13 +6,13 @@ import { useCallback, useEffect, useState } from "react";
 
 import { Button } from "~/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog";
+  DialogDrawer,
+  DialogDrawerContent,
+  DialogDrawerDescription,
+  DialogDrawerHeader,
+  DialogDrawerTitle,
+  DialogDrawerTrigger,
+} from "~/components/ui/custom/dialog-drawer";
 import { Input } from "~/components/ui/input";
 import { Separator } from "~/components/ui/separator";
 
@@ -234,24 +234,24 @@ const Page = () => {
                 onPaste={(e) => onPaste(e, row, col)}
               />
             ))}
-            <Dialog>
-              <DialogTrigger asChild>
+            <DialogDrawer>
+              <DialogDrawerTrigger asChild>
                 <Button className="bg-teal-500 hover:bg-teal-600">
                   <Info />
                 </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Mini Puzzle</DialogTitle>
-                  <DialogDescription>
+              </DialogDrawerTrigger>
+              <DialogDrawerContent>
+                <DialogDrawerHeader>
+                  <DialogDrawerTitle>Mini Puzzle</DialogDrawerTitle>
+                  <DialogDrawerDescription>
                     Solve this to get the code
-                  </DialogDescription>
-                </DialogHeader>
+                  </DialogDrawerDescription>
+                </DialogDrawerHeader>
                 <div className="flex w-full items-center justify-center">
                   <MiniPuzzle idx={row} />
                 </div>
-              </DialogContent>
-            </Dialog>
+              </DialogDrawerContent>
+            </DialogDrawer>
           </div>
         ))}
         <Separator />
