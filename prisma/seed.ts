@@ -147,10 +147,6 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
     plusPoints: 0,
     solution: "24122003",
   },
-
-  // ----------------
-  // ----------------
-
   {
     name: "Image Processing",
     devName: "Image Processing",
@@ -160,8 +156,12 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
     minusPoints: 0,
     hint: "",
     plusPoints: 0,
-    solution: "Image Processing",
+    solution: "Te Amo",
   },
+
+  // ----------------
+  // ----------------
+
   {
     name: "Quiz CTF",
     devName: "Quiz CTF",
