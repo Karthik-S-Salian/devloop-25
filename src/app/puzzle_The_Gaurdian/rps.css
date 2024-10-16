@@ -1,0 +1,54 @@
+.game-container {
+  display: grid;
+  place-content: center;
+  height: 90vh;
+  font-size: 80px;
+  background: #333;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  min-width: 300px;
+  min-height: 400px;
+  user-select: none;
+
+}
+#player span {
+  cursor: pointer;
+  transition: all 0.5s;
+  opacity: 1;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  bottom: 0;
+}
+#player span.chosen {
+  bottom: 25px;
+}
+#player span.hidden {
+  opacity: 0;
+  width: 0;
+}
+.noclick #player span {
+  cursor: default;
+}
+#pc {
+  position: absolute;
+  top: 40px;
+  left: calc(50vw - 40px);
+  transform: rotate(180deg);
+  transition: top 0.5s;
+}
+#pc.hidden {
+  top: -120px;
+}
+.game-container p {
+  position: absolute;
+  width: 100vw;
+  text-align: center;
+  bottom: 40px;
+  margin: 0;
+  color: #fff;
+  transition: bottom 0.5s;
+}
+p.hidden {
+  bottom: -200px;
+}
