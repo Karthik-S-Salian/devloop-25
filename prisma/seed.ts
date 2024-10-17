@@ -173,6 +173,17 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
     plusPoints: 0,
     solution: "Quiz CTF",
   },
+  {
+    name: "Sudoku",
+    devName: "Sudoku",
+    route: "8kgp3jiHZzoMSpvd",
+    difficulty: "EASY",
+    round: "ONE",
+    minusPoints: 0,
+    hint: "To uncover the truth, glance at the diagonal! Remember, A=1, B=2… What do the numbers reveal?",
+    plusPoints: 0,
+    solution: "Sudoku",
+  },
 ];
 
 const main = async () => {
