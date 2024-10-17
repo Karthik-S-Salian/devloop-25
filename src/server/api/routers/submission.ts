@@ -210,14 +210,11 @@ const submissionRouter = createTRPCRouter({
         message: "Reset all puzzles only allowed in development",
       });
 
-    await ctx.db.submission.updateMany({
+    await ctx.db.submission.deleteMany({
       where: {
         userId: {
           equals: ctx.session.user.id,
         },
-      },
-      data: {
-        status: "PENDING",
       },
     });
   }),

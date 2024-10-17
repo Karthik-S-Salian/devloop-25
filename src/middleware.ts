@@ -2,7 +2,16 @@ import { withAuth } from "next-auth/middleware";
 
 // TODO(Omkar): Better role hierarchy and sibling routes
 const routeConfig = {
-  unprotected: ["/", "/auth/(.*)", "/round/(.*)", "/story/(.*)"],
+  unprotected: [
+    "/",
+    "/assets/(.*)",
+    "/image/(.*)",
+    "/doc/(.*)",
+    "/video/(.*)",
+    "/auth/(.*)",
+    "/round/(.*)",
+    "/story/(.*)",
+  ],
   protected: {
     USER: ["/puzzle/(.*)", "/leaderboard/(.*)"],
   },

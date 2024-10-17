@@ -1,6 +1,5 @@
 "use client";
 
-// DISTRACTION PUZZLE - infinite captcha solving
 import { AlertCircle, CheckCircle, Timer } from "lucide-react";
 import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
@@ -18,30 +17,32 @@ import {
 import { Input } from "~/components/ui/input";
 import { Progress } from "~/components/ui/progress";
 
-type ProblemType = "math" | "sequence" | "word";
+import { useSubmission } from "~/store";
+
+type ProblemType = readonly ["math", "sequence", "word"];
 type Status = "idle" | "success" | "error";
 
-interface Problem {
-  type: ProblemType;
+type Problem = {
+  type: ProblemType[number];
   question: string;
   answer: string;
-}
+};
 
-interface MathProblem extends Problem {
+type MathProblem = Problem & {
   type: "math";
-}
+};
 
-interface SequenceProblem extends Problem {
+type SequenceProblem = Problem & {
   type: "sequence";
-}
+};
 
-interface WordProblem extends Problem {
+type WordProblem = Problem & {
   type: "word";
-}
+};
 
 type Difficulty = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-const generateMathProblem = (level: Difficulty): MathProblem => {
+const generateMathProblem = (level: Difficulty) => {
   const operators = ["+", "-", "*"] as const;
   const num1 = Math.floor(Math.random() * (10 * level)) + 1;
   const num2 = Math.floor(Math.random() * (10 * level)) + 1;
@@ -49,10 +50,10 @@ const generateMathProblem = (level: Difficulty): MathProblem => {
   const question = `${num1} ${op} ${num2}`;
   const answer =
     op === "+" ? num1 + num2 : op === "-" ? num1 - num2 : num1 * num2;
-  return { type: "math", question, answer: answer.toString() };
+  return { type: "math", question, answer: answer.toString() } as MathProblem;
 };
 
-const generateSequenceProblem = (level: Difficulty): SequenceProblem => {
+const generateSequenceProblem = (level: Difficulty) => {
   const length = 3 + level;
   const sequence = Array.from({ length }, () => Math.floor(Math.random() * 10));
   const pattern = Math.floor(Math.random() * 3); // 0: +, 1: *, 2: alternating +/*
@@ -74,10 +75,10 @@ const generateSequenceProblem = (level: Difficulty): SequenceProblem => {
     type: "sequence",
     question: `What's the next number in the sequence: ${sequence.slice(0, -1).join(", ")}`,
     answer: sequence[length]!.toString(),
-  };
+  } as SequenceProblem;
 };
 
-const generateWordProblem = (level: Difficulty): WordProblem => {
+const generateWordProblem = (level: Difficulty) => {
   const words = [
     "apple",
     "banana",
@@ -104,10 +105,15 @@ const generateWordProblem = (level: Difficulty): WordProblem => {
           ? a
           : b,
     ),
-  };
+  } as WordProblem;
 };
 
-export default function AdvancedInfiniteCaptcha(): JSX.Element {
+const Page = () => {
+  const { makeAutoSubmission } = useSubmission();
+  useEffect(() => {
+    makeAutoSubmission();
+  }, [makeAutoSubmission]);
+
   const [problem, setProblem] = useState<Problem>({
     type: "math",
     question: "",
@@ -120,7 +126,7 @@ export default function AdvancedInfiniteCaptcha(): JSX.Element {
   const [difficulty, setDifficulty] = useState<Difficulty>(1);
 
   const generateProblem = useCallback(() => {
-    const problemTypes: ProblemType[] = ["math", "sequence", "word"];
+    const problemTypes = ["math", "sequence", "word"] as ProblemType;
     const type = problemTypes[Math.floor(Math.random() * problemTypes.length)];
     let newProblem: Problem;
 
@@ -144,6 +150,21 @@ export default function AdvancedInfiniteCaptcha(): JSX.Element {
     setTimeLeft(30);
   }, [difficulty]);
 
+  const handleSubmit = () => {
+    if (userAnswer.toLowerCase() === problem.answer.toLowerCase()) {
+      setStatus("success");
+      setAttempts((prev) => prev + 1);
+      setDifficulty((prev) => Math.min(prev + 1, 10) as Difficulty);
+      toast.success(
+        `Correct! Moving to next challenge. Total solved: ${attempts + 1}`,
+      );
+      setTimeout(generateProblem, 2000);
+    } else {
+      setStatus("error");
+      toast.error("Incorrect answer. Please try again.");
+    }
+  };
+
   useEffect(() => {
     generateProblem();
   }, [generateProblem]);
@@ -160,27 +181,11 @@ export default function AdvancedInfiniteCaptcha(): JSX.Element {
         return prevTime - 1;
       });
     }, 1000);
-
     return () => clearInterval(timer);
   }, [problem]);
 
-  const handleSubmit = (): void => {
-    if (userAnswer.toLowerCase() === problem.answer.toLowerCase()) {
-      setStatus("success");
-      setAttempts((prev) => prev + 1);
-      setDifficulty((prev) => Math.min(prev + 1, 10) as Difficulty);
-      toast.success(
-        `Correct! Moving to next challenge. Total solved: ${attempts + 1}`,
-      );
-      setTimeout(generateProblem, 2000);
-    } else {
-      setStatus("error");
-      toast.error("Incorrect answer. Please try again.");
-    }
-  };
-
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
+    <div className="flex size-full items-center justify-center">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Advanced Captcha Challenge</CardTitle>
@@ -193,9 +198,7 @@ export default function AdvancedInfiniteCaptcha(): JSX.Element {
           <Input
             type="text"
             value={userAnswer}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUserAnswer(e.target.value)
-            }
+            onChange={(e) => setUserAnswer(e.target.value)}
             placeholder="Enter your answer"
             className={status === "error" ? "border-red-500" : ""}
           />
@@ -235,4 +238,6 @@ export default function AdvancedInfiniteCaptcha(): JSX.Element {
       </Card>
     </div>
   );
-}
+};
+
+export default Page;

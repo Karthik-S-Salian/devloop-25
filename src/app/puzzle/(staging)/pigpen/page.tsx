@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 
 const imageList = [
   "https://res.cloudinary.com/dh0sqelog/image/upload/v1728807170/cbc71db192d665f8eddea75bf64574ce2fbae9cb.webp",
@@ -14,17 +14,11 @@ const imageList = [
 ];
 
 const Page = () => {
-  const [mainImage, setMainImage] = useState<string>(
-    "https://res.cloudinary.com/dh0sqelog/image/upload/v1728806978/67eacae0ffc094f7e57e806ebb42b952f3117a11.png",
-  );
-
-  // const handleImageClick = (imageUrl: string) => {
-  //   setMainImage(imageUrl)
-  // }
+  const mainImage =
+    "https://res.cloudinary.com/dh0sqelog/image/upload/v1728806978/67eacae0ffc094f7e57e806ebb42b952f3117a11.png";
 
   return (
     <div className="flex size-full flex-col items-center justify-center">
-      {/* Question Image */}
       <div className="mb-4 max-w-full">
         <Image
           src={mainImage}
@@ -35,7 +29,6 @@ const Page = () => {
         />
       </div>
 
-      {/* Clue/distraction images */}
       <div className="flex max-w-full space-x-4 overflow-x-auto pb-4">
         {imageList.map((image, index) => (
           <Image

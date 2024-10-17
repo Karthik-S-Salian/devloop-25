@@ -1,15 +1,8 @@
 "use client";
 
-//grid ui responsive
-import { useState } from "react";
-
-import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
-
 const Page = () => {
-  const [value, setValue] = useState("");
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex size-full items-center justify-center">
       <div className="z-1 mx-auto grid h-full w-full max-w-screen-xl grid-cols-1 gap-4 sm:grid-cols-4 lg:grid-cols-5">
         <div className="relative h-full w-full">
           <div className="grid-card flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl p-4 px-2">
@@ -18,12 +11,6 @@ const Page = () => {
                 2
               </p>
             </div>
-          </div>
-        </div>
-
-        <div className="relative h-full w-full sm:col-start-2 sm:row-start-1 sm:row-end-1">
-          <div className="grid-static flex h-full w-full items-center justify-center rounded-2xl p-1 px-2 text-lg">
-            <div className="grid-card-content"></div>
           </div>
         </div>
 
@@ -56,7 +43,6 @@ const Page = () => {
           </div>
         </div>
 
-        {/* Additional grid items */}
         <div className="relative h-full w-full">
           <div className="grid-card flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl p-4 px-2">
             <div className="grid-card-content">
@@ -64,12 +50,6 @@ const Page = () => {
                 0
               </p>
             </div>
-          </div>
-        </div>
-
-        <div className="relative h-full w-full sm:col-start-3 sm:col-end-4 sm:row-start-2 sm:row-end-3">
-          <div className="grid-static flex h-full w-full items-center justify-center rounded-2xl p-1 px-2 text-lg">
-            <div className="grid-card-content"></div>
           </div>
         </div>
 
@@ -101,27 +81,6 @@ const Page = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="flex items-center justify-center space-x-4">
-        <Input
-          placeholder="Enter the decoded message"
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          className="border-2 border-black p-2"
-        />
-        <Button
-          className="border-2 border-black p-2"
-          onClick={() => {
-            if (value === "2412200324") {
-              alert("Correct Answer");
-            } else {
-              alert("Wrong Answer");
-            }
-          }}
-        >
-          Submit
-        </Button>
       </div>
     </div>
   );

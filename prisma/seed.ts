@@ -148,19 +148,72 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
     plusPoints: 0,
     solution: "hehehe",
   },
-
-  // ----------------
   {
     name: "Array Code",
     route: "h5pgkxR6cbaAaG5W",
     difficulty: "EASY",
     minusPoints: 0,
-    hint: "",
+    hint: "ASCII values",
     plusPoints: 0,
-    solution: "hello",
+    solution: "Hello",
+  },
+  {
+    name: "Grid Code",
+    route: "PHNvoDDqqt2Pg5BI",
+    difficulty: "EASY",
+    minusPoints: 0,
+    hint: "Its a grid! Maybe try getting order of numbers from DOM",
+    plusPoints: 0,
+    solution: "2412200324",
+  },
+  {
+    name: "Corner Hearts",
+    route: "V7hRfHPno1Nbzuk4",
+    difficulty: "EASY",
+    minusPoints: 0,
+    hint: "Corners are the key",
+    plusPoints: 0,
+    solution: "Hearts touched",
+  },
+  {
+    // Only puzzle that cannot be solved, time waster
+    name: "Unsolvable Puzzle",
+    route: "lF4Qiv8G2ZRUjpG2",
+    difficulty: "EASY",
+    minusPoints: 0,
+    hint: "This is a time waster puzzle! Quit now! You already wasted your time reading this hint!",
+    plusPoints: 0,
+    solution: "Uq38qqUcl21S6263",
+  },
+  {
+    name: "Invisible Ink",
+    route: "VwmQFHWD888NyfvW",
+    difficulty: "EASY",
+    minusPoints: 0,
+    hint: "Invisible ink fell on the floor!!! On no!!! Page 2 is full of ink now!!!",
+    plusPoints: 0,
+    solution: "Bezos is hot",
+  },
+  {
+    name: "Rock Paper Scissors",
+    route: "jCTmJSPmNil0xTXL",
+    difficulty: "EASY",
+    minusPoints: 0,
+    hint: "Reset the count by refreshing the page",
+    plusPoints: 0,
+    solution: "Gaurdian Lost",
   },
 
-  // ----------------
+  // ---------- Staging ----------
+  {
+    name: "Youtube Subtitle",
+    route: "haurNlR9pWLy7ZON",
+    difficulty: "EASY",
+    minusPoints: 0,
+    hint: "",
+    plusPoints: 0,
+    solution: "",
+  },
   {
     name: "Quiz CTF",
     route: "i1fIj901MenRK4et",
@@ -171,68 +224,49 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
     solution: "Quiz CTF",
   },
   {
-    name: "puzzle13",
-    route: "puzzle13",
+    name: "pigpen",
+    route: "pigpen",
     difficulty: "EASY",
     minusPoints: 0,
     hint: "",
     plusPoints: 0,
-    solution: "puzzle13",
-  },
-
-  {
-    name: "puzzle15",
-    route: "puzzle15",
-    difficulty: "EASY",
-    minusPoints: 0,
-    hint: "",
-    plusPoints: 0,
-    solution: "puzzle15",
+    solution: "pigpen",
   },
   {
-    name: "puzzle16",
-    route: "puzzle16",
+    name: "gyro1",
+    route: "gyro1",
     difficulty: "EASY",
     minusPoints: 0,
     hint: "",
     plusPoints: 0,
-    solution: "puzzle16",
+    solution: "gyro1",
   },
   {
-    name: "puzzle17",
-    route: "puzzle17",
+    name: "gyro2",
+    route: "gyro2",
     difficulty: "EASY",
     minusPoints: 0,
     hint: "",
     plusPoints: 0,
-    solution: "puzzle17",
+    solution: "gyro2",
   },
   {
-    name: "puzzle18",
-    route: "puzzle18",
+    name: "puzzle21",
+    route: "puzzle21",
     difficulty: "EASY",
     minusPoints: 0,
     hint: "",
     plusPoints: 0,
-    solution: "puzzle18",
+    solution: "puzzle21",
   },
   {
-    name: "puzzle19",
-    route: "puzzle19",
+    name: "puzzle22",
+    route: "puzzle22",
     difficulty: "EASY",
     minusPoints: 0,
     hint: "",
     plusPoints: 0,
-    solution: "puzzle19",
-  },
-  {
-    name: "puzzle20",
-    route: "puzzle20",
-    difficulty: "EASY",
-    minusPoints: 0,
-    hint: "",
-    plusPoints: 0,
-    solution: "puzzle20",
+    solution: "puzzle22",
   },
   {
     name: "scrambled_text",
@@ -242,33 +276,6 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
     hint: "",
     plusPoints: 0,
     solution: "scrambled_text",
-  },
-  {
-    name: "puzzle_The_Gaurdian",
-    route: "puzzle_The_Gaurdian",
-    difficulty: "EASY",
-    minusPoints: 0,
-    hint: "",
-    plusPoints: 0,
-    solution: "puzzle_The_Gaurdian",
-  },
-  {
-    name: "puzzle_subtitles",
-    route: "puzzle_subtitles",
-    difficulty: "EASY",
-    minusPoints: 0,
-    hint: "",
-    plusPoints: 0,
-    solution: "puzzle_subtitles",
-  },
-  {
-    name: "invisible_ink",
-    route: "invisible_ink",
-    difficulty: "EASY",
-    minusPoints: 0,
-    hint: "",
-    plusPoints: 0,
-    solution: "invisible_ink",
   },
   {
     name: "error_page",
@@ -283,13 +290,11 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
 
 const main = async () => {
   try {
-    const serverSettings = await prisma.serverSettings.create({
+    await prisma.serverSettings.create({
       data: {
         roundOneLive: false,
       },
     });
-
-    console.log("serverSettings : ", serverSettings);
   } catch (e) {
     if (!(e instanceof PrismaClientKnownRequestError && e.code === "P2002"))
       console.log(e);
