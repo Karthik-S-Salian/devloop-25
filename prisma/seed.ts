@@ -184,6 +184,17 @@ const puzzles: Omit<Puzzle, "id" | "createdAt" | "updatedAt">[] = [
     plusPoints: 0,
     solution: "Sudoku",
   },
+  {
+    name: "Phone number",
+    devName: "Phone number",
+    route: "phn8FEV1xFlAWYWZ",
+    difficulty: "EASY",
+    round: "ONE",
+    minusPoints: 0,
+    hint: "Digits disguised in code—call them, and you'll unlock the secret.",
+    plusPoints: 0,
+    solution: "hehehe",
+  },
 ];
 
 const main = async () => {

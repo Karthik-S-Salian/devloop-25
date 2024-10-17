@@ -53,7 +53,7 @@ const Sudoku: React.FC = () => {
                   onChange={(e) =>
                     handleChange(rowIndex, colIndex, e.target.value)
                   }
-                  className={`h-10 w-10 border border-gray-400 text-center text-lg ${initialBoard[rowIndex]?.[colIndex] !== null ? "bg-gray-200 text-gray-600" : "bg-white"} `}
+                  className={`size-10 border border-gray-400 text-center text-lg ${initialBoard[rowIndex]?.[colIndex] !== null ? "bg-gray-200 text-gray-600" : "bg-white"} `}
                 />
               ))}
             </div>
