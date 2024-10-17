@@ -1,7 +1,16 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
+import { useEffect } from "react";
+
+import { useSubmission } from "~/store";
+
 const Page = () => {
+  const { setSubmissionNote } = useSubmission();
+  useEffect(() => {
+    setSubmissionNote("With space");
+  }, [setSubmissionNote]);
+
   return (
     <div className="flex size-full items-center justify-center">
       <div className="grid aspect-square size-full grid-cols-2">

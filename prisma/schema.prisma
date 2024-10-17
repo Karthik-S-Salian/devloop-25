@@ -62,25 +62,18 @@ model VerificationToken {
 model ServerSettings {
   id String @id @default(cuid())
 
-  roundOneStartTime DateTime
-  roundOneEndTime   DateTime
-
-  roundTwoStoryAccessToken String
-  roundTwoStartTime        DateTime
-  roundTwoEndTime          DateTime
+  roundOneLive Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Puzzle {
-  id      String @id @default(cuid())
-  name    String @unique
-  devName String @unique
-  route   String @unique
+  id    String @id @default(cuid())
+  name  String @unique
+  route String @unique
 
   difficulty PuzzleDifficulty @default(EASY)
-  round      PuzzleRound      @default(ONE)
 
   minusPoints Int
   hint        String
@@ -133,9 +126,4 @@ enum SubmissionStatus {
   PENDING
   ACCEPTED
   QUIT
-}
-
-enum PuzzleRound {
-  ONE
-  TWO
 }

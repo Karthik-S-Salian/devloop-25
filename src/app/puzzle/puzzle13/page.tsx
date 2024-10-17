@@ -13,7 +13,7 @@ const imageList = [
   "https://res.cloudinary.com/dh0sqelog/image/upload/v1728807261/3e23d3e6977705ad38dd52ad4e301f4732169dd1.jpg",
 ];
 
-export default function ImageGallery() {
+const Page = () => {
   const [mainImage, setMainImage] = useState<string>(
     "https://res.cloudinary.com/dh0sqelog/image/upload/v1728806978/67eacae0ffc094f7e57e806ebb42b952f3117a11.png",
   );
@@ -23,7 +23,7 @@ export default function ImageGallery() {
   // }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-900 p-6 text-white">
+    <div className="flex size-full flex-col items-center justify-center">
       {/* Question Image */}
       <div className="mb-4 max-w-full">
         <Image
@@ -48,8 +48,8 @@ export default function ImageGallery() {
           />
         ))}
       </div>
-
-      {/* <h2 className='text-gray-900 mt-48 text-xs'>decypher the sentance</h2> */}
     </div>
   );
-}
+};
+
+export default Page;

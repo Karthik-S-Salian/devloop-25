@@ -89,7 +89,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (puzzle.Submission[0].status !== "PENDING") {
-    router.push(puzzle.round === "ONE" ? "/round/1" : "/round/2");
+    router.push("/round");
     return null;
   }
 

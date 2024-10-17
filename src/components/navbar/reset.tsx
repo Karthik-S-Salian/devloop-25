@@ -10,7 +10,7 @@ import { api } from "~/trpc/react";
 const Reset = () => {
   const resetAllPuzzle = api.submission.resetAllPuzzle.useMutation();
 
-  const getRoundPuzzles = api.useUtils().puzzle.getRoundPuzzles;
+  const getPuzzles = api.useUtils().puzzle.getPuzzles;
 
   return (
     <Button
@@ -19,7 +19,7 @@ const Reset = () => {
         resetAllPuzzle.mutate(void null, {
           onSuccess: () => {
             toast.dismiss();
-            void getRoundPuzzles.refetch();
+            void getPuzzles.refetch();
             toast.success("All puzzles reset");
           },
           onError: (error) => {

@@ -28,7 +28,7 @@ const UserView = () => {
     session?.user.role ?? UserRoles.UNPROTECTED,
   );
 
-  const getRoundPuzzles = api.useUtils().puzzle.getRoundPuzzles;
+  const getPuzzles = api.useUtils().puzzle.getPuzzles;
 
   useEffect(
     () => setUserRole(session?.user.role ?? UserRoles.UNPROTECTED),
@@ -42,9 +42,10 @@ const UserView = () => {
         const newUserRole = value as keyof typeof UserRoles;
         if (userRole === newUserRole) return;
 
-        await signOut({
-          redirect: false,
-        });
+        if (newUserRole === "UNPROTECTED")
+          await signOut({
+            redirect: false,
+          });
 
         if (newUserRole === "USER")
           await signIn("credentials", {
@@ -60,7 +61,7 @@ const UserView = () => {
             redirect: false,
           });
 
-        void getRoundPuzzles.refetch();
+        void getPuzzles.refetch();
         setUserRole(newUserRole);
         router.refresh();
       }}

@@ -4,12 +4,7 @@ import {
   protectedProcedure,
 } from "~/server/api/trpc";
 
-import {
-  addPuzzleZ,
-  editPuzzleZ,
-  getRoundPuzzlesZ,
-  removePuzzleZ,
-} from "~/zod/puzzleZ";
+import { addPuzzleZ, editPuzzleZ, removePuzzleZ } from "~/zod/puzzleZ";
 
 const puzzleRouter = createTRPCRouter({
   // Add(Create)
@@ -19,10 +14,8 @@ const puzzleRouter = createTRPCRouter({
       await ctx.db.puzzle.create({
         data: {
           name: input.name,
-          devName: input.devName,
           route: input.route,
           difficulty: input.difficulty,
-          round: input.round,
           minusPoints: input.minusPoints,
           hint: input.hint,
           plusPoints: input.plusPoints,
@@ -32,23 +25,11 @@ const puzzleRouter = createTRPCRouter({
     }),
 
   // Get(Retrieve), NOTE: infiniteQuery is always preferred
-  getRoundPuzzles: adminProcedure
-    .input(getRoundPuzzlesZ)
-    .query(async ({ ctx, input }) => {
-      return await ctx.db.puzzle.findMany({
-        where: input.round === "BOTH" ? {} : { round: input.round },
-      });
-    }),
-
-  getRoundOnePuzzles: protectedProcedure.query(async ({ ctx }) => {
+  getPuzzles: protectedProcedure.query(async ({ ctx }) => {
     const puzzles = await ctx.db.puzzle.findMany({
-      where: {
-        round: "ONE",
-      },
       select: {
         id: true,
         name: true,
-        round: true,
         difficulty: true,
         route: true,
         minusPoints: true,
@@ -91,10 +72,8 @@ const puzzleRouter = createTRPCRouter({
         },
         data: {
           name: input.name,
-          devName: input.devName,
           route: input.route,
           difficulty: input.difficulty,
-          round: input.round,
           minusPoints: input.minusPoints,
           hint: input.hint,
           plusPoints: input.plusPoints,

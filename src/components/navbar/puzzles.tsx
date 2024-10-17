@@ -20,19 +20,7 @@ import { api } from "~/trpc/server";
 const Puzzles = async () => {
   const session = await getServerAuthSession();
 
-  const roundOnePuzzles =
-    session?.user.role === "ADMIN"
-      ? await api.puzzle.getRoundPuzzles({
-          round: "ONE",
-        })
-      : [];
-
-  const roundTwoPuzzles =
-    session?.user.role === "ADMIN"
-      ? await api.puzzle.getRoundPuzzles({
-          round: "TWO",
-        })
-      : [];
+  const puzzles = session ? await api.puzzle.getPuzzles() : [];
 
   return (
     <Sheet>
@@ -50,27 +38,13 @@ const Puzzles = async () => {
         <ScrollArea className="h-full py-10">
           <div className="space-y-4">
             <Separator />
-            <h2 className="text-center underline">Round 1</h2>
             <div className="flex flex-col gap-4">
-              {roundOnePuzzles.map((puzzle, idx) => (
+              {puzzles.map((puzzle, idx) => (
                 <Button key={idx} asChild>
                   <Link
                     href={`/puzzle/${puzzle.route}` as unknown as UrlObject}
                   >
-                    {puzzle.devName}
-                  </Link>
-                </Button>
-              ))}
-            </div>
-            <Separator />
-            <h2 className="text-center underline">Round 2</h2>
-            <div className="flex flex-col gap-4">
-              {roundTwoPuzzles.map((puzzle, idx) => (
-                <Button key={idx} asChild>
-                  <Link
-                    href={`/puzzle/${puzzle.route}` as unknown as UrlObject}
-                  >
-                    {puzzle.devName}
+                    {puzzle.name}
                   </Link>
                 </Button>
               ))}

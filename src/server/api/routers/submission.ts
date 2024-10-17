@@ -7,6 +7,7 @@ import {
   protectedProcedure,
 } from "~/server/api/trpc";
 
+import { env } from "~/env";
 import { pusherServer } from "~/lib/pusher";
 import {
   startPuzzleZ,
@@ -16,19 +17,6 @@ import {
 } from "~/zod/submissionsZ";
 
 const submissionRouter = createTRPCRouter({
-  resetAllPuzzle: adminProcedure.mutation(async ({ ctx }) => {
-    await ctx.db.submission.updateMany({
-      where: {
-        userId: {
-          equals: ctx.session.user.id,
-        },
-      },
-      data: {
-        status: "PENDING",
-      },
-    });
-  }),
-
   startPuzzle: protectedProcedure
     .input(startPuzzleZ)
     .query(async ({ input, ctx }) => {
@@ -69,8 +57,6 @@ const submissionRouter = createTRPCRouter({
         },
         select: {
           id: true,
-          devName: true,
-          round: true,
           difficulty: true,
           route: true,
           minusPoints: true,
@@ -216,6 +202,25 @@ const submissionRouter = createTRPCRouter({
         },
       });
     }),
+
+  resetAllPuzzle: adminProcedure.mutation(async ({ ctx }) => {
+    if (env.NODE_ENV !== "development")
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Reset all puzzles only allowed in development",
+      });
+
+    await ctx.db.submission.updateMany({
+      where: {
+        userId: {
+          equals: ctx.session.user.id,
+        },
+      },
+      data: {
+        status: "PENDING",
+      },
+    });
+  }),
 });
 
 export default submissionRouter;

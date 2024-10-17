@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type UserRole } from "@prisma/client";
 import {
@@ -23,7 +24,6 @@ declare module "next-auth" {
     user: {
       id: string;
       role: UserRole;
-      roundTwoSelected: boolean;
       // ...other properties
     } & DefaultSession["user"];
   }
@@ -44,7 +44,6 @@ declare module "next-auth/jwt" {
     role: UserRole;
     accessToken: string;
     refreshToken: string;
-    roundTwoSelected: boolean;
   }
 }
 
@@ -60,7 +59,6 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.sub;
         session.user.role = token.role;
         session.user.name = token.name;
-        session.user.roundTwoSelected = token.roundTwoSelected;
       }
       return session;
     },
@@ -71,7 +69,6 @@ export const authOptions: NextAuthOptions = {
       token.role = existingUser.role;
       token.name = existingUser.name;
       token.email = existingUser.email;
-      token.roundTwoSelected = existingUser.roundTwoSelected;
       return token;
     },
   },

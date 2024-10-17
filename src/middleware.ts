@@ -4,7 +4,7 @@ import { withAuth } from "next-auth/middleware";
 const routeConfig = {
   unprotected: ["/", "/auth/(.*)", "/round/(.*)", "/story/(.*)"],
   protected: {
-    USER: ["/puzzle/(.*)", "/leaderboard"],
+    USER: ["/puzzle/(.*)", "/leaderboard/(.*)"],
   },
 } as const;
 
@@ -12,8 +12,6 @@ const middlewareWithAuth = withAuth(
   async (req) => {
     const pathname = new URL(req.url).pathname;
     console.log("Middleware running on: ", pathname);
-
-    // TODO(Omkar): Authorize puzzle based on round
   },
   {
     callbacks: {

@@ -29,7 +29,7 @@ const Quit = ({
 
   const quitPuzzle = api.submission.quitPuzzle.useMutation();
   const startPuzzle = api.useUtils().submission.startPuzzle;
-  const getRoundOnePuzzles = api.useUtils().puzzle.getRoundOnePuzzles;
+  const getPuzzles = api.useUtils().puzzle.getPuzzles;
 
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
@@ -60,7 +60,7 @@ const Quit = ({
                     toast.dismiss();
                     toast.success("Puzzle quited successfully");
                     void startPuzzle.refetch();
-                    void getRoundOnePuzzles.refetch();
+                    void getPuzzles.refetch();
                     setOpen(false);
                   },
                   onError: (error) => {
