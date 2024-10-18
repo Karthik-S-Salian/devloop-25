@@ -10,7 +10,7 @@ const ProdNavbar = () => {
   const router = useRouter();
 
   return (
-    <nav className="absolute left-0 top-0 z-50 flex h-16 w-full flex-row items-center justify-center gap-4 border-b">
+    <nav className="absolute left-2/4 top-0 z-50 flex h-16 w-4/5 -translate-x-2/4 flex-row items-center justify-center gap-4 border-b">
       <Button onClick={() => router.back()}>Go Back</Button>
       <Button asChild>
         <Link href="/leaderboard">Leaderboard</Link>
