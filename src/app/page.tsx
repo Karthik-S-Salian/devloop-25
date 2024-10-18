@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowDown } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -10,6 +11,8 @@ import TeamCard from "~/components/ui/custom/card";
 import { devTeam } from "~/constants/devTeam";
 
 const Home = () => {
+  const { data: session } = useSession();
+
   return (
     <>
       <style jsx>{`
@@ -199,12 +202,14 @@ const Home = () => {
               </ul>
             </div>
           </div>
-          <div className="my-8 flex w-full justify-center gap-6 pb-8 shadow-lg shadow-yellow-300">
-            <Link href="/auth/signIn">
-              <button className="text-md mb-2 me-2 bg-gradient-to-r from-green-400 via-green-500 to-green-600 px-5 py-2.5 text-center font-normal text-white shadow-lg shadow-green-800/80 ring-4 ring-green-900 hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800">
-                SignIn here
-              </button>
-            </Link>
+          <div className="my-8 flex justify-center gap-6">
+            {!session && (
+              <Link href="/auth/signIn">
+                <button className="text-md mb-2 me-2 bg-gradient-to-r from-green-400 via-green-500 to-green-600 px-5 py-2.5 text-center font-normal text-white shadow-lg shadow-green-800/80 ring-4 ring-green-900 hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800">
+                  Sign In
+                </button>
+              </Link>
+            )}
             <Link href="/story">
               <button className="text-md mb-2 me-2 bg-gradient-to-r from-green-400 via-green-500 to-green-600 px-5 py-2.5 text-center font-normal text-white shadow-lg shadow-green-800/80 ring-4 ring-green-900 hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800">
                 Check Storyline

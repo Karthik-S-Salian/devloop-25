@@ -24,8 +24,8 @@ const slides: { image?: string; text: string }[] = [
     text: "Breaking news: Putin's Hello Kitty obsession takes the internet by storm.",
   },
   {
-    image: "image/story/5.jpg",
-    text: "",
+    image: "/assets/story/5.jpg",
+    text: "...",
   },
   {
     image: "/assets/story/4.jpg",

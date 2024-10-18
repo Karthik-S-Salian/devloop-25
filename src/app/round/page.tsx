@@ -91,7 +91,7 @@ const Page = () => {
             {puzzle.Submission && (
               <div
                 className={cn(
-                  "absolute right-2 top-2 flex size-8 items-center justify-center rounded-full border font-digital-number",
+                  "absolute right-2 top-2 flex size-12 items-center justify-center rounded-full border text-center font-digital-number",
                   puzzle.Submission.status === "ACCEPTED"
                     ? puzzle.Submission.hintTaken
                       ? "border-blue-500 bg-blue-200"

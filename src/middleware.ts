@@ -4,16 +4,15 @@ const routeConfig = {
   unprotected: [
     "/",
     "/error.html",
-    "/assets/(.*)",
-    "/image/(.*)",
-    "/doc/(.*)",
-    "/video/(.*)",
-    "/auth/(.*)",
-    "/round/(.*)",
-    "/story/(.*)",
+    "/assets(.*)",
+    "/image(.*)",
+    "/doc(.*)",
+    "/video(.*)",
+    "/auth(.*)",
+    "/story(.*)",
   ],
   protected: {
-    USER: ["/puzzle/(.*)", "/leaderboard/(.*)"],
+    USER: ["/puzzle(.*)", "/round(.*)", "/leaderboard(.*)"],
   },
 } as const;
 
@@ -41,6 +40,7 @@ const middlewareWithAuth = withAuth(
         )
           return true;
 
+        console.log("Middleware callback failed on: ", pathname);
         return false;
       },
     },
