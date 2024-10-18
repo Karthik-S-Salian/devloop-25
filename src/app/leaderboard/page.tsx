@@ -63,7 +63,7 @@ const LeaderBoard = () => {
   if (!leaderboard) return <div>Loading...</div>;
 
   return (
-    <div className="size-full">
+    <div className="size-full py-20">
       <section className="flex w-full flex-col items-center gap-12 py-4">
         <h1 className="text-4xl font-bold">Leaderboard</h1>
         <div

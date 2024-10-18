@@ -9,11 +9,10 @@ const routeConfig = {
     "/doc(.*)",
     "/video(.*)",
     "/auth(.*)",
-    "/round(.*)",
     "/story(.*)",
   ],
   protected: {
-    USER: ["/puzzle(.*)", "/leaderboard(.*)"],
+    USER: ["/puzzle(.*)", "/round(.*)", "/leaderboard(.*)"],
   },
 } as const;
 
@@ -41,8 +40,7 @@ const middlewareWithAuth = withAuth(
         )
           return true;
 
-        console.log("Middleware callback running on: ", pathname);
-
+        console.log("Middleware callback failed on: ", pathname);
         return false;
       },
     },

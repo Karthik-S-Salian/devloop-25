@@ -20,183 +20,162 @@ const submissionRouter = createTRPCRouter({
   startPuzzle: protectedProcedure
     .input(startPuzzleZ)
     .query(async ({ input, ctx }) => {
-      if (env.NODE_ENV !== "development") {
-        const activePuzzle = await ctx.db.submission.findMany({
+      try {
+        if (env.NODE_ENV !== "development") {
+          const activePuzzle = await ctx.db.submission.findMany({
+            where: {
+              AND: [
+                {
+                  userId: ctx.session.user.id,
+                },
+                {
+                  status: "PENDING",
+                },
+              ],
+            },
+            select: {
+              Puzzle: {
+                select: {
+                  route: true,
+                },
+              },
+            },
+          });
+
+          if (
+            activePuzzle.length > 0 &&
+            activePuzzle[0]!.Puzzle.route !== input.route
+          ) {
+            console.log(activePuzzle);
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "You already have an active puzzle",
+            });
+          }
+        }
+
+        const puzzle = await ctx.db.puzzle.findUniqueOrThrow({
           where: {
-            AND: [
-              {
-                userId: ctx.session.user.id,
-              },
-              {
-                status: "PENDING",
-              },
-            ],
+            route: input.route,
           },
           select: {
+            id: true,
+            difficulty: true,
+            route: true,
+            minusPoints: true,
+            plusPoints: true,
+            Submission: {
+              where: {
+                userId: ctx.session.user.id,
+              },
+            },
+          },
+        });
+
+        if (puzzle.Submission.length <= 0) {
+          const submission = await ctx.db.submission.create({
+            data: {
+              userId: ctx.session.user.id,
+              puzzleId: puzzle.id,
+            },
+          });
+
+          return {
+            ...puzzle,
+            Submission: [submission] as [Submission],
+          };
+        }
+
+        return {
+          ...puzzle,
+          Submission: puzzle.Submission as [Submission, ...Submission[]],
+        };
+      } catch (error) {
+        console.log(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Something went wrong",
+        });
+      }
+    }),
+
+  submitPuzzle: protectedProcedure
+    .input(submitPuzzleZ)
+    .mutation(async ({ ctx, input }) => {
+      try {
+        if (!input.manualSubmission) {
+          // input.puzzleId == puzzle.route != puzzle.id
+          const puzzle = await ctx.db.puzzle.findUniqueOrThrow({
+            where: {
+              route: input.puzzleId,
+            },
+          });
+          input.puzzleId = puzzle.id;
+        }
+
+        const submission = await ctx.db.submission.findUniqueOrThrow({
+          where: {
+            userId_puzzleId: {
+              userId: ctx.session.user.id,
+              puzzleId: input.puzzleId,
+            },
+          },
+          select: {
+            startTime: true,
+            endTime: true,
+            hintTaken: true,
             Puzzle: {
               select: {
-                route: true,
+                difficulty: true,
+                solution: true,
+                minPoints: true,
+                plusPoints: true,
+                minusPoints: true,
               },
             },
           },
         });
 
         if (
-          activePuzzle.length > 0 &&
-          activePuzzle[0]!.Puzzle.route !== input.route
-        ) {
-          console.log(activePuzzle);
+          submission.Puzzle.solution.toLowerCase() !==
+          input.answer.toLowerCase()
+        )
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: "You already have an active puzzle",
+            message: "Invalid answer",
           });
+
+        let deductionRate;
+        switch (submission.Puzzle.difficulty) {
+          case "HARD":
+            deductionRate = 0.06;
+            break;
+          case "MEDIUM":
+            deductionRate = 0.04;
+            break;
+          case "EASY":
+            deductionRate = 0.02;
+            break;
+          default:
+            throw new Error("Invalid puzzle difficulty");
         }
-      }
 
-      const puzzle = await ctx.db.puzzle.findUniqueOrThrow({
-        where: {
-          route: input.route,
-        },
-        select: {
-          id: true,
-          difficulty: true,
-          route: true,
-          minusPoints: true,
-          plusPoints: true,
-          Submission: {
-            where: {
-              userId: ctx.session.user.id,
-            },
-          },
-        },
-      });
+        const timeTakenMinutes = Math.floor(
+          (Date.now() - submission.startTime.getTime()) / 60000,
+        );
 
-      if (puzzle.Submission.length <= 0) {
-        const submission = await ctx.db.submission.create({
-          data: {
-            userId: ctx.session.user.id,
-            puzzleId: puzzle.id,
-          },
-        });
+        const initialPoints = submission.Puzzle.plusPoints;
+        const deductedPoints =
+          initialPoints * (1 - deductionRate * timeTakenMinutes);
+        const finalPoints = Math.floor(
+          Math.max(
+            submission.Puzzle.minPoints,
+            deductedPoints -
+              (submission.hintTaken ? submission.Puzzle.minusPoints : 0),
+          ),
+        );
 
-        return {
-          ...puzzle,
-          Submission: [submission] as [Submission],
-        };
-      }
-
-      return {
-        ...puzzle,
-        Submission: puzzle.Submission as [Submission, ...Submission[]],
-      };
-    }),
-
-  submitPuzzle: protectedProcedure
-    .input(submitPuzzleZ)
-    .mutation(async ({ ctx, input }) => {
-      if (!input.manualSubmission) {
-        // input.puzzleId == puzzle.route != puzzle.id
-        const puzzle = await ctx.db.puzzle.findUniqueOrThrow({
-          where: {
-            route: input.puzzleId,
-          },
-        });
-        input.puzzleId = puzzle.id;
-      }
-
-      const submission = await ctx.db.submission.findUniqueOrThrow({
-        where: {
-          userId_puzzleId: {
-            userId: ctx.session.user.id,
-            puzzleId: input.puzzleId,
-          },
-        },
-        select: {
-          startTime: true,
-          endTime: true,
-          hintTaken: true,
-          Puzzle: {
-            select: {
-              difficulty: true,
-              solution: true,
-              minPoints: true,
-              plusPoints: true,
-              minusPoints: true,
-            },
-          },
-        },
-      });
-
-      if (
-        submission.Puzzle.solution.toLowerCase() !== input.answer.toLowerCase()
-      )
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Invalid answer",
-        });
-
-      let deductionRate;
-      switch (submission.Puzzle.difficulty) {
-        case "HARD":
-          deductionRate = 0.06;
-          break;
-        case "MEDIUM":
-          deductionRate = 0.04;
-          break;
-        case "EASY":
-          deductionRate = 0.02;
-          break;
-        default:
-          throw new Error("Invalid puzzle difficulty");
-      }
-
-      const timeTakenMinutes = Math.floor(
-        (Date.now() - submission.startTime.getTime()) / 60000,
-      );
-
-      const initialPoints = submission.Puzzle.plusPoints;
-      const deductedPoints =
-        initialPoints * (1 - deductionRate * timeTakenMinutes);
-      const finalPoints = Math.floor(
-        Math.max(
-          submission.Puzzle.minPoints,
-          deductedPoints -
-            (submission.hintTaken ? submission.Puzzle.minusPoints : 0),
-        ),
-      );
-
-      const newSubmission = await ctx.db.submission.update({
-        where: {
-          userId_puzzleId: {
-            userId: ctx.session.user.id,
-            puzzleId: input.puzzleId,
-          },
-        },
-        data: {
-          points: finalPoints,
-          status: "ACCEPTED",
-          endTime: new Date(),
-        },
-      });
-
-      await pusherServer.trigger("submissions", "newSubmission", newSubmission);
-    }),
-
-  helpPuzzle: protectedProcedure
-    .input(helpPuzzleZ)
-    .mutation(async ({ input, ctx }) => {
-      return await ctx.db.$transaction(async (db) => {
-        const puzzle = await db.puzzle.findUniqueOrThrow({
-          where: {
-            id: input.puzzleId,
-          },
-          select: {
-            hint: true,
-            minusPoints: true,
-          },
-        });
-
-        const newSubmission = await db.submission.update({
+        const newSubmission = await ctx.db.submission.update({
           where: {
             userId_puzzleId: {
               userId: ctx.session.user.id,
@@ -204,7 +183,9 @@ const submissionRouter = createTRPCRouter({
             },
           },
           data: {
-            hintTaken: true,
+            points: finalPoints,
+            status: "ACCEPTED",
+            endTime: new Date(),
           },
         });
 
@@ -213,43 +194,107 @@ const submissionRouter = createTRPCRouter({
           "newSubmission",
           newSubmission,
         );
+      } catch (error) {
+        console.log(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Something went wrong",
+        });
+      }
+    }),
 
-        return puzzle;
-      });
+  helpPuzzle: protectedProcedure
+    .input(helpPuzzleZ)
+    .mutation(async ({ input, ctx }) => {
+      try {
+        return await ctx.db.$transaction(async (db) => {
+          const puzzle = await db.puzzle.findUniqueOrThrow({
+            where: {
+              id: input.puzzleId,
+            },
+            select: {
+              hint: true,
+              minusPoints: true,
+            },
+          });
+
+          const newSubmission = await db.submission.update({
+            where: {
+              userId_puzzleId: {
+                userId: ctx.session.user.id,
+                puzzleId: input.puzzleId,
+              },
+            },
+            data: {
+              hintTaken: true,
+            },
+          });
+
+          await pusherServer.trigger(
+            "submissions",
+            "newSubmission",
+            newSubmission,
+          );
+
+          return puzzle;
+        });
+      } catch (error) {
+        console.log(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Something went wrong",
+        });
+      }
     }),
 
   quitPuzzle: protectedProcedure
     .input(quitPuzzleZ)
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.submission.update({
-        where: {
-          userId_puzzleId: {
-            userId: ctx.session.user.id,
-            puzzleId: input.puzzleId,
+      try {
+        await ctx.db.submission.update({
+          where: {
+            userId_puzzleId: {
+              userId: ctx.session.user.id,
+              puzzleId: input.puzzleId,
+            },
           },
-        },
-        data: {
-          points: 0,
-          endTime: new Date(),
-          status: "QUIT",
-        },
-      });
+          data: {
+            points: 0,
+            endTime: new Date(),
+            status: "QUIT",
+          },
+        });
+      } catch (error) {
+        console.log(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Something went wrong",
+        });
+      }
     }),
 
   resetAllPuzzle: adminProcedure.mutation(async ({ ctx }) => {
-    if (env.NODE_ENV !== "development")
-      throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: "Reset all puzzles only allowed in development",
-      });
+    try {
+      if (env.NODE_ENV !== "development")
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Reset all puzzles only allowed in development",
+        });
 
-    await ctx.db.submission.deleteMany({
-      where: {
-        userId: {
-          equals: ctx.session.user.id,
+      await ctx.db.submission.deleteMany({
+        where: {
+          userId: {
+            equals: ctx.session.user.id,
+          },
         },
-      },
-    });
+      });
+    } catch (error) {
+      console.log(error);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Something went wrong",
+      });
+    }
   }),
 });
 
