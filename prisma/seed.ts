@@ -64,7 +64,6 @@ const puzzlesRoundOne: Omit<
     solution: "Docker",
   },
   {
-    // TODO
     name: "Reverse Base64 Audio",
     route: "DgXeXX6UBp3O7IDu",
     difficulty: "MEDIUM",
@@ -146,7 +145,6 @@ const puzzlesRoundTwo: Omit<
   "id" | "minPoints" | "minusPoints" | "plusPoints" | "createdAt" | "updatedAt"
 >[] = [
   {
-    // TODO(Omkar): solve the bug, ui
     name: "Rock Paper Scissors",
     route: "jCTmJSPmNil0xTXL",
     difficulty: "EASY",
@@ -231,6 +229,18 @@ const main = async () => {
           name: "User",
           email: "user@flc.in",
           password: "user@123",
+          phoneNumber: "",
+        },
+        {
+          name: "srivatsa",
+          email: "srivatsa@flc.in",
+          password: "srivatsa@123",
+          phoneNumber: "",
+        },
+        {
+          name: "shashank",
+          email: "shashank@flc.in",
+          password: "shashank@123",
           phoneNumber: "",
         },
         {
