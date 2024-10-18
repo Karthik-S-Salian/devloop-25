@@ -13,11 +13,11 @@ const StuckDoor = ({
 }) => {
   const src =
     difficulty === "HARD"
-      ? "/image/hardStuckDoor.svg"
+      ? "/assets/round/hardStuckDoor.svg"
       : difficulty === "MEDIUM"
-        ? "/image/mediumStuckDoor.svg"
+        ? "/assets/round/mediumStuckDoor.svg"
         : difficulty === "EASY"
-          ? "/image/easyStuckDoor.svg"
+          ? "/assets/round/easyStuckDoor.svg"
           : undefined;
 
   if (!src) return null;

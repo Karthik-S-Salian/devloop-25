@@ -16,6 +16,7 @@ const puzzleRouter = createTRPCRouter({
           name: input.name,
           route: input.route,
           difficulty: input.difficulty,
+          minPoints: input.minPoints,
           minusPoints: input.minusPoints,
           hint: input.hint,
           plusPoints: input.plusPoints,
@@ -32,6 +33,7 @@ const puzzleRouter = createTRPCRouter({
         name: true,
         difficulty: true,
         route: true,
+        minPoints: true,
         minusPoints: true,
         plusPoints: true,
         Submission: {
@@ -74,6 +76,7 @@ const puzzleRouter = createTRPCRouter({
           name: input.name,
           route: input.route,
           difficulty: input.difficulty,
+          minPoints: input.minPoints,
           minusPoints: input.minusPoints,
           hint: input.hint,
           plusPoints: input.plusPoints,

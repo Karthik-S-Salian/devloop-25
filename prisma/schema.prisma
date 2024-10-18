@@ -23,6 +23,7 @@ model User {
   password         String
   role             UserRole @default(USER)
   roundTwoSelected Boolean  @default(false)
+  phoneNumber      String
 
   Submission Submission[]
 
@@ -62,7 +63,8 @@ model VerificationToken {
 model ServerSettings {
   id String @id @default(cuid())
 
-  roundOneLive Boolean @default(false)
+  roundOneLive   Boolean  @default(false)
+  roundOneStarts DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -74,6 +76,8 @@ model Puzzle {
   route String @unique
 
   difficulty PuzzleDifficulty @default(EASY)
+
+  minPoints Int
 
   minusPoints Int
   hint        String

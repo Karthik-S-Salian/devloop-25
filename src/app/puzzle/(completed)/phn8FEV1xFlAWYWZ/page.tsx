@@ -1,13 +1,13 @@
 "use client";
 
 const Page = () => {
-  const phoneNumbers: string[] = [
-    "9481585863",
-    "9448846524",
-    "9481585863",
-    "9481585863",
-    "9481585863",
-  ];
+  const phoneNumbers = [
+    "7411004271",
+    "6362320199",
+    "8762037401",
+    "8748035788",
+    "9518307223",
+  ] as const;
 
   const formattedPhoneNumber = (number: string) =>
     number.split("").map((num) => num.charCodeAt(0).toString(16));

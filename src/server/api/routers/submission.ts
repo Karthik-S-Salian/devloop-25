@@ -112,10 +112,14 @@ const submissionRouter = createTRPCRouter({
           },
         },
         select: {
+          startTime: true,
+          endTime: true,
           hintTaken: true,
           Puzzle: {
             select: {
+              difficulty: true,
               solution: true,
+              minPoints: true,
               plusPoints: true,
               minusPoints: true,
             },
@@ -131,6 +135,36 @@ const submissionRouter = createTRPCRouter({
           message: "Invalid answer",
         });
 
+      let deductionRate;
+      switch (submission.Puzzle.difficulty) {
+        case "HARD":
+          deductionRate = 0.06;
+          break;
+        case "MEDIUM":
+          deductionRate = 0.04;
+          break;
+        case "EASY":
+          deductionRate = 0.02;
+          break;
+        default:
+          throw new Error("Invalid puzzle difficulty");
+      }
+
+      const timeTakenMinutes = Math.floor(
+        (Date.now() - submission.startTime.getTime()) / 60000,
+      );
+
+      const initialPoints = submission.Puzzle.plusPoints;
+      const deductedPoints =
+        initialPoints * (1 - deductionRate * timeTakenMinutes);
+      const finalPoints = Math.floor(
+        Math.max(
+          submission.Puzzle.minPoints,
+          deductedPoints -
+            (submission.hintTaken ? submission.Puzzle.minusPoints : 0),
+        ),
+      );
+
       const newSubmission = await ctx.db.submission.update({
         where: {
           userId_puzzleId: {
@@ -139,9 +173,7 @@ const submissionRouter = createTRPCRouter({
           },
         },
         data: {
-          points:
-            submission.Puzzle.plusPoints -
-            (submission.hintTaken ? submission.Puzzle.minusPoints : 0),
+          points: finalPoints,
           status: "ACCEPTED",
           endTime: new Date(),
         },
@@ -176,7 +208,6 @@ const submissionRouter = createTRPCRouter({
           },
         });
 
-        // TODO(Omkar): Needed?
         await pusherServer.trigger(
           "submissions",
           "newSubmission",

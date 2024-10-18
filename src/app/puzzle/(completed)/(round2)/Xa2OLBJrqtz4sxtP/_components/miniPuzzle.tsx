@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 
 const MiniPuzzle = ({ idx }: { idx: number }) => {
@@ -7,13 +6,9 @@ const MiniPuzzle = ({ idx }: { idx: number }) => {
     case 0:
       return (
         <div className="flex size-full flex-col items-center justify-center gap-4">
-          <div className="relative size-60">
-            <Image
-              priority
-              src="/image/UJBzOOpkq0V2mkE7.jpeg"
-              alt="image"
-              fill
-            />
+          <div className="relative flex size-32 flex-col items-center justify-center gap-4">
+            <pre>7892859097</pre>
+            <pre>Hukum mere aaka?</pre>
           </div>
           <p>
             &quot;In a land of dreams where fortunes gleam, I appear to grant

@@ -13,11 +13,11 @@ const BrokenDoor = ({
 }) => {
   const src =
     difficulty === "HARD"
-      ? "/image/hardBrokenDoor.svg"
+      ? "/assets/round/hardBrokenDoor.svg"
       : difficulty === "MEDIUM"
-        ? "/image/mediumBrokenDoor.svg"
+        ? "/assets/round/mediumBrokenDoor.svg"
         : difficulty === "EASY"
-          ? "/image/easyBrokenDoor.svg"
+          ? "/assets/round/easyBrokenDoor.svg"
           : undefined;
 
   if (!src) return null;

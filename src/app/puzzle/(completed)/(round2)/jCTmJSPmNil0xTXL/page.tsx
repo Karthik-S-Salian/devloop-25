@@ -58,76 +58,22 @@ const Page = () => {
   };
 
   useEffect(() => {
-    let countStr = localStorage.getItem("guardianCount");
-    if (!countStr) localStorage.setItem("guardianCount", "0");
-    countStr = localStorage.getItem("guardianCount")!;
+    // TODO(Omkar): Is this bug even in prod
+    const countStr = localStorage.getItem("guardianCount") ?? "0";
     const storedCount = parseInt(countStr);
     if (storedCount >= 10 && !solved) {
       submitPuzzle({
         answer: "Gaurdian Lost",
       });
       setSolved(true);
+      localStorage.removeItem("guardianCount");
     }
     localStorage.setItem("guardianCount", (storedCount + 1).toString());
   }, [solved, submitPuzzle]);
 
   return (
-    <>
-      {/* TODO(Omkar): TailwindCSS?? */}
-      <style jsx>{`
-        .game-container {
-          display: grid;
-          place-content: center;
-          font-size: 80px;
-          overflow-y: hidden;
-          overflow-x: hidden;
-          min-width: 300px;
-          min-height: 400px;
-          user-select: none;
-        }
-        #player span {
-          cursor: pointer;
-          transition: all 0.5s;
-          opacity: 1;
-          display: inline-block;
-          position: relative;
-          width: 80px;
-          bottom: 0;
-        }
-        #player span.chosen {
-          bottom: 25px;
-        }
-        #player span.hidden {
-          opacity: 0;
-          width: 0;
-        }
-        .noclick #player span {
-          cursor: default;
-        }
-        #pc {
-          position: absolute;
-          top: 40px;
-          left: calc(50vw - 40px);
-          transform: rotate(180deg);
-          transition: top 0.5s;
-        }
-        #pc.hidden {
-          top: -120px;
-        }
-        .game-container p {
-          position: absolute;
-          width: 100vw;
-          text-align: center;
-          bottom: 40px;
-          margin: 0;
-          color: #fff;
-          transition: bottom 0.5s;
-        }
-        p.hidden {
-          bottom: -200px;
-        }
-      `}</style>
-      <div className="flex size-full flex-col items-center justify-center">
+    <div className="flex size-full flex-col items-center justify-center gap-10">
+      <div className="space-y-4">
         <pre className="text-2xl">
           The &quot;Guardian&quot; is protecting the gates u need to outsmart
           him to pass through.
@@ -136,33 +82,30 @@ const Page = () => {
           He is a gambler and a good one at it. But one thing he is not good at
           is waiting.
         </pre>
+      </div>
 
-        <div className="game-container">
-          <div id="computer-choice" className="hand text-center">
-            {compChoice ? compChoice.symbol : " 💂 "}
-          </div>
-
-          <div id="player" className="hand">
-            {CHOICES.map((choice) => (
-              <span
-                key={choice.id}
-                className={cn(
-                  "choice cursor-pointer",
-                  playChoice?.id === choice.id && "chosen",
-                )}
-                onClick={() => handlePlayerChoice(choice)}
-              >
-                {choice.symbol}
-              </span>
-            ))}
-          </div>
-
-          <pre className="text-4xl">
-            The Guardian : {compScore} - You : {playerScore}
-          </pre>
+      <div className="grid select-none grid-cols-2 items-center justify-center">
+        <pre className="text-2xl">The Guardian : {compScore}</pre>
+        <div className="p-10 text-center text-7xl">
+          {compChoice ? compChoice.symbol : " 💂 "}
+        </div>
+        <pre className="text-2xl">You : {playerScore}</pre>
+        <div className="p-10 text-center text-7xl">
+          {CHOICES.map((choice) => (
+            <span
+              key={choice.id}
+              className={cn(
+                "relative bottom-0 inline-block cursor-pointer transition-all",
+                playChoice?.id === choice.id && "bottom-6",
+              )}
+              onClick={() => handlePlayerChoice(choice)}
+            >
+              {choice.symbol}
+            </span>
+          ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

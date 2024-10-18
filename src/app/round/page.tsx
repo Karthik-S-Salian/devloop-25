@@ -32,7 +32,13 @@ const Page = () => {
   );
 
   return (
-    <div className="flex size-full flex-col items-center justify-center gap-4 px-4 pb-20 pt-4 sm:px-6 md:px-8 xl:px-10">
+    <div
+      // style={{
+      //   backgroundImage: "url(/assets/round/bg.svg)",
+      //   backgroundRepeat: "no-repeat",
+      // }}
+      className="flex size-full flex-col items-center justify-center gap-4 px-4 py-20 sm:px-6 md:px-8 xl:px-10"
+    >
       <div className="grid size-full grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {puzzles?.map((puzzle, idx) => (
           <div
@@ -113,10 +119,9 @@ const Page = () => {
               </HoverCardTrigger>
               <HoverCardContent>
                 <div className="grid size-full grid-cols-3">
-                  <div>Name</div>
-                  <div className="col-span-2">: {puzzle.name}</div>
                   <div>Difficulty</div>
                   <div className="col-span-2">: {puzzle.difficulty}</div>
+                  {/* TODO */}
                   {puzzle.Submission ? (
                     <>
                       <div>Status</div>
@@ -138,6 +143,10 @@ const Page = () => {
                       <div className="col-span-2">: {puzzle.plusPoints}</div>
                       <div>Minus</div>
                       <div className="col-span-2">: {puzzle.minusPoints}</div>
+                      <div>Status</div>
+                      <div className="col-span-2">
+                        : {puzzle.Submission.status}
+                      </div>
                     </>
                   )}
                 </div>

@@ -66,7 +66,7 @@ const UserView = () => {
         router.refresh();
       }}
     >
-      <SelectTrigger className="w-56 first:*:w-full">
+      <SelectTrigger className="w-56 text-blue-300 first:*:w-full">
         <SelectValue>Viewing as: {userRole}</SelectValue>
       </SelectTrigger>
       <SelectContent>

@@ -27,8 +27,6 @@ import {
   DrawerTrigger,
 } from "~/components/ui/drawer";
 
-// TODO(Omkar): Refining the types for the components
-
 const DialogDrawer = ({ ...props }: React.ComponentProps<typeof Drawer>) =>
   useWindowWidth() >= WIDTH_THRESHOLD ? (
     <Dialog {...props} />

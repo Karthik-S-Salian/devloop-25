@@ -59,7 +59,6 @@ const InnerCombobox = <T extends Record<string, string>>({
               setValue(currentValue === value ? "" : currentValue);
               setOpen(false);
             }}
-            // TODO(Omkar): also searches d[dataValueKey], implement custom filter()
             keywords={[d[dataDisplayKey]].concat(
               dataSearchKeys?.map((key) => d[key]) ?? [],
             )}
@@ -92,7 +91,6 @@ const Combobox = <T extends Record<string, string>>({
   ...props
 }: InnerComboboxProps<T> &
   ButtonProps & {
-    // TODO(Omkar): can we combine forwardRef and generics?
     ref?: React.RefObject<HTMLButtonElement>;
   }) => {
   const [open, setOpen] = React.useState<boolean>(false);

@@ -5,6 +5,7 @@ import { Toaster } from "~/components/ui/sonner";
 
 import Navbar from "~/components/navbar";
 import { RootProvider } from "~/contexts/root";
+import { env } from "~/env";
 import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 
@@ -21,12 +22,10 @@ const RootLayout = async ({
 }>) => {
   return (
     <html lang="en">
-      <body
-        className={cn("flex min-h-screen w-screen flex-col overflow-x-hidden")}
-      >
+      <body className={cn("flex h-screen w-screen flex-col")}>
         <RootProvider>
-          <Navbar />
-          {children}
+          {env.NODE_ENV === "development" && <Navbar />}
+          <main className="size-full">{children}</main>
         </RootProvider>
         <Toaster />
       </body>

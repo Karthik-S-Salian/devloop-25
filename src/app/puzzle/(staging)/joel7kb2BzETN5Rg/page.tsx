@@ -2,16 +2,25 @@
 
 import React, { useState, useEffect } from "react";
 
-import { Button } from "~/components/ui/button";
+import { useSubmitPuzzle } from "~/hooks/submission";
+import { useSubmission } from "~/store";
 
-const WIRE_COLORS = ["yellow", "green", "red", "blue", "white"];
-const ANSWER_SEQUENCE = ["yellow", "red", "white", "blue", "green"];
+const WIRE_COLORS = ["yellow", "green", "red", "blue", "white"] as const;
+const ANSWER_SEQUENCE = ["yellow", "red", "white", "blue", "green"] as const;
 
-export default function Component() {
+const Page = () => {
+  const { makeAutoSubmission } = useSubmission();
+  useEffect(() => {
+    makeAutoSubmission();
+  }, [makeAutoSubmission]);
+
+  const submitPuzzle = useSubmitPuzzle();
+
+  const [solved, setSolved] = useState(false);
+
   const [time, setTime] = useState(300); // 5 minutes in seconds
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
   const [hasExploded, setHasExploded] = useState(false);
-  const [, setClickedWire] = useState<string | null>(null);
   const [cutWires, setCutWires] = useState<Set<string>>(new Set());
   const [selectedColor, setSelectedColor] = useState<string[]>([]);
   const [explode, setExplode] = useState(false);
@@ -33,9 +42,7 @@ export default function Component() {
   }, [isActive, time, hasExploded]);
 
   useEffect(() => {
-    if (hasExploded) {
-      setIsActive(false);
-    }
+    if (hasExploded) setIsActive(false);
   }, [hasExploded]);
 
   const formatTime = (seconds: number) => {
@@ -44,22 +51,13 @@ export default function Component() {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const toggleTimer = () => {
-    setIsActive(!isActive);
-  };
-
   const handleWireClick = (color: string) => {
-    setClickedWire(color);
     setSelectedColor((prevColors) => [...prevColors, color]);
     setCutWires((prevCutWires) => new Set(prevCutWires).add(color));
-    setTimeout(() => setClickedWire(null), 3000);
   };
 
-  const submit = () => {
-    if (selectedColor.length < 5) {
-      alert("Cut all wires");
-      return;
-    }
+  useEffect(() => {
+    if (selectedColor.length < 5) return;
 
     let isMatch = true;
     for (let i = 0; i < 5; i++) {
@@ -70,28 +68,35 @@ export default function Component() {
     }
 
     if (isMatch) {
-      alert("Sequences match!");
       setIsActive(false);
+      if (!solved) {
+        submitPuzzle({
+          answer: "9 / 11 Boom",
+        });
+        setSolved(true);
+      }
     } else {
-      alert("Sequences do not match.");
       setHasExploded(true);
       setExplode(true);
       setIsActive(false);
-      setVideoEnded(false); // Reset video ended state
+      setVideoEnded(false);
     }
-  };
+  }, [selectedColor, solved, submitPuzzle]);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      "order",
+      ANSWER_SEQUENCE[0] +
+        ANSWER_SEQUENCE[1] +
+        ANSWER_SEQUENCE[2] +
+        ANSWER_SEQUENCE[3] +
+        ANSWER_SEQUENCE[4],
+    );
+  }, []);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#282828] bg-[radial-gradient(black_15%,transparent_16%)_0_0,radial-gradient(black_15%,transparent_16%)_8px_8px] bg-[length:16px_16px]">
       <div className={`relative ${hasExploded ? "explode" : ""}`}>
-        <div className="absolute left-[-200px] top-[-100px] text-xs text-[#282828]">
-          <p>{ANSWER_SEQUENCE[0]}</p>
-          <p>{ANSWER_SEQUENCE[1]}</p>
-          <p>{ANSWER_SEQUENCE[2]}</p>
-          <p>{ANSWER_SEQUENCE[3]}</p>
-          <p>{ANSWER_SEQUENCE[4]}</p>
-        </div>
-
         {explode && (
           <div className="fixed inset-0 z-50 bg-black">
             <video
@@ -99,7 +104,7 @@ export default function Component() {
               autoPlay
               onEnded={() => setVideoEnded(true)}
             >
-              <source src="/explosion.mp4" type="video/mp4" />
+              <source src="/video/Ldr68gyVOGx47jMu.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
@@ -138,17 +143,6 @@ export default function Component() {
                   {formatTime(time)}
                 </div>
               </div>
-
-              {/* Buttons */}
-              <div className="mt-4 flex justify-center space-x-4">
-                <Button
-                  onClick={toggleTimer}
-                  className="bg-gradient-radial h-[2.3em] w-[2.3em] rounded-full from-[#C41B2B] via-[#DB3E3E] to-[#8F2844] shadow-[0.1em_0.1em_0.2em_rgba(0,0,0,0.4)]"
-                >
-                  {isActive ? "■" : "▶"}
-                </Button>
-                <Button onClick={submit}>confirm</Button>
-              </div>
             </div>
 
             {/* Wires */}
@@ -186,4 +180,6 @@ export default function Component() {
       </div>
     </div>
   );
-}
+};
+
+export default Page;

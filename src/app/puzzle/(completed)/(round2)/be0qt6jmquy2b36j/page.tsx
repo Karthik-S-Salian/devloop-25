@@ -21,7 +21,7 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="size-full px-4 pb-20 pt-4 sm:px-6 md:px-8 xl:px-10">
+    <div className="size-full px-4 py-20 sm:px-6 md:px-8 xl:px-10">
       <div className="size-full overflow-y-scroll font-fira-code">
         <CodeBlock
           text={snippetFunction.toString()}

@@ -16,7 +16,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { Separator } from "~/components/ui/separator";
 
-import MiniPuzzle from "~/app/puzzle/(completed)/Xa2OLBJrqtz4sxtP/_components/miniPuzzle";
+import MiniPuzzle from "~/app/puzzle/(completed)/(round2)/Xa2OLBJrqtz4sxtP/_components/miniPuzzle";
 import { useSubmitPuzzle } from "~/hooks/submission";
 import { useSubmission } from "~/store";
 

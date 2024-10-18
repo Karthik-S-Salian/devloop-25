@@ -13,11 +13,11 @@ const OpenDoor = ({
 }) => {
   const src =
     difficulty === "HARD"
-      ? "/image/hardOpenDoor.svg"
+      ? "/assets/round/hardOpenDoor.svg"
       : difficulty === "MEDIUM"
-        ? "/image/mediumOpenDoor.svg"
+        ? "/assets/round/mediumOpenDoor.svg"
         : difficulty === "EASY"
-          ? "/image/easyOpenDoor.svg"
+          ? "/assets/round/easyOpenDoor.svg"
           : undefined;
 
   if (!src) return null;
