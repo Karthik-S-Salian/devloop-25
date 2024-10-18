@@ -214,7 +214,6 @@ const main = async () => {
     await prisma.serverSettings.create({
       data: {
         roundOneLive: false,
-        roundOneStarts: new Date("2024-10-19T09:30:00Z"),
       },
     });
   } catch (e) {

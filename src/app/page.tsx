@@ -219,8 +219,8 @@ const Home = () => {
           <div className="mt-12 flex flex-col items-center font-fira-code">
             <h2 className="neonTextbg my-8 text-6xl">Dev Team</h2>
             <div className="mt-2 flex flex-wrap items-center justify-center gap-12 py-2">
-              {devTeam.map((dev) => (
-                <TeamCard image={dev.image} name={dev.name} />
+              {devTeam.map((dev, idx) => (
+                <TeamCard key={idx} image={dev.image} name={dev.name} />
               ))}
             </div>
           </div>

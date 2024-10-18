@@ -11,7 +11,7 @@ const ProdNavbar = () => {
 
   return (
     <nav className="absolute left-2/4 top-0 z-50 flex h-16 w-4/5 -translate-x-2/4 flex-row items-center justify-center gap-4 border-b">
-      <Button onClick={() => router.back()}>Go Back</Button>
+      <Button onClick={() => router.push("/round")}>Round</Button>
       <Button asChild>
         <Link href="/leaderboard">Leaderboard</Link>
       </Button>

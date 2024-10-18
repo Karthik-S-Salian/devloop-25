@@ -145,6 +145,10 @@ const submissionRouter = createTRPCRouter({
             message: "Invalid answer",
           });
 
+        const serverSettings = await ctx.db.serverSettings.findFirstOrThrow();
+
+        if (!serverSettings.roundOneLive) return;
+
         let deductionRate;
         switch (submission.Puzzle.difficulty) {
           case "HARD":

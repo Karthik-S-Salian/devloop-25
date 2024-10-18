@@ -58,7 +58,7 @@ const LeaderBoard = () => {
     }
   }, [leaderboard, currentUserRank]);
 
-  const maxScore = 1000;
+  const maxScore = 1650;
 
   if (!leaderboard) return <div>Loading...</div>;
 
@@ -94,9 +94,8 @@ const LeaderBoard = () => {
                           style={{
                             width: `${(entry.totalScore / maxScore) * 100}%`,
                           }}
-                        ></div>
+                        />
                       </div>
-                      <span>{entry.totalScore}</span>
                     </div>
                   </td>
                 </tr>
