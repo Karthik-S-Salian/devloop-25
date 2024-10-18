@@ -24,7 +24,7 @@ const slides = [
   },
   {
     image: "image/story/5.jpg",
-    text: "",
+    text: "...",
   },
   {
     image: "image/story/4.jpg",
