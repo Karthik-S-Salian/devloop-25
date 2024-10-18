@@ -5,6 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+import TeamCard from "~/components/ui/custom/card";
+
+import { devTeam } from "~/constants/devTeam";
+
 const Home = () => {
   return (
     <>
@@ -116,7 +120,7 @@ const Home = () => {
             />
           </div>
         </div>
-        <div className="mb-10 mt-20 font-bold text-white">
+        <div className="mb-10 mt-20 flex flex-col items-center justify-center font-bold text-white">
           <div className="h-auto w-[80vw]">
             <div
               className="flex w-full flex-col items-center justify-center border-2 border-white px-8 py-20"
@@ -195,7 +199,7 @@ const Home = () => {
               </ul>
             </div>
           </div>
-          <div className="my-8 flex justify-center gap-6">
+          <div className="my-8 flex w-full justify-center gap-6 pb-8 shadow-lg shadow-yellow-300">
             <Link href="/auth/signIn">
               <button className="text-md mb-2 me-2 bg-gradient-to-r from-green-400 via-green-500 to-green-600 px-5 py-2.5 text-center font-normal text-white shadow-lg shadow-green-800/80 ring-4 ring-green-900 hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800">
                 SignIn here
@@ -206,6 +210,14 @@ const Home = () => {
                 Check Storyline
               </button>
             </Link>
+          </div>
+          <div className="mt-12 flex flex-col items-center font-fira-code">
+            <h2 className="neonTextbg my-8 text-6xl">Dev Team</h2>
+            <div className="mt-2 flex flex-wrap items-center justify-center gap-12 py-2">
+              {devTeam.map((dev) => (
+                <TeamCard image={dev.image} name={dev.name} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
