@@ -76,7 +76,7 @@ const MiniPuzzle = ({ idx }: { idx: number }) => {
       return (
         <div className="flex size-full flex-col items-center justify-center gap-4">
           <a
-            href="https://whatsapp.com/channel/0029VargwlYDJ6Gs9Rhwsm2O"
+            href="https://whatsapp.com/channel/0029VasNfn57IUYNY7sCjd1h"
             target="_blank"
           >
             🥵

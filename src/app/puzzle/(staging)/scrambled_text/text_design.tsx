@@ -18,9 +18,9 @@ export default function TextDesing() {
   //put new line on all '//' and we get the answer
   console.log(answerText);
   return (
-    <div>
+    <div className="size-full">
       <h1>Text design puzzle</h1>
-      <pre className="w-[75vw] overflow-x-scroll">{secretText}</pre>
+      <pre className="h-full w-[75vw] overflow-x-scroll">{secretText}</pre>
     </div>
   );
 }

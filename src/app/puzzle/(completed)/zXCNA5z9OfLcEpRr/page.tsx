@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { Checkbox } from "~/components/ui/checkbox";
 
-import Goto from "~/app/puzzle/(completed)/zXCNA5z9OfLcEpRr/_components/goto";
 import { useSubmitPuzzle } from "~/hooks/submission";
 import { cn } from "~/lib/utils";
 import { useSubmission } from "~/store";
@@ -32,9 +31,6 @@ const Page = () => {
 
   return (
     <div className="flex size-full flex-col items-center justify-center gap-4 px-4 pb-20 pt-4 sm:px-6 md:px-8 xl:px-10">
-      <div className="flex w-80 items-center justify-center gap-4">
-        <Goto />
-      </div>
       <div
         className={cn(
           "grid size-full items-center justify-center gap-4 overflow-scroll",

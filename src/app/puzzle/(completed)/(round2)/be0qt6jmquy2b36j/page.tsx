@@ -6,7 +6,7 @@ import { CodeBlock, dracula } from "react-code-blocks";
 import {
   actualFunction,
   snippetFunction,
-} from "~/app/puzzle/(completed)/be0qt6jmquy2b36j/_components/data";
+} from "~/app/puzzle/(completed)/(round2)/be0qt6jmquy2b36j/_components/data";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions

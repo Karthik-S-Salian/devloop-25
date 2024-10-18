@@ -4,6 +4,7 @@ import { withAuth } from "next-auth/middleware";
 const routeConfig = {
   unprotected: [
     "/",
+    "/error.html",
     "/assets/(.*)",
     "/image/(.*)",
     "/doc/(.*)",
