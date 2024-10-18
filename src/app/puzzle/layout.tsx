@@ -94,32 +94,34 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="relative size-full">
-      {children}
+    <main className="size-full h-[calc(100%_-_4rem)]">
+      <div className="relative size-full">
+        {children}
 
-      {isMobile ? (
-        <Drawer>
-          <DrawerTrigger asChild>
-            <Button className="absolute bottom-5 left-2/4 -translate-x-2/4 bg-teal-500 hover:bg-teal-600">
-              Control Panel
-            </Button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>Control Panel</DrawerTitle>
-            </DrawerHeader>
+        {isMobile ? (
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button className="absolute bottom-5 left-2/4 -translate-x-2/4 bg-teal-500 hover:bg-teal-600">
+                Control Panel
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader>
+                <DrawerTitle>Control Panel</DrawerTitle>
+              </DrawerHeader>
 
-            <ControlPanel puzzle={puzzle} />
+              <ControlPanel puzzle={puzzle} />
 
-            <DrawerFooter>
-              <DrawerClose></DrawerClose>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      ) : (
-        <ControlPanel puzzle={puzzle} />
-      )}
-    </div>
+              <DrawerFooter>
+                <DrawerClose></DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+        ) : (
+          <ControlPanel puzzle={puzzle} />
+        )}
+      </div>
+    </main>
   );
 };
 

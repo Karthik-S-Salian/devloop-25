@@ -21,10 +21,12 @@ const RootLayout = async ({
 }>) => {
   return (
     <html lang="en">
-      <body className={cn("flex h-screen w-screen flex-col")}>
+      <body
+        className={cn("flex min-h-screen w-screen flex-col overflow-x-hidden")}
+      >
         <RootProvider>
           <Navbar />
-          <main className="size-full h-[calc(100%_-_4rem)]">{children}</main>
+          {children}
         </RootProvider>
         <Toaster />
       </body>
