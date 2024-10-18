@@ -32,19 +32,21 @@ const Page = () => {
   );
 
   return (
-    <div
-      // style={{
-      //   backgroundImage: "url(/assets/round/bg.svg)",
-      //   backgroundRepeat: "no-repeat",
-      // }}
-      className="flex size-full flex-col items-center justify-center gap-4 px-4 py-20 sm:px-6 md:px-8 xl:px-10"
-    >
+    <div className="relative flex size-full flex-col items-center justify-center gap-4 px-4 py-20 sm:px-6 md:px-8 xl:px-10">
+      <div
+        className="fixed size-full bg-cover bg-center blur-md"
+        style={{
+          backgroundImage: "url(/assets/round/bg.svg)",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+
       <div className="grid size-full grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {puzzles?.map((puzzle, idx) => (
           <div
             key={idx}
             className={cn(
-              "relative flex items-center justify-center border",
+              "relative flex items-center justify-center rounded-md shadow-2xl shadow-black",
               activePuzzle
                 ? activePuzzle.id === puzzle.id
                   ? "cursor-pointer"
@@ -111,42 +113,39 @@ const Page = () => {
               <HoverCardTrigger>
                 <div
                   className={cn(
-                    "absolute left-2 top-2 flex size-10 items-center justify-center rounded-full border",
+                    "absolute left-2 top-2 flex size-10 items-center justify-center rounded-full border border-black",
                   )}
                 >
-                  <Info />
+                  <Info className="text-white" />
                 </div>
               </HoverCardTrigger>
               <HoverCardContent>
-                <div className="grid size-full grid-cols-3">
-                  <div>Difficulty</div>
+                <div className="grid size-full grid-cols-5">
+                  <div className="col-span-3">Difficulty</div>
                   <div className="col-span-2">: {puzzle.difficulty}</div>
-                  {/* TODO */}
                   {puzzle.Submission ? (
                     <>
-                      <div>Status</div>
+                      <div className="col-span-3">Status</div>
                       <div className="col-span-2">
                         : {puzzle.Submission.status}
                       </div>
-                      <div>Hint Taken</div>
+                      <div className="col-span-3">Hint Taken</div>
                       <div className="col-span-2">
                         : {puzzle.Submission.hintTaken ? "Yes" : "No"}
                       </div>
-                      <div>Points</div>
+                      <div className="col-span-3">Points</div>
                       <div className="col-span-2">
                         : {puzzle.Submission.points}
                       </div>
                     </>
                   ) : (
                     <>
-                      <div>Plus</div>
+                      <div className="col-span-3">Correct Answer</div>
                       <div className="col-span-2">: {puzzle.plusPoints}</div>
-                      <div>Minus</div>
+                      <div className="col-span-3">Hint Deduction</div>
                       <div className="col-span-2">: {puzzle.minusPoints}</div>
-                      <div>Status</div>
-                      <div className="col-span-2">
-                        : {puzzle.Submission.status}
-                      </div>
+                      <div className="col-span-3">Min Points</div>
+                      <div className="col-span-2">: {puzzle.minPoints}</div>
                     </>
                   )}
                 </div>

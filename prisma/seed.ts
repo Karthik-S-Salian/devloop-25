@@ -114,16 +114,14 @@ const puzzlesRoundOne: Omit<
     hint: "It reminds me of a series",
     solution: "Harry Potter",
   },
-  // ---------- Staging ----------
   {
-    // Round 1(cloudinary)
-    // TODO(OMkar): anser
     name: "Pigpen Cipher",
     route: "NU2KEZuAmg9wRhjV",
     difficulty: "HARD",
     hint: 'Earthworm is a compound word, made of "earth" and "worm"',
     solution: "thisissupposedtobeanicequestion",
   },
+  // ---------- Staging ----------
   {
     // Round 1(set cookie)
     name: "Bomb Blast",

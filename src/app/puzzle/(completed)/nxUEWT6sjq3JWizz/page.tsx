@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Page = () => {
   return (
-    <div className="flex size-full flex-col items-center justify-center gap-4 px-4 pb-20 pt-4 sm:px-6 md:px-8 xl:px-10">
+    <div className="flex size-full flex-col items-center justify-center gap-4 px-4 py-20 sm:px-6 md:px-8 xl:px-10">
       <p className="absolute top-8 z-10 text-center text-3xl font-bold">
         <span>Find </span>
         <span className="text-blue-500">ME</span>
