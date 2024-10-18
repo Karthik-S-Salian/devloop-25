@@ -20,35 +20,37 @@ const submissionRouter = createTRPCRouter({
   startPuzzle: protectedProcedure
     .input(startPuzzleZ)
     .query(async ({ input, ctx }) => {
-      const activePuzzle = await ctx.db.submission.findMany({
-        where: {
-          AND: [
-            {
-              userId: ctx.session.user.id,
-            },
-            {
-              status: "PENDING",
-            },
-          ],
-        },
-        select: {
-          Puzzle: {
-            select: {
-              route: true,
+      if (env.NODE_ENV !== "development") {
+        const activePuzzle = await ctx.db.submission.findMany({
+          where: {
+            AND: [
+              {
+                userId: ctx.session.user.id,
+              },
+              {
+                status: "PENDING",
+              },
+            ],
+          },
+          select: {
+            Puzzle: {
+              select: {
+                route: true,
+              },
             },
           },
-        },
-      });
-
-      if (
-        activePuzzle.length > 0 &&
-        activePuzzle[0]!.Puzzle.route !== input.route
-      ) {
-        console.log(activePuzzle);
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "You already have an active puzzle",
         });
+
+        if (
+          activePuzzle.length > 0 &&
+          activePuzzle[0]!.Puzzle.route !== input.route
+        ) {
+          console.log(activePuzzle);
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "You already have an active puzzle",
+          });
+        }
       }
 
       const puzzle = await ctx.db.puzzle.findUniqueOrThrow({
@@ -210,14 +212,11 @@ const submissionRouter = createTRPCRouter({
         message: "Reset all puzzles only allowed in development",
       });
 
-    await ctx.db.submission.updateMany({
+    await ctx.db.submission.deleteMany({
       where: {
         userId: {
           equals: ctx.session.user.id,
         },
-      },
-      data: {
-        status: "PENDING",
       },
     });
   }),

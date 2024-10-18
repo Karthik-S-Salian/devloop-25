@@ -24,7 +24,7 @@ const initialBoard: SudokuBoard = [
 const Page = () => {
   const { setSubmissionNote } = useSubmission();
   useEffect(() => {
-    setSubmissionNote("Meaningful Phrase");
+    setSubmissionNote("Meaningful phrase");
   }, [setSubmissionNote]);
 
   const [board, setBoard] = useState<SudokuBoard>(initialBoard);

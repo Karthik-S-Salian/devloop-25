@@ -28,9 +28,6 @@ const Page = () => {
         answer: "Golden Checkbox",
       });
     setSolved(true);
-    console.log(
-      `Special checkbox clicked, you shall join the elite group https://chat.whatsapp.com/CoR8icLCDmNLcazWwaXYyE`,
-    );
   }, [solved, submitPuzzle]);
 
   return (

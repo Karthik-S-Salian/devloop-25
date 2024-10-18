@@ -10,7 +10,7 @@ const Page = () => {
 
   useEffect(() => {
     makeManualSubmission();
-    setSubmissionNote("Only the final path");
+    setSubmissionNote("Only the file name matters");
   }, [makeManualSubmission, setSubmissionNote]);
 
   return (

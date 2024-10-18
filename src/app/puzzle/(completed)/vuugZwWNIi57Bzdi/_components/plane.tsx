@@ -1,4 +1,4 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 
 import { env } from "~/env";
@@ -28,11 +28,10 @@ const Plane = ({
         className="cursor-default"
       >
         <div className="relative size-full">
-          <Image
+          <img
             src={imageSrc}
             alt="hello-kitty"
-            className="object-contain"
-            fill
+            className="relative size-full object-contain"
           />
         </div>
       </a>
