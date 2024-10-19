@@ -208,6 +208,309 @@ const puzzlesRoundTwo: Omit<
   },
 ];
 
+const usersData = [
+  {
+    username: "nnm23is074",
+    password: "nnm23is074@123",
+  },
+  {
+    username: "4nm21cm020",
+    password: "4nm21cm020@123",
+  },
+  {
+    username: "nnm23cs060",
+    password: "nnm23cs060@123",
+  },
+  {
+    username: "nu24n33",
+    password: "nu24n33 @123",
+  },
+  {
+    username: "nnm23cc007",
+    password: "nnm23cc007@123",
+  },
+  {
+    username: "nnm23cs157",
+    password: "nnm23cs157@123",
+  },
+  {
+    username: "nu24k45",
+    password: "nu24k45@123",
+  },
+  {
+    username: "nnm23cs042",
+    password: "nnm23cs042@123",
+  },
+  {
+    username: "nu24h04",
+    password: "nu24h04@123",
+  },
+  {
+    username: "nu24n53",
+    password: "nu24n53@123",
+  },
+  {
+    username: "nnm22am048",
+    password: "nnm22am048@123",
+  },
+  {
+    username: "nnm23cs110",
+    password: "nnm23cs110@123",
+  },
+  {
+    username: "nnm23cs023",
+    password: "nnm23cs023@123",
+  },
+  {
+    username: "nnm22ri029",
+    password: "nnm22ri029@123",
+  },
+  {
+    username: "4nm21cs208",
+    password: "4nm21cs208@123",
+  },
+  {
+    username: "nu24e03",
+    password: "nu24e03 @123",
+  },
+  {
+    username: "nu24e26",
+    password: "nu24e26@123",
+  },
+  {
+    username: "nnm23cc011",
+    password: "nnm23cc011 @123",
+  },
+  {
+    username: "nnm23cs049",
+    password: "nnm23cs049@123",
+  },
+  {
+    username: "nu23c24",
+    password: "nu23c24@123",
+  },
+  {
+    username: "nnm23is112",
+    password: "nnm23is112@123",
+  },
+  {
+    username: "nnm23cs025",
+    password: "nnm23cs025@123",
+  },
+  {
+    username: "nu24m30",
+    password: "nu24m30 @123",
+  },
+  {
+    username: "nu24k19",
+    password: "nu24k19 @123",
+  },
+  {
+    username: "nu24b07",
+    password: "nu24b07 @123",
+  },
+  {
+    username: "nu24m64",
+    password: "nu24m64 @123",
+  },
+  {
+    username: "nnm22is160",
+    password: "nnm22is160 @123",
+  },
+  {
+    username: "nnm22is196",
+    password: "nnm22is196@123",
+  },
+  {
+    username: "nu24d12",
+    password: "nu24d12 @123",
+  },
+  {
+    username: "nnm22cs056",
+    password: "nnm22cs056@123",
+  },
+  {
+    username: "nu24c15",
+    password: "nu24c15 @123",
+  },
+  {
+    username: "nnm23cs057",
+    password: "nnm23cs057@123",
+  },
+  {
+    username: "nnm23cs083",
+    password: "nnm23cs083@123",
+  },
+  {
+    username: "nnm22am004",
+    password: "nnm22am004@123",
+  },
+  {
+    username: "nnm23cb052",
+    password: "nnm23cb052@123",
+  },
+  {
+    username: "nu24k23",
+    password: "nu24k23 @123",
+  },
+  {
+    username: "nu24d34",
+    password: "nu24d34@123",
+  },
+  {
+    username: "nnm23cc066",
+    password: "nnm23cc066@123",
+  },
+  {
+    username: "nnm23cs200",
+    password: "nnm23cs200@123",
+  },
+  {
+    username: "nnm23is069",
+    password: "nnm23is069@123",
+  },
+  {
+    username: "nnm23cs171",
+    password: "nnm23cs171@123",
+  },
+  {
+    username: "nnm23ec012",
+    password: "nnm23ec012@123",
+  },
+  {
+    username: "nnm23cs036",
+    password: "nnm23cs036@123",
+  },
+  {
+    username: "nnm23cs020",
+    password: "nnm23cs020@123",
+  },
+  {
+    username: "nnm23is079",
+    password: "nnm23is079@123",
+  },
+  {
+    username: "nnm23cs144",
+    password: "nnm23cs144@123",
+  },
+  {
+    username: "nnm22am046",
+    password: "nnm22am046@123",
+  },
+  {
+    username: "nnm23cs264",
+    password: "nnm23cs264@123",
+  },
+  {
+    username: "nu24d63",
+    password: "nu24d63 @123",
+  },
+  {
+    username: "nnm22is104",
+    password: "nnm22is104@123",
+  },
+  {
+    username: "nu24i54",
+    password: "nu24i54 @123",
+  },
+  {
+    username: "nu24a15",
+    password: "nu24a15@123",
+  },
+  {
+    username: "nnm23cc050",
+    password: "nnm23cc050@123",
+  },
+  {
+    username: "4nm21cs011",
+    password: "4nm21cs011@123",
+  },
+  {
+    username: "dip24is11",
+    password: "dip24is11@123",
+  },
+  {
+    username: "nnm22is029",
+    password: "nnm22is029@123",
+  },
+  {
+    username: "nnm22is092",
+    password: "nnm22is092@123",
+  },
+  {
+    username: "nu24d68",
+    password: "nu24d68@123",
+  },
+  {
+    username: "nnm23cs128",
+    password: "nnm23cs128@123",
+  },
+  {
+    username: "nnm23cs199",
+    password: "nnm23cs199@123",
+  },
+  {
+    username: "nnm23ad500",
+    password: "nnm23ad500@123",
+  },
+  {
+    username: "nnm23cs133",
+    password: "nnm23cs133@123",
+  },
+  {
+    username: "nnm23cs169",
+    password: "nnm23cs169@123",
+  },
+  {
+    username: "nu24n02",
+    password: "nu24n02@123",
+  },
+  {
+    username: "nnm22is100",
+    password: "nnm22is100@123",
+  },
+  {
+    username: "nu24d21",
+    password: "nu24d21@123",
+  },
+  {
+    username: "nnm22ri028",
+    password: "nnm22ri028@123",
+  },
+  {
+    username: "nu24m03",
+    password: "nu24m03 @123",
+  },
+  {
+    username: "nnm22ri060",
+    password: "nnm22ri060@123",
+  },
+  {
+    username: "nnm22ad068",
+    password: "nnm22ad068@123",
+  },
+  {
+    username: "nnm23cc021",
+    password: "nnm23cc021@123",
+  },
+  {
+    username: "nnm23is201",
+    password: "nnm23is201@123",
+  },
+  {
+    username: "nnm22is066",
+    password: "nnm22is066@123",
+  },
+  {
+    username: "nnm23is186",
+    password: "nnm23is186@123",
+  },
+  {
+    username: "nnm22cs059",
+    password: "nnm22cs059@123",
+  },
+];
+
 const main = async () => {
   try {
     await prisma.serverSettings.create({
@@ -221,17 +524,28 @@ const main = async () => {
   }
 
   try {
-    await prisma.user.createMany({
-      data: [
-        {
-          name: "Admin",
-          email: "admin@flc.in",
-          password: "2orYdSbcsmu1kwHU",
+    // await prisma.user.createMany({
+    //   data: [
+    //     {
+    //       name: "Admin",
+    //       email: "admin@flc.in",
+    //       password: "2orYdSbcsmu1kwHU",
+    //       phoneNumber: "",
+    //       role: "ADMIN",
+    //     },
+    //   ],
+    // });
+    for (const user of usersData) {
+      await prisma.user.create({
+        data: {
+          name: user.username,
+          email: `${user.username}@flc.in`,
+          password: user.password,
+          role: "USER",
           phoneNumber: "",
-          role: "ADMIN",
         },
-      ],
-    });
+      });
+    }
   } catch (e) {
     if (!(e instanceof PrismaClientKnownRequestError && e.code === "P2002"))
       console.log(e);

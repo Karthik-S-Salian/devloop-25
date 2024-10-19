@@ -7,7 +7,7 @@ const SECOND = 1000;
 const MINUTE = 60 * 1000;
 const HOUR = 60 * 60 * 1000;
 
-const ROUND_ONE_START = new Date("2024-10-19T04:15:00Z");
+const ROUND_ONE_START = new Date("2024-10-19T04:30:00Z");
 const ROUND_ONE_END = new Date("2024-10-19T05:30:00Z");
 
 const RoundTimer = () => {
