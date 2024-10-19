@@ -120,23 +120,22 @@ const puzzlesRoundOne: Omit<
     hint: 'Earthworm is a compound word, made of "earth" and "worm"',
     solution: "thisissupposedtobeanicequestion",
   },
-  // ---------- Staging ----------
   {
-    // Round 1(set cookie)
-    name: "Bomb Blast",
-    route: "joel7kb2BzETN5Rg",
-    difficulty: "MEDIUM",
-    hint: "https://www.biscuitpeople.com/magazine/post/the-story-behind-dalgona-cookies",
-    solution: "9 / 11 Boom",
-  },
-  {
-    // Round 1
     name: "Text Art",
     route: "ODgOk3IAV2Y4Tw2c",
     difficulty: "MEDIUM",
     hint: `In a world where \n \t is exchanged with \\ \/ respectively`,
     solution: "something",
   },
+  // ---------- Staging ----------
+  // {
+  //   // Round 1(set cookie)
+  //   name: "Bomb Blast",
+  //   route: "joel7kb2BzETN5Rg",
+  //   difficulty: "MEDIUM",
+  //   hint: "https://www.biscuitpeople.com/magazine/post/the-story-behind-dalgona-cookies",
+  //   solution: "9 / 11 Boom",
+  // },
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -225,27 +224,9 @@ const main = async () => {
     await prisma.user.createMany({
       data: [
         {
-          name: "User",
-          email: "user@flc.in",
-          password: "user@123",
-          phoneNumber: "",
-        },
-        {
-          name: "srivatsa",
-          email: "srivatsa@flc.in",
-          password: "srivatsa@123",
-          phoneNumber: "",
-        },
-        {
-          name: "shashank",
-          email: "shashank@flc.in",
-          password: "shashank@123",
-          phoneNumber: "",
-        },
-        {
           name: "Admin",
           email: "admin@flc.in",
-          password: "admin@123",
+          password: "2orYdSbcsmu1kwHU",
           phoneNumber: "",
           role: "ADMIN",
         },
