@@ -21,11 +21,10 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-  interface User {
-    // ...other properties
-    role: UserRole;
-  }
+  // interface User {
+  //   // ...other properties
+  //   role: UserRole;
+  // }
 }
 
 /**
