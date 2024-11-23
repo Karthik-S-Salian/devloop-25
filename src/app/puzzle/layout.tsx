@@ -78,7 +78,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   if (sessionStatus === "loading") return null;
   if (!session) {
-    router.push("/auth/signIn");
+    router.push("/api/auth/signin");
     return null;
   }
 

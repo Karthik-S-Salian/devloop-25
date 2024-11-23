@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 const TeamCard = ({ name, image }: { name: string; image: string }) => {

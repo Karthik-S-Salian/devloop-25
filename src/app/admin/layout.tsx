@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 
-import { getServerAuthSession } from "~/auth";
+import { auth } from "~/server/auth";
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await getServerAuthSession();
+  const session = await auth();
   if (session?.user.role !== "ADMIN") redirect("/");
   return children;
 };

@@ -8,7 +8,6 @@ import {
 } from "~/server/api/trpc";
 
 import { env } from "~/env";
-import { pusherServer } from "~/lib/pusher";
 import {
   startPuzzleZ,
   submitPuzzleZ,
@@ -179,7 +178,7 @@ const submissionRouter = createTRPCRouter({
           ),
         );
 
-        const newSubmission = await ctx.db.submission.update({
+        await ctx.db.submission.update({
           where: {
             userId_puzzleId: {
               userId: ctx.session.user.id,
@@ -192,12 +191,6 @@ const submissionRouter = createTRPCRouter({
             endTime: new Date(),
           },
         });
-
-        await pusherServer.trigger(
-          "submissions",
-          "newSubmission",
-          newSubmission,
-        );
       } catch (error) {
         console.log(error);
         throw new TRPCError({
@@ -222,7 +215,7 @@ const submissionRouter = createTRPCRouter({
             },
           });
 
-          const newSubmission = await db.submission.update({
+          await db.submission.update({
             where: {
               userId_puzzleId: {
                 userId: ctx.session.user.id,
@@ -233,12 +226,6 @@ const submissionRouter = createTRPCRouter({
               hintTaken: true,
             },
           });
-
-          await pusherServer.trigger(
-            "submissions",
-            "newSubmission",
-            newSubmission,
-          );
 
           return puzzle;
         });

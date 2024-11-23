@@ -38,19 +38,6 @@ const config = {
   experimental: {
     typedRoutes: true,
   },
-
-  redirects: async () => [
-    {
-      source: "/signIn",
-      destination: "/auth/signIn",
-      permanent: true,
-    },
-    {
-      source: "/signOut",
-      destination: "/auth/signOut",
-      permanent: true,
-    },
-  ],
 };
 
 export default config;

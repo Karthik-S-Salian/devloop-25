@@ -2,6 +2,8 @@ import Link from "next/link";
 import React from "react";
 import { type UrlObject } from "url";
 
+import { auth } from "~/server/auth";
+
 import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
@@ -14,11 +16,10 @@ import {
   SheetTrigger,
 } from "~/components/ui/sheet";
 
-import { getServerAuthSession } from "~/auth";
 import { api } from "~/trpc/server";
 
 const Puzzles = async () => {
-  const session = await getServerAuthSession();
+  const session = await auth();
 
   const puzzles = session ? await api.puzzle.getPuzzles() : [];
 

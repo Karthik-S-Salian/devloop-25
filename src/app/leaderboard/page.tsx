@@ -1,10 +1,8 @@
 "use client";
 
-import { type Submission } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useEffect, useRef } from "react";
 
-import { pusherClient } from "~/lib/pusher";
 import { api } from "~/trpc/react";
 
 import styles from "./leaderboard.module.css";
@@ -14,27 +12,12 @@ const LeaderBoard = () => {
 
   const tableRef = useRef<HTMLDivElement>(null);
 
-  const { data: leaderboard, refetch: fetchLeaderboard } =
-    api.leaderboard.getLeaderboard.useQuery();
+  const { data: leaderboard } = api.leaderboard.getLeaderboard.useQuery();
 
   const currentUserRank =
     leaderboard && session
       ? leaderboard.findIndex((entry) => entry.userId === session.user.id)
       : undefined;
-
-  useEffect(() => {
-    const channel = pusherClient.subscribe("submissions");
-
-    channel.bind("newSubmission", async (data: Partial<Submission>) => {
-      console.log("New submission recieved", data);
-      await fetchLeaderboard();
-    });
-
-    return () => {
-      channel.unbind_all();
-      pusherClient.unsubscribe("submissions");
-    };
-  }, [fetchLeaderboard]);
 
   useEffect(() => {
     if (
