@@ -87,6 +87,7 @@ const submissionRouter = createTRPCRouter({
         };
       } catch (error) {
         console.log(error);
+        if (error instanceof TRPCError) throw error;
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Something went wrong",
@@ -189,6 +190,7 @@ const submissionRouter = createTRPCRouter({
         });
       } catch (error) {
         console.log(error);
+        if (error instanceof TRPCError) throw error;
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Something went wrong",

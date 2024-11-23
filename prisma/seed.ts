@@ -99,13 +99,13 @@ const puzzlesRoundOne: Omit<
     hint: "This is a time waster puzzle! Quit now! You already wasted your time reading this hint!",
     solution: "Uq38qqUcl21S6263",
   },
-  {
-    name: "Invisible Ink",
-    route: "VwmQFHWD888NyfvW",
-    difficulty: "MEDIUM",
-    hint: "Invisible ink fell on the floor!!! On no!!! Page 2 is full of ink now!!!",
-    solution: "Bezos is hot",
-  },
+  // {
+  //   name: "Invisible Ink",
+  //   route: "VwmQFHWD888NyfvW",
+  //   difficulty: "MEDIUM",
+  //   hint: "Invisible ink fell on the floor!!! On no!!! Page 2 is full of ink now!!!",
+  //   solution: "Bezos is hot",
+  // },
   {
     name: "Git Harry Potter",
     route: "NqmDMtv6M91uSVWT",
