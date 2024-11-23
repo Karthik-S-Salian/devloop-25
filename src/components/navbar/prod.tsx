@@ -6,6 +6,8 @@ import React from "react";
 
 import { Button } from "~/components/ui/button";
 
+import Reset from "~/components/navbar/reset";
+
 const ProdNavbar = () => {
   const router = useRouter();
 
@@ -15,6 +17,7 @@ const ProdNavbar = () => {
       <Button asChild>
         <Link href="/leaderboard">Leaderboard</Link>
       </Button>
+      <Reset />
     </nav>
   );
 };

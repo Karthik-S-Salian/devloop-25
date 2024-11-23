@@ -1,11 +1,7 @@
 import { type Submission } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
-import {
-  adminProcedure,
-  createTRPCRouter,
-  protectedProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 import { env } from "~/env";
 import {
@@ -264,14 +260,8 @@ const submissionRouter = createTRPCRouter({
       }
     }),
 
-  resetAllPuzzle: adminProcedure.mutation(async ({ ctx }) => {
+  resetAllPuzzle: protectedProcedure.mutation(async ({ ctx }) => {
     try {
-      if (env.NODE_ENV !== "development")
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Reset all puzzles only allowed in development",
-        });
-
       await ctx.db.submission.deleteMany({
         where: {
           userId: {
