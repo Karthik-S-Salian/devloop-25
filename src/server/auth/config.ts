@@ -33,6 +33,7 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authConfig = {
+  trustHost:true,  //remove if u dont want to run in http in production
   providers: [
     GoogleProvider,
     /**
@@ -47,6 +48,25 @@ export const authConfig = {
   ],
   adapter: PrismaAdapter(db),
   callbacks: {
+    async signIn({ user }) {
+      const email = user.email;
+      if (!email) return false;
+  
+      const isNmamit = email.endsWith("@nmamit.in");
+  
+      const allowedEmail = await db.allowedEmail.findUnique({
+        where: { email },
+      });
+  
+      if (isNmamit || allowedEmail) {
+        return true;
+      }
+  
+      return false;
+    },
+
+    
+
     session: ({ session, user }) => ({
       ...session,
       user: {
@@ -56,3 +76,7 @@ export const authConfig = {
     }),
   },
 } satisfies NextAuthConfig;
+
+
+
+

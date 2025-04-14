@@ -61,6 +61,11 @@ model User {
   updatedAt        DateTime     @updatedAt
 }
 
+
+model AllowedEmail{
+  email            String     @id
+}
+
 model VerificationToken {
   identifier String
   token      String   @unique

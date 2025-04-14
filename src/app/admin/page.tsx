@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 
 import { api } from "~/trpc/react";
+import UploadEmailFile from "./_components/UploadEmailFile";
 
 const Page = () => {
   const { data: roundStatus, refetch: refetchRoundStatus } =
@@ -14,6 +15,7 @@ const Page = () => {
 
   return (
     <div className="flex size-full items-center justify-center">
+
       <div className="flex size-96 flex-col items-center justify-center gap-4">
         <div>{roundStatus ? "Live" : "Not Live"}</div>
         <div className="flex w-full items-center justify-between">
@@ -54,6 +56,9 @@ const Page = () => {
             Stop Round
           </Button>
         </div>
+      </div>
+      <div>
+        <UploadEmailFile />
       </div>
     </div>
   );
