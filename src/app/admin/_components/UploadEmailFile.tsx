@@ -30,8 +30,10 @@ export default function UploadEmailFile() {
       const { success } = await addEmails.mutateAsync(emails);
       if (success) {
         toast.success("update suceessfull")
+      } else {
+        toast.success("could not update email")
       }
-      toast.success("could not update email")
+
     } catch (err) {
       console.error(err);
       toast.success("could not update email")
@@ -40,12 +42,11 @@ export default function UploadEmailFile() {
     }
   };
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="picture">Upload Allowed Email list</Label>
+    <div className="grid w-full max-w-sm items-center gap-4 border border-purple-700 rounded p-4">
+      <Label htmlFor="picture" className='text-lg '>Upload Allowed Email list</Label>
       <Input id="picture" type="file" accept=".txt" ref={fileInputRef}
         onChange={handleFileChange}
         disabled={uploading} />
-
     </div>
   );
 }

@@ -14,12 +14,13 @@ const Page = () => {
   const stopRound = api.admin.stopRound.useMutation();
 
   return (
-    <div className="flex size-full items-center justify-center">
+    <div className="flex w-full h-full justify-center items-center gap-6 flex-wrap">
 
-      <div className="flex size-96 flex-col items-center justify-center gap-4">
-        <div>{roundStatus ? "Live" : "Not Live"}</div>
-        <div className="flex w-full items-center justify-between">
+      <div className="flex flex-col items-center justify-center gap-4 border border-purple-700 rounded p-4">
+        <strong className={`text-lg font-bold ${roundStatus ? "text-green-600" : "text-red-600"}`}>{roundStatus ? "Live" : "Not Live"}</strong>
+        <div className="flex w-full items-center justify-between gap-6">
           <Button
+          disabled={roundStatus}
             onClick={() => {
               toast.loading("Starting round...");
               startRound.mutate(void null, {
@@ -38,6 +39,7 @@ const Page = () => {
             Start Round
           </Button>
           <Button
+          disabled={!roundStatus}
             onClick={() => {
               toast.loading("Stopping round...");
               stopRound.mutate(void null, {
@@ -57,9 +59,7 @@ const Page = () => {
           </Button>
         </div>
       </div>
-      <div>
-        <UploadEmailFile />
-      </div>
+      <UploadEmailFile />
     </div>
   );
 };
