@@ -26,7 +26,9 @@ const Puzzles = async () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button>Puzzles</Button>
+        <Button className="bg-cyan-500 text-white transition-colors hover:bg-cyan-600">
+          Puzzles
+        </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
