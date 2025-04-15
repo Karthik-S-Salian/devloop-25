@@ -14,6 +14,7 @@ const Reset = () => {
 
   return (
     <Button
+      className="bg-cyan-500 text-white transition-colors hover:bg-cyan-600"
       onClick={() => {
         toast.loading("Resetting all puzzles");
         resetAllPuzzle.mutate(void null, {
