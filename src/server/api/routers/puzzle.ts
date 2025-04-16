@@ -7,42 +7,42 @@ const puzzleRouter = createTRPCRouter({
   // Get(Retrieve), NOTE: infiniteQuery is always preferred
   getPuzzles: protectedProcedure.query(async ({ ctx }) => {
     try {
-      const serverSettings = await ctx.db.serverSettings.findFirstOrThrow();
+      const serverSettings = await ctx.db.serverSettings.findFirst();
 
-      if (!serverSettings.roundOneLive)
+      if (!serverSettings?.roundOneLive)
         return [] as unknown as
           | {
+            id: string;
+            name: string;
+            route: string;
+            difficulty: PuzzleDifficulty;
+            minPoints: number;
+            minusPoints: number;
+            plusPoints: number;
+            Submission: {
               id: string;
-              name: string;
-              route: string;
-              difficulty: PuzzleDifficulty;
-              minPoints: number;
-              minusPoints: number;
-              plusPoints: number;
-              Submission: {
-                id: string;
-                createdAt: Date;
-                updatedAt: Date;
-                status: SubmissionStatus;
-                startTime: Date;
-                endTime: Date | null;
-                hintTaken: boolean;
-                points: number | null;
-                answer: string | null;
-                userId: string;
-                puzzleId: string;
-              };
-            }[]
+              createdAt: Date;
+              updatedAt: Date;
+              status: SubmissionStatus;
+              startTime: Date;
+              endTime: Date | null;
+              hintTaken: boolean;
+              points: number | null;
+              answer: string | null;
+              userId: string;
+              puzzleId: string;
+            };
+          }[]
           | {
-              id: string;
-              name: string;
-              route: string;
-              difficulty: PuzzleDifficulty;
-              minPoints: number;
-              minusPoints: number;
-              plusPoints: number;
-              Submission: undefined;
-            }[];
+            id: string;
+            name: string;
+            route: string;
+            difficulty: PuzzleDifficulty;
+            minPoints: number;
+            minusPoints: number;
+            plusPoints: number;
+            Submission: undefined;
+          }[];
 
       const puzzles = await ctx.db.puzzle.findMany({
         select: {

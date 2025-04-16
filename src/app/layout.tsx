@@ -11,7 +11,7 @@ import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Digital Hunt",
+  title: "Tech race | Devloop-2025",
   description:
     "Capture the flag like event organised by Finite Loop Club, NMAMIT",
 };
