@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from "react";
 
-//@ts-ignore
-import { useSubmitRoundOnePuzzle } from "~/hooks/submission";
+import { useSubmitPuzzle } from "~/hooks/submission";
 
 export default function T5() {
-  const submitPuzzle = useSubmitRoundOnePuzzle();
+  const submitPuzzle = useSubmitPuzzle();
   const [ans, setAns] = useState("");
   const [countdown, setCountdown] = useState<number | null>(null);
 
