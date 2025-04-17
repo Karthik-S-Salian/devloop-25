@@ -48,22 +48,22 @@ export const authConfig = {
   ],
   adapter: PrismaAdapter(db),
   callbacks: {
-    async signIn({ user }) {
-      const email = user.email;
-      if (!email) return false;
+    // async signIn({ user }) {
+    //   const email = user.email;
+    //   if (!email) return false;
   
-      const isNmamit = email.endsWith("@nmamit.in");
+    //   const isNmamit = email.endsWith("@nmamit.in");
   
-      const allowedEmail = await db.allowedEmail.findUnique({
-        where: { email },
-      });
+    //   const allowedEmail = await db.allowedEmail.findUnique({
+    //     where: { email },
+    //   });
   
-      if (isNmamit || allowedEmail) {
-        return true;
-      }
+    //   if (isNmamit || allowedEmail) {
+    //     return true;
+    //   }
   
-      return false;
-    },
+    //   return false;
+    // },
 
     
 
