@@ -52,11 +52,8 @@ const slides: { image?: string; text: string }[] = [
     text: "The pressure mounts as only the top teams will survive the Kremlin's challenge.",
   },
   {
-    text: "Round 2",
-  },
-  {
     image: "/assets/story/12.jpg",
-    text: "Top 25 Detective teams enter Bezos' high-tech bunker, facing mind-bending puzzles.",
+    text: "Detective teams enter Bezos' high-tech bunker, facing mind-bending puzzles.",
   },
   {
     image: "/assets/story/11.jpg",
