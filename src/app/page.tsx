@@ -15,75 +15,53 @@ const Home = async () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 overflow-x-hidden bg-gradient-to-b from-gray-900 via-black to-gray-900 text-white">
-      <div className="flex h-full min-h-[100vh] w-full bg-[url('/assets/homebg.webp')] bg-cover bg-center text-center shadow-lg ">
-        <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-black/80 py-20 min-h-[100vh]">
+      <div className="flex h-full min-h-[100vh] w-full bg-[url('/assets/homebg.webp')] bg-cover bg-center text-center shadow-lg">
+        <div className="flex h-full min-h-[100vh] w-full flex-col items-center justify-center gap-4 bg-black/80 py-20">
           <Hero />
         </div>
       </div>
       <div className="mb-10 mt-20 flex flex-col items-center justify-center font-bold">
         <div className="h-auto w-[80vw]">
           <div
-            className="flex w-full flex-col items-center justify-center rounded-lg border border-cyan-500 bg-black/70 px-8 py-20 shadow-lg shadow-cyan-500/50"
+            className="flex w-full flex-col items-center justify-center rounded-xl border border-cyan-500 px-10 py-16 shadow-md shadow-cyan-500/50"
             id="rulesDiv"
           >
-            <h2 className="text-6xl text-cyan-400 neonTextShadow">
-              Instructions to Play
+            <h2 className="neonTextShadow mb-8 text-5xl font-extrabold text-cyan-400">
+              🔐{" "}
+              <span className="underline decoration-cyan-500">
+                Rules & Regs — Decrypt’d
+              </span>
             </h2>
-            <ul className="dotted-list my-16 font-mono text-lg">
-              <h2 className="text-2xl text-cyan-300">
-                Round 1: Unlocking the Doors
-              </h2>
-              <li className="my-2">
-                Sign in with provided credentials to start playing.
-              </li>
-              <li className="my-2">
-                Solve as many puzzles (&quot;doors&quot;) as possible to
-                maximize points.
-              </li>
-              <li className="my-2">
-                Attempt any number of doors, but only one at a time.
-              </li>
-              <li className="my-2">Consists of a total of two rounds.</li>
-              <li className="my-2">
-                Timer starts when you begin a puzzle. Points decrease over time.
-              </li>
-              <li className="my-2">
-                Quitting a puzzle &quot;breaks&quot; the door, preventing
-                re-entry.
-              </li>
-              <li className="my-2">
-                Hints cost points, but puzzles have a minimum threshold of
-                points.
-              </li>
-              <li className="my-2">
-                Top 25 teams with the highest scores advance to the next round.
-              </li>
-              <h2 className="my-4 text-2xl text-cyan-300">
-                Round 2: The Puzzle Paths
-              </h2>
-              <li className="my-2">
-                Solve sequential puzzles to reach your goal.
-              </li>
-              <li className="my-2">
-                Choose paths with varying difficulty and number of puzzles:
-                <ul className="ml-4 list-disc">
-                  <li>Shortest Path (5 puzzles): 1 → 2 → 5 → 8 → 9</li>
-                  <li>Longest Path (7 puzzles): 1 → 3 → 4 → 5 → 6 → 7 → 9</li>
-                  <li>Intermediate Path (6 puzzles): 1 → 2 → 5 → 6 → 7 → 9</li>
-                  <li>Intermediate Path (6 puzzles): 1 → 3 → 4 → 5 → 8 → 9</li>
-                </ul>
-              </li>
-              <li className="my-2">
-                Shorter paths have harder puzzles; longer paths are easier.
-              </li>
-              <li className="my-2">Hints add time as a penalty.</li>
-              <li className="my-2">
-                Top 3 teams completing puzzles in the least time win prizes.
-              </li>
-              <li className="my-2">
-                Hidden Amazon Gift Cards worth Rs 500 in Round 2 puzzles.
-              </li>
-            </ul>
+            <div className="space-y-4 text-left text-lg leading-relaxed text-gray-300">
+              <p>
+                🧠 <strong className="text-cyan-400">Solo Event:</strong> Go
+                solo — no teams, no lifelines.
+              </p>
+              <p>
+                🌐 <strong className="text-cyan-400">Online Challenge:</strong>{" "}
+                Access the puzzles anytime during Hackfest. Link in bio.
+              </p>
+              <p>
+                ⏱{" "}
+                <strong className="text-cyan-400">Time-Based Scoring:</strong>{" "}
+                Faster + accurate = higher on the leaderboard.
+              </p>
+              <p>
+                🚫 <strong className="text-cyan-400">Cheating?</strong> Yes, be
+                a vibe puzzle solver, not an issue.
+              </p>
+              <p>
+                🏆 <strong className="text-cyan-400">Top Scorers Win:</strong>{" "}
+                Finish first. Score highest. Brag forever.
+              </p>
+              <p>
+                📞 <strong className="text-cyan-400">Need Help?</strong> Ping
+                Athul:{" "}
+                <a href="tel:+919353222540" className="text-cyan-500 underline">
+                  +91 93532 22540
+                </a>
+              </p>
+            </div>
           </div>
         </div>
         <div className="my-8 flex justify-center gap-6">
