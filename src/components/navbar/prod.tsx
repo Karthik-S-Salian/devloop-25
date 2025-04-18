@@ -25,7 +25,7 @@ const ProdNavbar = () => {
       >
         <Link href="/leaderboard">Leaderboard</Link>
       </Button>
-      <Reset />
+      {/* <Reset /> */}
     </nav>
   );
 };
